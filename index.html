@@ -3,159 +3,554 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>영업보고서 참고자료 검색 시스템 V2</title>
+    <title>영업보고서 참고자료 검색 시스템</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #007bff;
-            --secondary-color: #f8f9fa;
-            --border-color: #dee2e6;
-            --text-color: #212529;
-            --text-light-color: #6c757d;
-            --hover-color: #e9ecef;
-            --highlight-color: #ffc107;
+            --primary: #4f46e5;
+            --primary-light: #818cf8;
+            --primary-dark: #3730a3;
+            --accent: #06b6d4;
+            --surface: #ffffff;
+            --surface-alt: #f8fafc;
+            --surface-hover: #f1f5f9;
+            --border: #e2e8f0;
+            --border-light: #f1f5f9;
+            --text: #1e293b;
+            --text-secondary: #64748b;
+            --text-muted: #94a3b8;
+            --highlight: #fef08a;
+            --highlight-border: #fbbf24;
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -2px rgba(0,0,0,0.05);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -4px rgba(0,0,0,0.04);
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 14px;
+            --sidebar-width: 320px;
         }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            margin: 0;
+            font-family: 'Inter', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
             display: flex;
             height: 100vh;
-            color: var(--text-color);
-            background-color: #fff;
+            color: var(--text);
+            background: var(--surface-alt);
+            -webkit-font-smoothing: antialiased;
         }
+
+        /* ── Sidebar ── */
         #sidebar {
-            width: 300px;
-            background-color: var(--secondary-color);
-            border-right: 1px solid var(--border-color);
-            padding: 20px;
-            overflow-y: auto;
+            width: var(--sidebar-width);
+            background: var(--surface);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
             flex-shrink: 0;
-            box-sizing: border-box;
+            overflow: hidden;
         }
-        #main-content {
-            flex-grow: 1;
-            padding: 20px 40px;
-            overflow-y: auto;
-            box-sizing: border-box;
+
+        .sidebar-header {
+            padding: 24px 24px 0;
         }
-        h1 {
-            font-size: 1.5rem;
-            margin-top: 0;
+
+        .sidebar-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
             margin-bottom: 20px;
         }
+
+        .sidebar-brand .logo {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .sidebar-brand h1 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text);
+            line-height: 1.3;
+        }
+
+        .sidebar-brand h1 small {
+            display: block;
+            font-size: 0.72rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            letter-spacing: 0.02em;
+        }
+
+        /* Search */
+        .search-wrapper {
+            position: relative;
+            margin-bottom: 6px;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            pointer-events: none;
+        }
+
         #search-box {
             width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid var(--border-color);
-            border-radius: 5px;
-            box-sizing: border-box;
+            padding: 10px 14px 10px 38px;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-md);
+            font-size: 0.875rem;
+            font-family: inherit;
+            background: var(--surface-alt);
+            color: var(--text);
+            transition: all 0.2s;
+            outline: none;
         }
-        ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
+
+        #search-box:focus {
+            border-color: var(--primary-light);
+            background: var(--surface);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
         }
-        .category-item > span, .year-item > span {
+
+        #search-box::placeholder {
+            color: var(--text-muted);
+        }
+
+        /* Category list */
+        .sidebar-nav {
+            flex: 1;
+            overflow-y: auto;
+            padding: 8px 12px 12px;
+        }
+
+        .sidebar-nav::-webkit-scrollbar { width: 4px; }
+        .sidebar-nav::-webkit-scrollbar-track { background: transparent; }
+        .sidebar-nav::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+        ul { list-style: none; }
+
+        .category-item > span {
             cursor: pointer;
-            display: block;
-            padding: 10px;
-            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            border-radius: var(--radius-sm);
             font-weight: 500;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            transition: all 0.15s;
+            user-select: none;
         }
-        .category-item > span:hover, .year-item > span:hover {
-            background-color: var(--hover-color);
+
+        .category-item > span:hover {
+            background: var(--surface-hover);
+            color: var(--text);
         }
+
+        .category-item > span .cat-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            flex-shrink: 0;
+            transition: all 0.15s;
+        }
+
+        .category-item > span .cat-count {
+            margin-left: auto;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            background: var(--surface-alt);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+
         .category-item.active > span {
-            background-color: var(--primary-color);
+            background: linear-gradient(135deg, rgba(79,70,229,0.08), rgba(6,182,212,0.06));
+            color: var(--primary);
+        }
+
+        .category-item.active > span .cat-icon {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
             color: white;
         }
+
+        .category-item > span .chevron {
+            transition: transform 0.2s;
+            color: var(--text-muted);
+            font-size: 12px;
+        }
+
+        .category-item.active > span .chevron {
+            transform: rotate(90deg);
+            color: var(--primary);
+        }
+
         .year-list {
-            padding-left: 15px;
             display: none;
+            padding: 4px 0 4px 50px;
         }
+
+        .year-item > span {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 12px;
+            border-radius: var(--radius-sm);
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            transition: all 0.15s;
+            position: relative;
+        }
+
+        .year-item > span::before {
+            content: '';
+            position: absolute;
+            left: -12px;
+            top: 50%;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--border);
+            transform: translateY(-50%);
+            transition: background 0.15s;
+        }
+
+        .year-item > span:hover {
+            background: var(--surface-hover);
+            color: var(--text);
+        }
+
         .year-item.active > span {
-            font-weight: bold;
-            color: var(--primary-color);
+            background: rgba(79,70,229,0.06);
+            color: var(--primary);
+            font-weight: 600;
         }
-        .details-list .detail-item {
-            border: 1px solid var(--border-color);
-            border-radius: 5px;
-            margin-bottom: 15px;
-            padding: 15px;
-            background-color: #fff;
+
+        .year-item.active > span::before {
+            background: var(--primary);
         }
-        .detail-item h3 {
-            margin-top: 0;
+
+        .year-item > span .year-count {
+            margin-left: auto;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+
+        /* Sidebar footer links */
+        .sidebar-footer {
+            padding: 16px 20px;
+            border-top: 1px solid var(--border-light);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .sidebar-footer a {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 5px 10px;
+            font-size: 0.72rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            text-decoration: none;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            transition: all 0.15s;
+            background: var(--surface);
+        }
+
+        .sidebar-footer a:hover {
+            border-color: var(--primary-light);
+            color: var(--primary);
+            background: rgba(79,70,229,0.04);
+        }
+
+        /* ── Main Content ── */
+        #main-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0;
+        }
+
+        #main-content::-webkit-scrollbar { width: 6px; }
+        #main-content::-webkit-scrollbar-track { background: transparent; }
+        #main-content::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+        .content-header {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background: rgba(248,250,252,0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-light);
+            padding: 20px 40px;
+        }
+
+        #content-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .content-subtitle {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .content-body {
+            padding: 24px 40px 40px;
+        }
+
+        /* Empty state */
+        .empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 80px 40px;
+            text-align: center;
+        }
+
+        .empty-state .empty-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(79,70,229,0.08), rgba(6,182,212,0.08));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .empty-state h3 {
             font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 8px;
         }
-        .detail-item .meta {
-            font-size: 0.85rem;
-            color: var(--text-light-color);
+
+        .empty-state p {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            max-width: 320px;
+            line-height: 1.6;
+        }
+
+        /* Detail cards */
+        .details-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .detail-item {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 20px 24px;
+            transition: all 0.2s;
+        }
+
+        .detail-item:hover {
+            border-color: var(--primary-light);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-1px);
+        }
+
+        .detail-item h3 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text);
             margin-bottom: 10px;
+            line-height: 1.5;
+        }
+
+        .detail-item .meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 14px;
+        }
+
+        .detail-item .meta span {
+            display: inline-flex;
+            align-items: center;
+            padding: 3px 10px;
+            font-size: 0.72rem;
+            font-weight: 500;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            background: var(--surface-alt);
+        }
+
+        .detail-item .meta span.badge-year {
+            background: linear-gradient(135deg, rgba(79,70,229,0.08), rgba(79,70,229,0.04));
+            border-color: rgba(79,70,229,0.2);
+            color: var(--primary);
+        }
+
+        .detail-item .meta span.badge-category {
+            background: linear-gradient(135deg, rgba(6,182,212,0.08), rgba(6,182,212,0.04));
+            border-color: rgba(6,182,212,0.2);
+            color: #0891b2;
+        }
+
+        .detail-item .content {
+            font-size: 0.875rem;
+            line-height: 1.75;
+            color: var(--text-secondary);
+        }
+
+        .detail-item .content strong {
+            display: block;
+            margin-top: 14px;
+            margin-bottom: 4px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        .detail-item .content p {
+            margin-bottom: 8px;
+        }
+
+        .detail-item .tags {
             display: flex;
             flex-wrap: wrap;
             gap: 5px;
+            margin-top: 14px;
+            padding-top: 14px;
+            border-top: 1px solid var(--border-light);
         }
-        .detail-item .meta span {
-            padding: 3px 6px;
-            background-color: var(--secondary-color);
-            border-radius: 3px;
+
+        .detail-item .tags span {
+            padding: 2px 8px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            border-radius: 4px;
+            background: var(--surface-alt);
+            color: var(--text-muted);
         }
-        .detail-item .content {
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
-        .content strong {
-             display: block;
-             margin-top: 10px;
-             margin-bottom: 5px;
-             font-size: 1rem;
-        }
-        .search-results .detail-item .content mark {
-            background-color: var(--highlight-color);
+
+        /* Search highlight */
+        .search-results .detail-item mark {
+            background: var(--highlight);
+            border-bottom: 2px solid var(--highlight-border);
             padding: 0 2px;
             border-radius: 2px;
+            color: inherit;
+        }
+
+        /* Result count badge */
+        .result-count {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 12px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            border-radius: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            body { flex-direction: column; }
+            #sidebar {
+                width: 100%;
+                height: auto;
+                max-height: 45vh;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+            .content-header { padding: 16px 20px; }
+            .content-body { padding: 16px 20px 32px; }
         }
     </style>
 </head>
 <body>
     <aside id="sidebar">
-        <h1>자료 탐색</h1>
-        <input type="text" id="search-box" placeholder="키워드로 검색...">
-        <ul id="category-list"></ul>
-        <div style="margin-top: 20px;">
-           <div><a href="data/[가이드라인]영업보고서 작성 참고자료_2023.04.pdf" target="_blank">가이드라인(2023)</a></div>
-            <div><a href="data/[해설서]전기통신사업 회계분리기준 해설서_본문 및 부록_2025.pdf" target="_blank">해설서(2025)</a></div>
-            <div><a href="data/[지침서]전기통신회계정보의분석표준화를위한전자표준지침서연구.pdf" target="_blank">표준지침서</a></div>
-            <div><a href="data/[고시]전기통신사업 회계분리기준(과학기술정보통신부고시)(제2025-23호).pdf" target="_blank">고시(회계분리기준)</a></div>
+        <div class="sidebar-header">
+            <div class="sidebar-brand">
+                <div class="logo">G</div>
+                <h1>참고자료 검색<small>영업보고서 가이드라인</small></h1>
+            </div>
+            <div class="search-wrapper">
+                <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <input type="text" id="search-box" placeholder="키워드로 검색 (2글자 이상)">
+            </div>
+        </div>
+        <ul id="category-list" class="sidebar-nav"></ul>
+        <div class="sidebar-footer">
+            <a href="data/[가이드라인]영업보고서 작성 참고자료_2023.04.pdf" target="_blank">&#128218; 가이드라인</a>
+            <a href="data/[해설서]전기통신사업 회계분리기준 해설서_본문 및 부록_2025.pdf" target="_blank">&#128214; 해설서</a>
+            <a href="data/[지침서]전기통신회계정보의분석표준화를위한전자표준지침서연구.pdf" target="_blank">&#128196; 표준지침서</a>
+            <a href="data/[고시]전기통신사업 회계분리기준(과학기술정보통신부고시)(제2025-23호).pdf" target="_blank">&#9878; 고시</a>
         </div>
     </aside>
+
     <main id="main-content">
-        <h1 id="content-title">데이터 로딩 중...</h1>
-        <div id="content-display">
-            <p>데이터 파일을 불러오고 있습니다. 잠시만 기다려주세요.</p>
+        <div class="content-header">
+            <div id="content-title">데이터 로딩 중...</div>
+            <div id="content-subtitle" class="content-subtitle"></div>
+        </div>
+        <div id="content-display" class="content-body">
+            <div class="empty-state">
+                <div class="empty-icon">&#9203;</div>
+                <h3>데이터를 불러오는 중입니다</h3>
+                <p>잠시만 기다려주세요.</p>
+            </div>
         </div>
     </main>
 
     <script>
-        // ★★★★★ 1. 데이터 파일 목록 관리 ★★★★★
-        // 향후 데이터 파일이 추가/삭제될 때 이 목록을 수정하세요.
+        // ★ 1. 데이터 파일 목록 관리
         const dataRegistry = {
-            "영업보고서 검증결과 지적사항": { key: "gosi", years: [2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011] },
-            "질의 회신": { key: "qna", years: [2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011] },
-            "회계전문위원회 회의 결과": { key: "acmt", years: [2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012] },
-            "회계처리 일원화 방안": { key: "acc", years: [2022, 2021, 2020, 2019, 2018, 2016, 2014] },
-            "영업보고서 작성 주의사항": { key: "guide", years: [2019] },
-            "참고자료": { key: "ref", years: [null] }
+            "영업보고서 검증결과 지적사항": { key: "gosi", years: [2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011], icon: "&#128269;", color: "#ef4444" },
+            "질의 회신": { key: "qna", years: [2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011], icon: "&#128172;", color: "#3b82f6" },
+            "회계전문위원회 회의 결과": { key: "acmt", years: [2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012], icon: "&#128101;", color: "#8b5cf6" },
+            "회계처리 일원화 방안": { key: "acc", years: [2022, 2021, 2020, 2019, 2018, 2016, 2014], icon: "&#128203;", color: "#f59e0b" },
+            "영업보고서 작성 주의사항": { key: "guide", years: [2019], icon: "&#9888;", color: "#10b981" },
+            "참고자료": { key: "ref", years: [null], icon: "&#128206;", color: "#06b6d4" }
         };
 
-        // 데이터를 통합할 전역 배열
         let fullTableData = [];
         window.registerData = function(dataArray) {
             fullTableData.push(...dataArray);
         }
 
-        // ★★★★★ 2. 모든 데이터 파일 동적 로딩 ★★★★★
+        // ★ 2. 데이터 파일 동적 로딩
         const filesToLoad = [];
         for (const category in dataRegistry) {
             const { key, years } = dataRegistry[category];
@@ -167,37 +562,33 @@
 
         let filesLoaded = 0;
         function loadAllDataFiles(finalCallback) {
-            if (filesToLoad.length === 0) {
-                finalCallback();
-                return;
-            }
+            if (filesToLoad.length === 0) { finalCallback(); return; }
             filesToLoad.forEach(fileUrl => {
                 const script = document.createElement('script');
                 script.src = fileUrl;
-                script.onload = () => {
-                    filesLoaded++;
-                    if (filesLoaded === filesToLoad.length) finalCallback();
-                };
-                script.onerror = () => {
-                    console.error(`Failed to load data file: ${fileUrl}`);
-                    filesLoaded++;
-                    if (filesLoaded === filesToLoad.length) finalCallback();
-                };
+                script.onload = () => { filesLoaded++; if (filesLoaded === filesToLoad.length) finalCallback(); };
+                script.onerror = () => { console.error(`Failed to load: ${fileUrl}`); filesLoaded++; if (filesLoaded === filesToLoad.length) finalCallback(); };
                 document.head.appendChild(script);
             });
         }
 
-        // ★★★★★ 3. UI 렌더링 (기존 로직과 거의 동일) ★★★★★
+        // ★ 3. UI 렌더링
         const categoryListEl = document.getElementById('category-list');
         const contentTitleEl = document.getElementById('content-title');
+        const contentSubtitleEl = document.getElementById('content-subtitle');
         const contentDisplayEl = document.getElementById('content-display');
         const searchBoxEl = document.getElementById('search-box');
         let groupedData = {};
 
         function initialize() {
-            // 로딩 완료 후 제목/내용 초기화
-            contentTitleEl.textContent = '카테고리를 선택하세요';
-            contentDisplayEl.innerHTML = '<p>좌측 메뉴에서 카테고리와 연도를 선택하시거나, 키워드로 검색하여 내용을 확인하세요.</p>';
+            contentTitleEl.textContent = '참고자료 검색';
+            contentSubtitleEl.textContent = '카테고리를 선택하거나 키워드로 검색하세요';
+            contentDisplayEl.innerHTML = `
+                <div class="empty-state">
+                    <div class="empty-icon">&#128218;</div>
+                    <h3>카테고리 또는 키워드를 선택하세요</h3>
+                    <p>좌측 메뉴에서 카테고리와 연도를 선택하시거나, 상단 검색창에서 키워드로 검색하세요.</p>
+                </div>`;
 
             groupedData = fullTableData.reduce((acc, item) => {
                 const category = item.category || '기타';
@@ -208,22 +599,38 @@
                 return acc;
             }, {});
             renderCategoryList();
-            searchBoxEl.addEventListener('keyup', handleSearch);
+
+            let debounceTimer;
+            searchBoxEl.addEventListener('input', (e) => {
+                clearTimeout(debounceTimer);
+                debounceTimer = setTimeout(() => handleSearch(e), 200);
+            });
         }
-        
-        // --- 이하 UI 렌더링 함수들은 이전 버전과 동일합니다 ---
+
+        function getCategoryItemCount(category) {
+            if (!groupedData[category]) return 0;
+            return Object.values(groupedData[category]).reduce((sum, arr) => sum + arr.length, 0);
+        }
+
         function renderCategoryList() {
             const categoryOrder = Object.keys(dataRegistry);
-
             categoryListEl.innerHTML = '';
             categoryOrder.forEach(category => {
-                if (groupedData[category]) {
-                    const categoryItem = document.createElement('li');
-                    categoryItem.className = 'category-item';
-                    categoryItem.innerHTML = `<span>${category}</span><ul class="year-list"></ul>`;
-                    categoryListEl.appendChild(categoryItem);
-                    categoryItem.querySelector('span').addEventListener('click', () => toggleCategory(category, categoryItem));
-                }
+                if (!groupedData[category]) return;
+                const { icon, color } = dataRegistry[category];
+                const count = getCategoryItemCount(category);
+                const categoryItem = document.createElement('li');
+                categoryItem.className = 'category-item';
+                categoryItem.innerHTML = `
+                    <span>
+                        <span class="cat-icon" style="background: ${color}15; color: ${color}">${icon}</span>
+                        ${category}
+                        <span class="cat-count">${count}</span>
+                        <span class="chevron">&#9654;</span>
+                    </span>
+                    <ul class="year-list"></ul>`;
+                categoryListEl.appendChild(categoryItem);
+                categoryItem.querySelector('span').addEventListener('click', () => toggleCategory(category, categoryItem));
             });
         }
 
@@ -236,12 +643,18 @@
             });
             categoryItemEl.classList.toggle('active');
             const yearListEl = categoryItemEl.querySelector('.year-list');
-            
+
             if (categoryItemEl.classList.contains('active')) {
                 renderYearList(category, yearListEl);
                 yearListEl.style.display = 'block';
                 contentTitleEl.textContent = category;
-                contentDisplayEl.innerHTML = `<p>연도를 선택하여 세부 내용을 확인하세요.</p>`;
+                contentSubtitleEl.textContent = '연도를 선택하여 세부 내용을 확인하세요';
+                contentDisplayEl.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">${dataRegistry[category].icon}</div>
+                        <h3>${category}</h3>
+                        <p>좌측에서 연도를 선택하여 세부 내용을 확인하세요.</p>
+                    </div>`;
             } else {
                 yearListEl.style.display = 'none';
             }
@@ -253,8 +666,9 @@
             for (const year of years) {
                 const yearItem = document.createElement('li');
                 yearItem.className = 'year-item';
-                const yearText = (year === 'null' || year === '연도 없음') ? '연도 없음' : `${year}년도`;
-                yearItem.innerHTML = `<span>${yearText} (${groupedData[category][year].length}건)</span>`;
+                const yearText = (year === 'null' || year === '연도 없음') ? '연도 없음' : `${year}년`;
+                const count = groupedData[category][year].length;
+                yearItem.innerHTML = `<span>${yearText} <span class="year-count">${count}건</span></span>`;
                 yearListEl.appendChild(yearItem);
                 yearItem.querySelector('span').addEventListener('click', (event) => {
                     event.stopPropagation();
@@ -264,25 +678,30 @@
                 });
             }
         }
-        
+
         function renderDetails(category, year) {
             const items = groupedData[category][year];
-            const yearText = (year === 'null' || year === '연도 없음') ? '' : `${year}년도`;
-            contentTitleEl.textContent = `${category} - ${yearText}`;
+            const yearText = (year === 'null' || year === '연도 없음') ? '' : `${year}년`;
+            contentTitleEl.innerHTML = `${category} ${yearText ? '- ' + yearText : ''} <span class="result-count">${items.length}건</span>`;
+            contentSubtitleEl.textContent = '';
             let html = '<div class="details-list">';
-            items.forEach(item => {
-                html += createDetailItemHtml(item);
-            });
+            items.forEach(item => { html += createDetailItemHtml(item); });
             html += '</div>';
             contentDisplayEl.innerHTML = html;
         }
-        
+
         function handleSearch(event) {
             const keyword = event.target.value.trim().toLowerCase();
             if (keyword.length < 2) {
                 if (keyword.length === 0) {
-                     contentTitleEl.textContent = '카테고리를 선택하세요';
-                    contentDisplayEl.innerHTML = '<p>좌측 메뉴에서 카테고리와 연도를 선택하시거나, 키워드로 검색하여 내용을 확인하세요.</p>';
+                    contentTitleEl.textContent = '참고자료 검색';
+                    contentSubtitleEl.textContent = '카테고리를 선택하거나 키워드로 검색하세요';
+                    contentDisplayEl.innerHTML = `
+                        <div class="empty-state">
+                            <div class="empty-icon">&#128218;</div>
+                            <h3>카테고리 또는 키워드를 선택하세요</h3>
+                            <p>좌측 메뉴에서 카테고리와 연도를 선택하시거나, 상단 검색창에서 키워드로 검색하세요.</p>
+                        </div>`;
                 }
                 return;
             }
@@ -290,23 +709,27 @@
                 const contentString = (typeof item.content === 'object' && item.content !== null)
                     ? Object.values(item.content).join(' ')
                     : String(item.content || '');
-                return (item.title && item.title.toLowerCase().includes(keyword)) || 
+                return (item.title && item.title.toLowerCase().includes(keyword)) ||
                        contentString.toLowerCase().includes(keyword) ||
                        (item.related_tags && String(item.related_tags).toLowerCase().includes(keyword));
             });
             renderSearchResults(results, keyword);
         }
-        
+
         function renderSearchResults(results, keyword) {
-            contentTitleEl.textContent = `"${keyword}" 검색 결과 (${results.length}건)`;
+            contentTitleEl.innerHTML = `"${keyword}" 검색 결과 <span class="result-count">${results.length}건</span>`;
+            contentSubtitleEl.textContent = '';
             if (results.length === 0) {
-                contentDisplayEl.innerHTML = '<p>검색 결과가 없습니다.</p>';
+                contentDisplayEl.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">&#128533;</div>
+                        <h3>검색 결과가 없습니다</h3>
+                        <p>다른 키워드로 검색해 보세요.</p>
+                    </div>`;
                 return;
             }
             let html = '<div class="details-list search-results">';
-            results.forEach(item => {
-                html += createDetailItemHtml(item, keyword);
-            });
+            results.forEach(item => { html += createDetailItemHtml(item, keyword); });
             html += '</div>';
             contentDisplayEl.innerHTML = html;
         }
@@ -322,30 +745,32 @@
         function createDetailItemHtml(item, keyword = '') {
             let contentHtml = '';
             if (typeof item.content === 'string') {
-                const formattedContent = highlight(item.content, keyword).replace(/\n/g, '<br>');
-                contentHtml = `<p>${formattedContent}</p>`;
+                contentHtml = `<p>${highlight(item.content, keyword).replace(/\n/g, '<br>')}</p>`;
             } else if (item.content) {
                 for (const key in item.content) {
-                    const formattedContent = highlight(item.content[key], keyword).replace(/\n/g, '<br>');
-                    contentHtml += `<strong>${key.toUpperCase()}</strong><p>${formattedContent}</p>`;
+                    const formatted = highlight(item.content[key], keyword).replace(/\n/g, '<br>');
+                    contentHtml += `<strong>${key.toUpperCase()}</strong><p>${formatted}</p>`;
                 }
             }
-            const tags = Array.isArray(item.related_tags) ? item.related_tags.join(', ') : item.related_tags || '';
+            const tags = Array.isArray(item.related_tags) ? item.related_tags : (item.related_tags ? [item.related_tags] : []);
+            const tagsHtml = tags.length
+                ? `<div class="tags">${tags.map(t => `<span>${highlight(t, keyword)}</span>`).join('')}</div>`
+                : '';
 
             return `
                 <div class="detail-item">
                     <h3>${highlight(item.title, keyword)}</h3>
                     <div class="meta">
-                        ${item.year ? `<span>${item.year}</span>` : ''}
-                        <span>${item.category}</span>
+                        ${item.year ? `<span class="badge-year">${item.year}</span>` : ''}
+                        <span class="badge-category">${item.category}</span>
                         ${item.source_company ? `<span>${item.source_company}</span>` : ''}
                         ${item.source_category ? `<span>${item.source_category}</span>` : ''}
                     </div>
                     <div class="content">${contentHtml}</div>
-                    ${tags ? `<div class="meta" style="margin-top: 10px;"><span>${highlight(tags, keyword)}</span></div>` : ''}
+                    ${tagsHtml}
                 </div>`;
         }
-        
+
         // 페이지 로딩 시작
         document.addEventListener('DOMContentLoaded', () => {
             loadAllDataFiles(initialize);
