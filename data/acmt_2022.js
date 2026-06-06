@@ -4,7 +4,7 @@ window.registerData([
         "category": "회계전문위원회 회의 결과",
         "year": "2022",
         "title": "용도별 수익 명세서 서식[별지 제4-2호]",
-        "content": "□ 현 황\no IoT 등에 대한 수익정보를 확인하기 위해, ’19회계연도부터 용도별 수익 명세서(제4-2호) 서식을 작성토록 추진하였으나, 작성 기준 등 세부 지침 미비로 사업자간 작성 방법이 상이하고 오류가 발생\n□ 제안사항\no 통신사업자가 “전기통신사업자의 통계보고 등에 관한 고시”에 따라 매월 제출하는 회선수 기준으로 “용도별 수익 명세서(제4-2호)”를 작성토록 하여 기준을 마련하고 통계와 회계를 일치\n- 다만, 사업자의 자료 연계, 추출, 검증 등을 위한 시스템 개발 등에 필요한 소요시간을 감안하여 ’24회계연도부터 과징금 대상에 포함\n< 통신사업자 통계 제출 자료(기술방식별 가입자 현황-용도별) 양식 >구 분 2023.7월 2023.8월 2023.9월 휴대폰C D M A WCDMA MNO L T E 5G C D M A WCDMA MVNO L T E 5G 태블릿PC C D M A WCDMA MNO L T E 5G C D M A WCDMA MVNO L T E 5G 웨어러블C D M A WCDMA MNO L T E 5G C D M A WCDMA MVNO L T E 5G 구 분 2023.7월 2023.8월 2023.9월 기타단말장치C D M A WCDMA MNO L T E 5G C D M A WCDMA MVNO L T E 5G 기타회선C D M A WCDMA MNO L T E 5G C D M A WCDMA MVNO L T E 5G 사물인터넷C D M A WCDMA MNO L T E 5G C D M A WCDMA MVNO L T E 5G 총계C D M A WCDMA MNO L T E 5G C D M A WCDMA MVNO L T E 5G",
+        "content": "□ 현 황\no IoT 등에 대한 수익정보를 확인하기 위해, ’19회계연도부터 용도별 수익 명세서(제4-2호) 서식을 작성토록 추진하였으나, 작성 기준 등 세부 지침 미비로 사업자간 작성 방법이 상이하고 오류가 발생\n□ 제안사항\no 통신사업자가 “전기통신사업자의 통계보고 등에 관한 고시”에 따라 매월 제출하는 회선수 기준으로 “용도별 수익 명세서(제4-2호)”를 작성토록 하여 기준을 마련하고 통계와 회계를 일치\n- 다만, 사업자의 자료 연계, 추출, 검증 등을 위한 시스템 개발 등에 필요한 소요시간을 감안하여 ’24회계연도부터 과징금 대상에 포함\n< 통신사업자 통계 제출 자료(기술방식별 가입자 현황-용도별) 양식 >\n< 원본 PDF의 표 참고 >",
         "source_company": null,
         "source_category": null,
         "related_tags": []
