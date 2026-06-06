@@ -1,8 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(git -C \"D:\\\\APP\\\\telecom-accounting-guide\" log --oneline -5)",
-      "Bash(git -C \"D:\\\\APP\\\\telecom-accounting-guide\" status --short)"
-    ]
-  }
-}
