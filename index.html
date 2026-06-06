@@ -442,6 +442,48 @@
             margin-bottom: 8px;
         }
 
+        /* Structured content rendering */
+        .detail-item .content .c-head {
+            display: block;
+            font-weight: 700;
+            color: var(--text);
+            margin: 14px 0 5px;
+            padding-bottom: 3px;
+            border-bottom: 1px solid var(--border-light);
+        }
+        .detail-item .content .c-head:first-child { margin-top: 0; }
+        .detail-item .content .c-sub {
+            display: block;
+            font-weight: 600;
+            color: var(--primary);
+            margin: 11px 0 3px;
+        }
+        .detail-item .content .c-b1 {
+            display: block;
+            padding-left: 15px;
+            text-indent: -15px;
+            margin-bottom: 3px;
+        }
+        .detail-item .content .c-b2 {
+            display: block;
+            padding-left: 32px;
+            text-indent: -15px;
+            margin-bottom: 3px;
+            color: var(--text-secondary);
+        }
+        .detail-item .content .c-note {
+            display: block;
+            padding-left: 15px;
+            text-indent: -15px;
+            margin: 4px 0;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+        .detail-item .content .c-line {
+            display: block;
+            margin-bottom: 3px;
+        }
+
         .detail-item .tags {
             display: flex;
             flex-wrap: wrap;
@@ -514,7 +556,7 @@
         <ul id="category-list" class="sidebar-nav"></ul>
         <div class="sidebar-footer">
             <a href="data/[가이드라인]영업보고서 작성 참고자료_2023.04.pdf" target="_blank">&#128218; 가이드라인</a>
-            <a href="data/[해설서]전기통신사업 회계분리기준 해설서_본문 및 부록_2025.pdf" target="_blank">&#128214; 해설서</a>
+            <a href="data/[해설서]전기통신사업 회계분리기준 해설서_2026.04.pdf" target="_blank">&#128214; 해설서(2026.4)</a>
             <a href="data/[지침서]전기통신회계정보의분석표준화를위한전자표준지침서연구.pdf" target="_blank">&#128196; 표준지침서</a>
             <a href="data/[고시]전기통신사업 회계분리기준(과학기술정보통신부고시)(제2025-23호).pdf" target="_blank">&#9878; 고시</a>
         </div>
@@ -537,10 +579,10 @@
     <script>
         // ★ 1. 데이터 파일 목록 관리
         const dataRegistry = {
-            "영업보고서 검증결과 지적사항": { key: "gosi", years: [2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011], icon: "&#128269;", color: "#ef4444" },
-            "질의 회신": { key: "qna", years: [2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011], icon: "&#128172;", color: "#3b82f6" },
-            "회계전문위원회 회의 결과": { key: "acmt", years: [2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012], icon: "&#128101;", color: "#8b5cf6" },
-            "회계처리 일원화 방안": { key: "acc", years: [2022, 2021, 2020, 2019, 2018, 2016, 2014], icon: "&#128203;", color: "#f59e0b" },
+            "영업보고서 검증결과 지적사항": { key: "gosi", years: [2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011], icon: "&#128269;", color: "#ef4444" },
+            "질의 회신": { key: "qna", years: [2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011], icon: "&#128172;", color: "#3b82f6" },
+            "회계전문위원회 회의 결과": { key: "acmt", years: [2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012], icon: "&#128101;", color: "#8b5cf6" },
+            "회계처리 일원화 방안": { key: "acc", years: [2022, 2021, 2020, 2019, 2018, 2017, 2016, 2014], icon: "&#128203;", color: "#f59e0b" },
             "영업보고서 작성 주의사항": { key: "guide", years: [2019], icon: "&#9888;", color: "#10b981" },
             "참고자료": { key: "ref", years: [null], icon: "&#128206;", color: "#06b6d4" }
         };
@@ -742,14 +784,31 @@
             } catch (e) { return text; }
         }
 
+        function renderContent(text, keyword) {
+            return String(text).split('\n').map(function(raw) {
+                const line = raw.trim();
+                if (!line) return '';
+                const h = highlight(line, keyword);
+                if (/^□/.test(line)) return `<span class="c-head">${h}</span>`;
+                if (/^[ⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩ][.\s]/.test(line)) return `<span class="c-head">${h}</span>`;
+                if (/^<\s*\d+\s*안/.test(line) || /^<\s*참고/.test(line) || /^<[^>]{1,40}>$/.test(line))
+                    return `<span class="c-sub">${h}</span>`;
+                if (/^[※*]/.test(line)) return `<span class="c-note">${h}</span>`;
+                if (/^[-–]\s?/.test(line)) return `<span class="c-b2">${h}</span>`;
+                if (/^[ㅇ○◦●]\s?/.test(line) || /^[oO]\s/.test(line)) return `<span class="c-b1">${h}</span>`;
+                if (/^[①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮]/.test(line)) return `<span class="c-b1">${h}</span>`;
+                if (/^\d{1,2}[.)]\s/.test(line)) return `<span class="c-b1">${h}</span>`;
+                return `<span class="c-line">${h}</span>`;
+            }).join('');
+        }
+
         function createDetailItemHtml(item, keyword = '') {
             let contentHtml = '';
             if (typeof item.content === 'string') {
-                contentHtml = `<p>${highlight(item.content, keyword).replace(/\n/g, '<br>')}</p>`;
+                contentHtml = renderContent(item.content, keyword);
             } else if (item.content) {
                 for (const key in item.content) {
-                    const formatted = highlight(item.content[key], keyword).replace(/\n/g, '<br>');
-                    contentHtml += `<strong>${key.toUpperCase()}</strong><p>${formatted}</p>`;
+                    contentHtml += `<strong>${key.toUpperCase()}</strong>` + renderContent(item.content[key], keyword);
                 }
             }
             const tags = Array.isArray(item.related_tags) ? item.related_tags : (item.related_tags ? [item.related_tags] : []);

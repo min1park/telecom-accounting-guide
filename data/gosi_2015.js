@@ -1188,5 +1188,25 @@ window.registerData([
         "source_company": "O사",
         "source_category": "수익/비용 등",
         "related_tags": ["#무선AP", "#수리비", "#기능분류", "#단말운영비용", "#전송운영비용"]
+    },
+    {
+        "id": "GOSI-2015-120",
+        "category": "영업보고서 검증결과 지적사항",
+        "year": "2015",
+        "title": "IMG 설비는 교환기능자산으로 분류하여야 하나, 일부 설비를 정보처리 운영기능자산으로 분류하였음",
+        "content": "IMG 설비는 교환기능자산으로 분류하여야 하나, 일부 설비를 정보처리 운영기능자산으로 분류하였음(#교환설비, #IMG설비,#All-IP망)\n※ IMG설비 : All-IP망에서 음성 및 멀티미디어서비스를 IP기술로 제공하기 위한 시스템으로 세션제어와 기존 망간 상호 연동,멀티미디어 제어기능을 수행",
+        "source_company": null,
+        "source_category": null,
+        "related_tags": ["#교환설비", "#IMG설비", "#All-IP망"]
+    },
+    {
+        "id": "GOSI-2015-121",
+        "category": "영업보고서 검증결과 지적사항",
+        "year": "2015",
+        "title": "HLR 설비는 교환기능설비로 분류하여야 하나, 정보처리기능설비로 분류하였음",
+        "content": "HLR 설비는 교환기능설비로 분류하여야 하나, 정보처리기능설비로 분류하였음(#HLR, #교환설비, #Home Location Register)\n※ HLR(Home Location Register,가입자위치인식장치): 가입자위치 확인 및 정당한 이용자 여부를 판정하는 장비",
+        "source_company": null,
+        "source_category": null,
+        "related_tags": ["#HLR", "#교환설비", "#Home Location Register"]
     }
 ]);

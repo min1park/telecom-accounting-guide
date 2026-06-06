@@ -214,7 +214,7 @@ window.registerData([
         "category": "영업보고서 검증결과 지적사항",
         "year": "2013",
         "title": "B사(수익/비용 등) - 전용회선료/선로설비사용료 분류 오류",
-        "content": "전용회선료(기지국회선료) 중 일부를 2G 또는 3G/LTE로 분류하여야 하나, 2G/3G/LTE로 분류하였음\n선로설비사용료(광코아) 중 일부를 2G 또는 3G/LTE로 분류하여야 하나, 2G/3G/LTE로 분류하였음",
+        "content": "전용회선료(기지국회선료) 중 일부를 2G 또는 3G/LTE로 분류하여야 하나, 2G/3G/LTE로 분류하였음선로설비사용료(광코아) 중 일부를 2G 또는 3G/LTE로 분류하여야 하나, 2G/3G/LTE로 분류하였음",
         "source_company": "B사",
         "source_category": "수익/비용 등",
         "related_tags": ["#전용회선료", "#선로설비사용료", "#비용분류"]
@@ -1178,5 +1178,365 @@ window.registerData([
         "source_company": "O사",
         "source_category": "수익/비용 등",
         "related_tags": ["#입금수수료", "#기능분류", "#역무분류", "#청구수납비용"]
+    },
+    {
+        "id": "GOSI-2013-119",
+        "category": "영업보고서 검증결과 지적사항",
+        "year": "2013",
+        "title": "KT 114전화번호 안내서비스의 사용료를 과금 대행한 금액은 수수료 정산이 없이 전달만 하는 것 으…",
+        "content": "KT 114전화번호 안내서비스의 사용료를 과금 대행한 금액은 수수료 정산이 없이 전달만 하는 것 으로 예수금으로 분류하여야하나, 전화번호 안내서비스 비용으로 분류하였음(#회수대행수수료수 익, #기타영업수익, #회수대행수수료비용, #청구수납비용)",
+        "source_company": null,
+        "source_category": null,
+        "related_tags": ["#회수대행수수료수 익", "#기타영업수익", "#회수대행수수료비용", "#청구수납비용"]
+    },
+    {
+        "id": "GOSI-2013-120",
+        "category": "영업보고서 검증결과 지적사항",
+        "year": "2013",
+        "title": "글로벌가속서비스는 부가통신역무로 분류하여야 하나, 국제회선설비임대서비스로 분류하였음",
+        "content": "글로벌가속서비스는 부가통신역무로 분류하여야 하나, 국제회선설비임대서비스로 분류하였음 (#부가통신역무, #글로벌가속서비스)\n※ 글로벌가속서비스 : 회사의 고객과 고객의 해외지사간 국제 WAN 구간에서 보다 빠른 속도로 기업 인트라넷 이용은 물론 대용량파일 송수신이 가능한 서비스로 클라우드 종량제 방식으로 제공하는 서비스",
+        "source_company": null,
+        "source_category": null,
+        "related_tags": ["#부가통신역무", "#글로벌가속서비스"]
+    },
+    {
+        "id": "GOSI-2013-121",
+        "category": "영업보고서 검증결과 지적사항",
+        "year": "2013",
+        "title": "MDF설비를 보유하고 있지 아니한 사업자는 일반전화 접속가입자서비스를 제공한다고 볼 수 없으므로 관…",
+        "content": "MDF설비를 보유하고 있지 아니한 사업자는 일반전화 접속가입자서비스를 제공한다고 볼 수 없으므로 관련 서비스에 대한회계처리는 발생할 수 없음 (#NTS, #MDF, #일반전화접속가입자서비스, #회선분배반, #취급국)",
+        "source_company": null,
+        "source_category": null,
+        "related_tags": ["#NTS", "#MDF", "#일반전화접속가입자서비스", "#회선분배반", "#취급국"]
+    },
+    {
+        "id": "GOSI-2013-122",
+        "category": "영업보고서 검증결과 지적사항",
+        "year": "2013",
+        "title": "분당 IDC 센터의 코로케이션 서비스 지원비용(지급임차료)은 부가통신역무로 분류하여야 하나, 비전기…",
+        "content": "분당 IDC 센터의 코로케이션 서비스 지원비용(지급임차료)은 부가통신역무로 분류하여야 하나, 비전기사업으로 분류하였음(#IDC, #부가통신역무)",
+        "source_company": null,
+        "source_category": null,
+        "related_tags": ["#IDC", "#부가통신역무"]
+    },
+    {
+        "id": "GOSI-2013-123",
+        "category": "영업보고서 검증결과 지적사항",
+        "year": "2013",
+        "title": "발신번호 조작 방지시스템 등 서버 증설비용은 정보처리설비로 분류하여야 하나, 교환설비로 분류하였음",
+        "content": "발신번호 조작 방지시스템 등 서버 증설비용은 정보처리설비로 분류하여야 하나, 교환설비로 분류하였음(#정보처리설비,#발신번호 조작방지시스템)",
+        "source_company": null,
+        "source_category": null,
+        "related_tags": ["#정보처리설비", "#발신번호 조작방지시스템"]
+    },
+    {
+        "id": "GOSI-2013-124",
+        "category": "영업보고서 검증결과 지적사항",
+        "year": "2013",
+        "title": "XACAS(Exchangeable CAS)는 정보처리설비로 분류하여야 하나, 전송설비로 분류하였음",
+        "content": "XACAS(Exchangeable CAS)는 정보처리설비로 분류하여야 하나, 전송설비로 분류하였음(#정보처리설비, #XACAS)\n※ Exchangeable CAS(다운로드형 수신제한시스템) : 별도의 케이블카드를 셋탑박스에 장착하지 않고도 수신제한시스템을 가입자단말에 직접 다운로드시켜 케이블방송을 시청할 수 있도록 하는 수신인증시스템",
+        "source_company": null,
+        "source_category": null,
+        "related_tags": ["#정보처리설비", "#XACAS"]
+    },
+    {
+        "id": "GOSI-2013-125",
+        "category": "영업보고서 검증결과 지적사항",
+        "year": "2013",
+        "title": "DBMS(DataBase Management System)은 정보처리설비로 분류하여야 하나, 전송설…",
+        "content": "DBMS(DataBase Management System)은 정보처리설비로 분류하여야 하나, 전송설비로 분류하였음(#정보처리설비, #DBMS)\n※ DBMS(DataBase Management System) : 데이터베이스의 생성, 사용을 관리, 제어하는 소프트웨어를 총칭. 모든 응용들이데이터베이스를 공유할 수 있도록 관리, 지원하여 주는 소프트웨어",
+        "source_company": null,
+        "source_category": null,
+        "related_tags": ["#정보처리설비", "#DBMS"]
+    },
+    {
+        "id": "GOSI-2013-126",
+        "category": "영업보고서 검증결과 지적사항",
+        "year": "2013",
+        "title": "일반 컨버터는 전원설비로 분류하여야 하나, 전송설비로 분류하였음",
+        "content": "일반 컨버터는 전원설비로 분류하여야 하나, 전송설비로 분류하였음(#전원설비, #컨버터)\n※ 컨버터 : 일종의 변압기임",
+        "source_company": null,
+        "source_category": null,
+        "related_tags": ["#전원설비", "#컨버터"]
+    },
+    {
+        "id": "GOSI-2013-127",
+        "category": "영업보고서 검증결과 지적사항",
+        "year": "2013",
+        "title": "밧데리, 정류기 및 전원 모듈은 전원설비로 분류하여야 하나, 전송설비로 분류하였음",
+        "content": "밧데리, 정류기 및 전원 모듈은 전원설비로 분류하여야 하나, 전송설비로 분류하였음(#전원설비, #밧데리, #정류기,#전원모듈)",
+        "source_company": null,
+        "source_category": null,
+        "related_tags": ["#전원설비", "#밧데리", "#정류기", "#전원모듈"]
+    },
+    {
+        "id": "GOSI-2013-128",
+        "category": "영업보고서 검증결과 지적사항",
+        "year": "2013",
+        "title": "UPS는 전원설비로 분류하여야 하나, 정보처리설비로 분류하였음",
+        "content": "UPS는 전원설비로 분류하여야 하나, 정보처리설비로 분류하였음(#전원설비, #UPS)",
+        "source_company": null,
+        "source_category": null,
+        "related_tags": ["#전원설비", "#UPS"]
+    },
+    {
+        "id": "GOSI-2013-129",
+        "category": "영업보고서 검증결과 지적사항",
+        "year": "2013",
+        "title": "미디어컨버터터는 전송설비로 분류하여야 하나, 전원설비로 분류하였음",
+        "content": "미디어컨버터터는 전송설비로 분류하여야 하나, 전원설비로 분류하였음(#전송설비, #미디어컨버터)\n※ 미디어컨버터(Media Converter) : 광케이블을 UTP케이블로 변환시켜 통신이 가능하도록 지원해 주는 장비로 광송수신기이나허브, PC등 일반지원자산에서 나오는 출력을 단순히 전달만 하는 장비임",
+        "source_company": null,
+        "source_category": null,
+        "related_tags": ["#전송설비", "#미디어컨버터"]
+    },
+    {
+        "id": "GOSI-2013-130",
+        "category": "영업보고서 검증결과 지적사항",
+        "year": "2013",
+        "title": "QAM(Quadrature Amplitude Modulation)는 전송설비로 분류하여야 하나, 선…",
+        "content": "QAM(Quadrature Amplitude Modulation)는 전송설비로 분류하여야 하나, 선로설비로 분류하였음(#전송설비, #QAM)\n※ Quadrature Amplitude Modulation(직교 진폭변조기) : 제한된 주파수 대역폭에서도 전송효율을 향상시키기 위하여 전송파의진폭과 위상을 동시에 결합하여 편이 변조하는 방식",
+        "source_company": null,
+        "source_category": null,
+        "related_tags": ["#전송설비", "#QAM"]
+    },
+    {
+        "id": "GOSI-2013-131",
+        "category": "영업보고서 검증결과 지적사항",
+        "year": "2013",
+        "title": "설비 중 일부 폐기만 한 경우 남아있는 설비는 기존대로 전송설비로 분류하여야하나, 폐기처분한 것으로…",
+        "content": "설비 중 일부 폐기만 한 경우 남아있는 설비는 기존대로 전송설비로 분류하여야하나, 폐기처분한 것으로분류하였음(#전송설비)",
+        "source_company": null,
+        "source_category": null,
+        "related_tags": ["#전송설비"]
+    },
+    {
+        "id": "GOSI-2013-132",
+        "category": "영업보고서 검증결과 지적사항",
+        "year": "2013",
+        "title": "전주, 강관주, 백관주등은 선로설비 형태로 분류하여야 하나, 전송설비 형태로 분류하였음",
+        "content": "전주, 강관주, 백관주등은 선로설비 형태로 분류하여야 하나, 전송설비 형태로 분류하였음(#선로설비, #전주)",
+        "source_company": null,
+        "source_category": null,
+        "related_tags": ["#선로설비", "#전주"]
+    },
+    {
+        "id": "GOSI-2013-133",
+        "category": "영업보고서 검증결과 지적사항",
+        "year": "2013",
+        "title": "DUCT 는 선로설비로 분류하여야 하나, 전원설비로 분류하였음",
+        "content": "DUCT 는 선로설비로 분류하여야 하나, 전원설비로 분류하였음(#선로설비, #DUCT)\n※ DUCT: 일반적으로 단면이 비원형인 속이 빈 통로로써 외부로부터 장비 또는 선로를 보호하기 위한 외형상 전폐구조의전선로(관로)",
+        "source_company": null,
+        "source_category": null,
+        "related_tags": ["#선로설비", "#DUCT"]
+    },
+    {
+        "id": "GOSI-2013-134",
+        "category": "영업보고서 검증결과 지적사항",
+        "year": "2013",
+        "title": "HLR(Home Location Register, 가입자위치인식장치)는 교환설비 및 교환기능설비로…",
+        "content": "HLR(Home Location Register, 가입자위치인식장치)는 교환설비 및 교환기능설비로 형태 및 기능 분류하여야 하나,정보처리설비 및 정보처리기능설비로 형태 및 기능 분류하였음(#교환설비, #HLR, #Home Location Register,#가입자위치인식장치)\n※ HLR(Home Location Register, 가입자위치인식장치): 가입자 위치 확인 및 정당한 이용자 여부를 판정하는 장비",
+        "source_company": null,
+        "source_category": null,
+        "related_tags": ["#교환설비", "#HLR", "#Home Location Register", "#가입자위치인식장치"]
+    },
+    {
+        "id": "GOSI-2013-135",
+        "category": "영업보고서 검증결과 지적사항",
+        "year": "2013",
+        "title": "공유기 및 전용회선장비 위약금 수익은 장치비수익으로 분류하여야 하나, 기타영업수익으로 분류하였음",
+        "content": "공유기 및 전용회선장비 위약금 수익은 장치비수익으로 분류하여야 하나, 기타영업수익으로 분류하였음(#해지위약금)",
+        "source_company": null,
+        "source_category": null,
+        "related_tags": ["#해지위약금"]
+    },
+    {
+        "id": "GOSI-2013-136",
+        "category": "영업보고서 검증결과 지적사항",
+        "year": "2013",
+        "title": "정보처리설비에 설치되는 OS와 이에 수반되는 기술지원관련 자산은 기타무형자산 형태로 분류 후 기타무…",
+        "content": "정보처리설비에 설치되는 OS와 이에 수반되는 기술지원관련 자산은 기타무형자산 형태로 분류 후 기타무형자산_전기통신설비지원기능자산으로 분류하여야 하나 전송설비, 교환설비, 정보처리설비 등으로 분류함(#정보처리설비, #무형자산)",
+        "source_company": null,
+        "source_category": null,
+        "related_tags": ["#정보처리설비", "#무형자산"]
+    },
+    {
+        "id": "GOSI-2013-137",
+        "category": "영업보고서 검증결과 지적사항",
+        "year": "2013",
+        "title": "냉각탑은 일반지원자산으로 분류하여야 하나, 전송설비 또는 전원설비로 분류하였음",
+        "content": "냉각탑은 일반지원자산으로 분류하여야 하나, 전송설비 또는 전원설비로 분류하였음(#일반지원자산,#일반지원자산등운영비용)",
+        "source_company": null,
+        "source_category": null,
+        "related_tags": ["#일반지원자산", "#일반지원자산등운영비용"]
+    },
+    {
+        "id": "GOSI-2013-138",
+        "category": "영업보고서 검증결과 지적사항",
+        "year": "2013",
+        "title": "항온항습기는 일반지원자산으로 분류하여야 하나, 정보처리설비로 분류하였음",
+        "content": "항온항습기는 일반지원자산으로 분류하여야 하나, 정보처리설비로 분류하였음(#일반지원자산)",
+        "source_company": null,
+        "source_category": null,
+        "related_tags": ["#일반지원자산"]
+    },
+    {
+        "id": "GOSI-2013-139",
+        "category": "영업보고서 검증결과 지적사항",
+        "year": "2013",
+        "title": "낙전수입은 전기통신사업의 기타영업수익으로 분류하여야 하나, 잡이익(영업외손익)으로 분류하였음",
+        "content": "낙전수입은 전기통신사업의 기타영업수익으로 분류하여야 하나, 잡이익(영업외손익)으로 분류하였음(#낙전수입,#기타영업수익)",
+        "source_company": null,
+        "source_category": null,
+        "related_tags": ["#낙전수입", "#기타영업수익"]
+    },
+    {
+        "id": "GOSI-2013-140",
+        "category": "영업보고서 검증결과 지적사항",
+        "year": "2013",
+        "title": "고객에 대한 전기통신서비스 제공을 위해 설치한 망감시용 회선 등에 대하여 국내회선설비임대서비스(타사…",
+        "content": "고객에 대한 전기통신서비스 제공을 위해 설치한 망감시용 회선 등에 대하여 국내회선설비임대서비스(타사에 임대하는경우에만 서비스가 성립될 수 있는 서비스임)로 하여 자가소비수익 및 비용을 산정하였으나, 이는 관련 회선 설치원가를 각전기통신서비스로 배부하는 것이지 자가소비의 대상은 아님(#망감시회선, #자가소비)",
+        "source_company": null,
+        "source_category": null,
+        "related_tags": ["#망감시회선", "#자가소비"]
+    },
+    {
+        "id": "GOSI-2013-141",
+        "category": "영업보고서 검증결과 지적사항",
+        "year": "2013",
+        "title": "HFC(광동축혼합망) 관련 자본적 지출은 선로기능으로 분류하여야 하나, 전송기능으로 분류하였음",
+        "content": "HFC(광동축혼합망) 관련 자본적 지출은 선로기능으로 분류하여야 하나, 전송기능으로 분류하였음(#선로설비, #동축케이블)",
+        "source_company": null,
+        "source_category": null,
+        "related_tags": ["#선로설비", "#동축케이블"]
+    },
+    {
+        "id": "GOSI-2013-142",
+        "category": "영업보고서 검증결과 지적사항",
+        "year": "2013",
+        "title": "가입자단 광랜장비(L3, L2)는 전송기능으로 분류하여야 하나, 교환기능으로 분류하였음",
+        "content": "가입자단 광랜장비(L3, L2)는 전송기능으로 분류하여야 하나, 교환기능으로 분류하였음(#광랜, #전송설비, #L2, #L3)",
+        "source_company": null,
+        "source_category": null,
+        "related_tags": ["#광랜", "#전송설비", "#L2", "#L3"]
+    },
+    {
+        "id": "GOSI-2013-143",
+        "category": "영업보고서 검증결과 지적사항",
+        "year": "2013",
+        "title": "DWDM(Dense Wavelength Division Multiplexing) 및 관련 허브장치는…",
+        "content": "DWDM(Dense Wavelength Division Multiplexing) 및 관련 허브장치는 전송설비로 분류하여야 하나, 정보처리설비로분류하였음(#DWDM, #전송설비, #차장분할다중화, #wdm)\n※ DWDM(Dense Wavelength Division Multiplexing) : 고밀도 파장 분할다중장치로 파장분할다중화(wdm) 기술이 발전함에 따라분할되는 파장간 사이밀도가 좁아져 용량과 채널을 대폭 늘어나게 한 기술",
+        "source_company": null,
+        "source_category": null,
+        "related_tags": ["#DWDM", "#전송설비", "#차장분할다중화", "#wdm"]
+    },
+    {
+        "id": "GOSI-2013-144",
+        "category": "영업보고서 검증결과 지적사항",
+        "year": "2013",
+        "title": "카드사에 납부한 입금수수료는, 고객서비스기능비용 중 청구/수납 기능으로 분류하여야 하나, 판매촉진기…",
+        "content": "카드사에 납부한 입금수수료는, 고객서비스기능비용 중 청구/수납 기능으로 분류하여야 하나, 판매촉진기능으로분류하였음(#청구수납)",
+        "source_company": null,
+        "source_category": null,
+        "related_tags": ["#청구수납"]
+    },
+    {
+        "id": "GOSI-2013-145",
+        "category": "영업보고서 검증결과 지적사항",
+        "year": "2013",
+        "title": "코덱장비 이용료는 전송운영비용으로 분류하여야 하나, 전기통신공통설비운영비용으로 분류하였음",
+        "content": "코덱장비 이용료는 전송운영비용으로 분류하여야 하나, 전기통신공통설비운영비용으로 분류하였음(#전송운영비용,#전송설비)\n※ 코덱 : 음성 또는 영상의 신호를 디지털 신호로 변환하는 코더와 그 반대로 변환시켜 주는 디코더의 기능을 함께 갖춘 기술",
+        "source_company": null,
+        "source_category": null,
+        "related_tags": ["#전송운영비용", "#전송설비"]
+    },
+    {
+        "id": "GOSI-2013-146",
+        "category": "영업보고서 검증결과 지적사항",
+        "year": "2013",
+        "title": "중계기 설치비용은 전송운영비용으로 분류하여야 하나, 판매촉진비용으로 분류하였음",
+        "content": "중계기 설치비용은 전송운영비용으로 분류하여야 하나, 판매촉진비용으로 분류하였음(#전송운영비용, #전송설비)",
+        "source_company": null,
+        "source_category": null,
+        "related_tags": ["#전송운영비용", "#전송설비"]
+    },
+    {
+        "id": "GOSI-2013-147",
+        "category": "영업보고서 검증결과 지적사항",
+        "year": "2013",
+        "title": "가입자가 부담해야 할 단말기보증보험료를 대납한 비용은 광고선전비외 판촉비로 분류하여야 하나, 청구수…",
+        "content": "가입자가 부담해야 할 단말기보증보험료를 대납한 비용은 광고선전비외 판촉비로 분류하여야 하나, 청구수납비용으로분류하였음(#광고선전비외판촉비, #무상지원, #유상수리비)",
+        "source_company": null,
+        "source_category": null,
+        "related_tags": ["#광고선전비외판촉비", "#무상지원", "#유상수리비"]
+    },
+    {
+        "id": "GOSI-2013-148",
+        "category": "영업보고서 검증결과 지적사항",
+        "year": "2013",
+        "title": "회사와 SO사업자간 체결한 인터넷전화 재판매 계약에 의해 회사가 지급하는 가입자당 지출하는 가입자…",
+        "content": "회사와 SO사업자간 체결한 인터넷전화 재판매 계약에 의해 회사가 지급하는 가입자당 지출하는 가입자 유지수수료는가입자관리기능으로 분류해야 하나, 판촉기능으로 분류하였음(#가입자관리비용, #가입자유지수수료,#고객서비스기능비용_가입자관리비용, #고객유지비용, #고객관리, #기존고객)",
+        "source_company": null,
+        "source_category": null,
+        "related_tags": ["#가입자관리비용", "#가입자유지수수료", "#고객서비스기능비용_가입자관리비용", "#고객유지비용", "#고객관리", "#기존고객"]
+    },
+    {
+        "id": "GOSI-2013-149",
+        "category": "영업보고서 검증결과 지적사항",
+        "year": "2013",
+        "title": "분당 및 부산 IDC 센터 및 청주 통신실에서 발생하는 전력비용은 전기통신설비공통운영비용으로 분류하…",
+        "content": "분당 및 부산 IDC 센터 및 청주 통신실에서 발생하는 전력비용은 전기통신설비공통운영비용으로 분류하여야 하나,전원비용으로 분류하였음(#IDC, #부가통신역무)",
+        "source_company": null,
+        "source_category": null,
+        "related_tags": ["#IDC", "#부가통신역무"]
+    },
+    {
+        "id": "GOSI-2013-150",
+        "category": "영업보고서 검증결과 지적사항",
+        "year": "2013",
+        "title": "마케팅부서의 임원급여는 마케팅역할을 수행하므로 판매영업기능으로 분류하여야 하나, 일반관리기능으로분류…",
+        "content": "마케팅부서의 임원급여는 마케팅역할을 수행하므로 판매영업기능으로 분류하여야 하나, 일반관리기능으로분류하였음(#업무투입비율, #인건비)",
+        "source_company": null,
+        "source_category": null,
+        "related_tags": ["#업무투입비율", "#인건비"]
+    },
+    {
+        "id": "GOSI-2013-151",
+        "category": "영업보고서 검증결과 지적사항",
+        "year": "2013",
+        "title": "XACAS(Exchangeable CAS)는 정보처리설비로 분류하여야 하나, 전송설비로 분류하였음",
+        "content": "XACAS(Exchangeable CAS)는 정보처리설비로 분류하여야 하나, 전송설비로 분류하였음\n※ Exchangeable CAS(다운로드형 수신제한시스템) : 별도의 케이블카드를 셋탑박스에 장착하지 않고도 수신제한시스템을가입자 단말에 직접 다운로드시켜 케이블방송을 시청할 수 있도록 하는 수신인증시스템(#정보처리설비, #XACAS)",
+        "source_company": null,
+        "source_category": null,
+        "related_tags": ["#정보처리설비", "#XACAS"]
+    },
+    {
+        "id": "GOSI-2013-152",
+        "category": "영업보고서 검증결과 지적사항",
+        "year": "2013",
+        "title": "DBMS(DataBase Management System)은 정보처리설비로 분류하여야하나, 전송설비…",
+        "content": "DBMS(DataBase Management System)은 정보처리설비로 분류하여야하나, 전송설비로 분류하였음\n※ DBMS(DataBase Management System) : 데이터베이스의 생성, 사용을 관리, 제어하는 소프트웨어를 총칭. 모든 응용들이데이터베이스를 공유할 수 있도록 관리, 지원하여 주는 소프트웨어(#정보처리설비, #DBMS)",
+        "source_company": null,
+        "source_category": null,
+        "related_tags": ["#정보처리설비", "#DBMS"]
+    },
+    {
+        "id": "GOSI-2013-153",
+        "category": "영업보고서 검증결과 지적사항",
+        "year": "2013",
+        "title": "미디어컨버터터는 전송설비로 분류하여야 하나, 전원설비로 분류하였음",
+        "content": "미디어컨버터터는 전송설비로 분류하여야 하나, 전원설비로 분류하였음\n※ 미디어컨버터(Media Converter) : 광케이블을 UTP케이블로 변환시켜 통신이 가능하도록 지원해 주는 장비로 광송수신기이나허브, PC등 일반지원자산에서 나오는 출력을 단순히 전달만 하는 장비임(#전송설비, #미디어컨버터)",
+        "source_company": null,
+        "source_category": null,
+        "related_tags": ["#전송설비", "#미디어컨버터"]
+    },
+    {
+        "id": "GOSI-2013-154",
+        "category": "영업보고서 검증결과 지적사항",
+        "year": "2013",
+        "title": "QAM(Quadrature Amplitude Modulation)는 전송설비로 분류하여야 하나, 선…",
+        "content": "QAM(Quadrature Amplitude Modulation)는 전송설비로 분류하여야 하나, 선로설비로 분류하였음\n※ Quadrature Amplitude Modulation(직교 진폭변조기) : 제한된 주파수 대역폭에서도 전송효율을 향상시키기 위하여 전송파의진폭과 위상을 동시에 결합하여 편이 변조하는 방식(#전송설비, #QAM)",
+        "source_company": null,
+        "source_category": null,
+        "related_tags": ["#전송설비", "#QAM"]
     }
 ]);
