@@ -489,6 +489,16 @@
             display: block;
             margin-bottom: 3px;
         }
+        .detail-item .content strong.c-key {
+            display: block;
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: var(--primary);
+            margin: 14px 0 5px;
+            padding-bottom: 3px;
+            border-bottom: 1px solid var(--border-light);
+        }
+        .detail-item .content strong.c-key:first-child { margin-top: 0; }
         .detail-item .content table.acmt-table {
             border-collapse: collapse;
             margin: 10px 0;
@@ -862,8 +872,12 @@
             if (typeof item.content === 'string') {
                 contentHtml = renderContent(item.content, keyword);
             } else if (item.content) {
+                const KEY_LABELS = { question: '질의 내용', answer: '답변 내용' };
                 for (const key in item.content) {
-                    contentHtml += `<strong>${key.toUpperCase()}</strong>` + renderContent(item.content[key], keyword);
+                    const value = item.content[key];
+                    if (!value || !String(value).trim()) continue;  // skip empty fields
+                    const label = KEY_LABELS[key] || key.toUpperCase();
+                    contentHtml += `<strong class="c-key">${label}</strong>` + renderContent(value, keyword);
                 }
             }
             const tags = Array.isArray(item.related_tags) ? item.related_tags : (item.related_tags ? [item.related_tags] : []);
