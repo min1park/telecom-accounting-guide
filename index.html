@@ -506,6 +506,14 @@
             background: var(--surface-alt);
             font-weight: 600;
         }
+        .detail-item .content img.acmt-figure {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            margin: 10px auto;
+            border: 1px solid var(--border-light);
+            border-radius: 4px;
+        }
 
         .detail-item .tags {
             display: flex;
@@ -811,8 +819,9 @@
             return String(text).split('\n').map(function(raw) {
                 const line = raw.trim();
                 if (!line) return '';
-                // Pass-through pre-built HTML tables (no per-line wrapping, no escape)
+                // Pass-through pre-built HTML tables / images (no per-line wrapping, no escape)
                 if (/^<table\b/i.test(line)) return highlight(line, keyword);
+                if (/^<img\b/i.test(line)) return line;
                 const h = highlight(line, keyword);
                 if (/^□/.test(line)) return `<span class="c-head">${h}</span>`;
                 if (/^[ⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩ][.\s]/.test(line)) return `<span class="c-head">${h}</span>`;
