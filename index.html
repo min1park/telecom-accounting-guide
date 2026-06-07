@@ -508,11 +508,18 @@
         }
         .detail-item .content img.acmt-figure {
             display: block;
-            max-width: 100%;
+            max-width: min(640px, 100%);
+            max-height: 360px;
             height: auto;
+            width: auto;
+            object-fit: contain;
             margin: 10px auto;
             border: 1px solid var(--border-light);
             border-radius: 4px;
+            cursor: zoom-in;
+        }
+        .detail-item .content img.acmt-figure:hover {
+            border-color: var(--primary);
         }
 
         .detail-item .tags {
@@ -652,6 +659,14 @@
         const contentDisplayEl = document.getElementById('content-display');
         const searchBoxEl = document.getElementById('search-box');
         let groupedData = {};
+
+        // Click on acmt-figure opens the image in a new tab for full-size view
+        document.addEventListener('click', function (ev) {
+            const t = ev.target;
+            if (t && t.tagName === 'IMG' && t.classList.contains('acmt-figure')) {
+                window.open(t.src, '_blank', 'noopener');
+            }
+        });
 
         function initialize() {
             contentTitleEl.textContent = '참고자료 검색';
