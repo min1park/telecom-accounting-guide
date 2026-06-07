@@ -471,6 +471,12 @@
             margin-bottom: 3px;
             color: var(--text-secondary);
         }
+        .detail-item .content .c-b3 {
+            display: block;
+            padding-left: 50px;
+            text-indent: -18px;
+            margin-bottom: 3px;
+        }
         .detail-item .content .c-note {
             display: block;
             padding-left: 15px;
@@ -845,7 +851,7 @@
                 if (/^[※*]/.test(line)) return `<span class="c-note">${h}</span>`;
                 if (/^[-–]\s?/.test(line)) return `<span class="c-b2">${h}</span>`;
                 if (/^[ㅇ○◦●]\s?/.test(line) || /^[oO]\s/.test(line)) return `<span class="c-b1">${h}</span>`;
-                if (/^[①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮]/.test(line)) return `<span class="c-b1">${h}</span>`;
+                if (/^[①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮]/.test(line)) return `<span class="c-b3">${h}</span>`;
                 if (/^\d{1,2}[.)]\s/.test(line)) return `<span class="c-b1">${h}</span>`;
                 return `<span class="c-line">${h}</span>`;
             }).join('');
