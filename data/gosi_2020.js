@@ -844,7 +844,7 @@ window.registerData([
         "category": "영업보고서 검증결과 지적사항",
         "year": "2020",
         "title": "회원권의 손상차손은 인식할 수 없으나 손상차손을 인식하였음",
-        "content": "회원권의 손상차손은 인식할 수 없으나 손상차손을 인식하였음(#회원권, #손상, #재평가)",
+        "content": "회원권의 손상차손은 인식할 수 없으나 손상차손을 인식하였음",
         "source_company": null,
         "source_category": null,
         "related_tags": ["#회원권", "#손상", "#재평가"]

@@ -1214,7 +1214,7 @@ window.registerData([
         "category": "영업보고서 검증결과 지적사항",
         "year": "2014",
         "title": "DOTS 설비 분류 오류",
-        "content": "DOTS 설비는 인터넷전용회선 및 인터넷백본 접속서비스를 제외한 회선임대서비스로 분류하여야 하나, 전기통신공통서비스등으로 분류하였음(#해당 서비스 분류)\n※ DOTS(DigitalOfficeTimingSupply) : 디지털 시분할 다중화통신망(TDM)의 기준이 되는 표준클럭을 상위국으로부터 수신하여국사내의 각종 디지털통신 장비 및 하위국으로 표준클럭에 동기된 클럭을 공급하는 장비로 인터넷 전송방식을 사용하지아니함",
+        "content": "DOTS 설비는 인터넷전용회선 및 인터넷백본 접속서비스를 제외한 회선임대서비스로 분류하여야 하나, 전기통신공통서비스등으로 분류하였음\n※ DOTS(DigitalOfficeTimingSupply) : 디지털 시분할 다중화통신망(TDM)의 기준이 되는 표준클럭을 상위국으로부터 수신하여국사내의 각종 디지털통신 장비 및 하위국으로 표준클럭에 동기된 클럭을 공급하는 장비로 인터넷 전송방식을 사용하지아니함",
         "source_company": null,
         "source_category": null,
         "related_tags": ["#해당 서비스 분류"]
@@ -1224,7 +1224,7 @@ window.registerData([
         "category": "영업보고서 검증결과 지적사항",
         "year": "2014",
         "title": "SBC는 정보처리설비로 분류하여야 하나, 교환설비로 분류하였음",
-        "content": "SBC는 정보처리설비로 분류하여야 하나, 교환설비로 분류하였음(#SBC, #정보처리설비)\n※ SBC(Serverbasedcomputing) 분산화 된 업무용 개인 컴퓨터의 애플리케이션을 중앙 서버 한 곳에서 관리하는 서버 기반 컴퓨팅",
+        "content": "SBC는 정보처리설비로 분류하여야 하나, 교환설비로 분류하였음\n※ SBC(Serverbasedcomputing) 분산화 된 업무용 개인 컴퓨터의 애플리케이션을 중앙 서버 한 곳에서 관리하는 서버 기반 컴퓨팅",
         "source_company": null,
         "source_category": null,
         "related_tags": ["#SBC", "#정보처리설비"]
@@ -1234,7 +1234,7 @@ window.registerData([
         "category": "영업보고서 검증결과 지적사항",
         "year": "2014",
         "title": "QDF 설비 형태 분류 오류",
-        "content": "QDF 설비는 전송설비로 분류하여야 하나, 일반지원자산(전기통신설비지원자산)으로 분류하였음(#QDF, #절체반, #MUX)\n※ QDF(QuickDistributionFrame,절체반): ESS교환기 T-MUX 장치 및 FDM군 변환장치상호간을 접속하여 시스템 전체 및 기초군대역(60~108KHz)에서 회선시험과 PCM 전송로를 수용하여 분리 시험을 할 수 있는 DS-1급 회선 분배 및 절체기",
+        "content": "QDF 설비는 전송설비로 분류하여야 하나, 일반지원자산(전기통신설비지원자산)으로 분류하였음\n※ QDF(QuickDistributionFrame,절체반): ESS교환기 T-MUX 장치 및 FDM군 변환장치상호간을 접속하여 시스템 전체 및 기초군대역(60~108KHz)에서 회선시험과 PCM 전송로를 수용하여 분리 시험을 할 수 있는 DS-1급 회선 분배 및 절체기",
         "source_company": null,
         "source_category": null,
         "related_tags": ["#QDF", "#절체반", "#MUX"]
@@ -1244,7 +1244,7 @@ window.registerData([
         "category": "영업보고서 검증결과 지적사항",
         "year": "2014",
         "title": "IVR 설비 형태 분류 오류",
-        "content": "IVR 설비는 정보처리설비로 분류하여야 하나, 교환설비로 분류하였음(#IVR, #정보처리설비)\n※ IVR(InteractiveVoiceResponse): 콜센터로 걸려온 전화를 사용자가 음성안내에 따라 필요한 사항을 입력하면 상담원 및 해당부서로 전화가 연결되도록 연결해주는 설비",
+        "content": "IVR 설비는 정보처리설비로 분류하여야 하나, 교환설비로 분류하였음\n※ IVR(InteractiveVoiceResponse): 콜센터로 걸려온 전화를 사용자가 음성안내에 따라 필요한 사항을 입력하면 상담원 및 해당부서로 전화가 연결되도록 연결해주는 설비",
         "source_company": null,
         "source_category": null,
         "related_tags": ["#IVR", "#정보처리설비"]
@@ -1254,7 +1254,7 @@ window.registerData([
         "category": "영업보고서 검증결과 지적사항",
         "year": "2014",
         "title": "Gateway 설비 형태 분류 오류",
-        "content": "Gateway 설비는 교환설비로 분류하여야 하나, 정보처리설비로 분류하였음(#Gateway, #교환설비)\n※ Gateway: 프로토콜(통신을 위해 형식화된 규칙등)을 달리하는 두 개의 네트워크 망간 또는 두 망간의 통신 계층 간의 이종프로토콜 변환 기능을 수행하는 장치 및 관문",
+        "content": "Gateway 설비는 교환설비로 분류하여야 하나, 정보처리설비로 분류하였음\n※ Gateway: 프로토콜(통신을 위해 형식화된 규칙등)을 달리하는 두 개의 네트워크 망간 또는 두 망간의 통신 계층 간의 이종프로토콜 변환 기능을 수행하는 장치 및 관문",
         "source_company": null,
         "source_category": null,
         "related_tags": ["#Gateway", "#교환설비"]
@@ -1264,7 +1264,7 @@ window.registerData([
         "category": "영업보고서 검증결과 지적사항",
         "year": "2014",
         "title": "일반지원자산을 모니터링 하는 시스템인 FMS 설비 형태 분류 오류",
-        "content": "일반지원자산을 모니터링 하는 시스템인 FMS 설비는 일반지원자산(기타일반지원자산)으로 분류하여야 하나, 정보처리설비로분류하였음(#일반지원자산)\n※ FMS(Facility Monitoring System): 소방설비 등의 자산을 모니터링 하는 시스템",
+        "content": "일반지원자산을 모니터링 하는 시스템인 FMS 설비는 일반지원자산(기타일반지원자산)으로 분류하여야 하나, 정보처리설비로분류하였음\n※ FMS(Facility Monitoring System): 소방설비 등의 자산을 모니터링 하는 시스템",
         "source_company": null,
         "source_category": null,
         "related_tags": ["#일반지원자산"]
@@ -1274,7 +1274,7 @@ window.registerData([
         "category": "영업보고서 검증결과 지적사항",
         "year": "2014",
         "title": "비즈레터링 정산비용 분류 오류",
-        "content": "비즈레터링 정산비용은 설비사용료로 분류하여야 하나, 접속통화료로 분류하였음 (#레터링, #부가서비스수익, #CID,#정보이용료, #기타부가, #안심번호 정보 제공)\n※ 비즈레터링서비스: 시내전화 고객이 휴대폰가입자에게 전화할 경우 착신 휴대폰 화면에 사전등록한 발신번호와고객정보(회사명 등)를 표시해 주는 서비스",
+        "content": "비즈레터링 정산비용은 설비사용료로 분류하여야 하나, 접속통화료로 분류하였음\n※ 비즈레터링서비스: 시내전화 고객이 휴대폰가입자에게 전화할 경우 착신 휴대폰 화면에 사전등록한 발신번호와고객정보(회사명 등)를 표시해 주는 서비스",
         "source_company": null,
         "source_category": null,
         "related_tags": ["#레터링", "#부가서비스수익", "#CID", "#정보이용료", "#기타부가", "#안심번호 정보 제공"]
@@ -1284,7 +1284,7 @@ window.registerData([
         "category": "영업보고서 검증결과 지적사항",
         "year": "2014",
         "title": "(문의) A사업자는 상위 기간통신사업자와 백본회선료를 100원 정산한다고 가정했을 경우, 80은 A…",
-        "content": "o (문의) A사업자는 상위 기간통신사업자와 백본회선료를 100원 정산한다고 가정했을 경우, 80은 A사의 지사를 위한 회선임차비용이며, 20은 타 SO사업자를 위한 것. 회계처리는?\no (답변) A사는 상위 회선사업자에게 지급한 백본 임차비용 100원을 모두 인식하고 SO로 부터 받은 20원 수익은 백본수익으로인식함. SO사업자는 접속료 20원 인식 (#접속)",
+        "content": "o (문의) A사업자는 상위 기간통신사업자와 백본회선료를 100원 정산한다고 가정했을 경우, 80은 A사의 지사를 위한 회선임차비용이며, 20은 타 SO사업자를 위한 것. 회계처리는?\no (답변) A사는 상위 회선사업자에게 지급한 백본 임차비용 100원을 모두 인식하고 SO로 부터 받은 20원 수익은 백본수익으로인식함. SO사업자는 접속료 20원 인식",
         "source_company": null,
         "source_category": null,
         "related_tags": ["#접속"]
@@ -1294,7 +1294,7 @@ window.registerData([
         "category": "영업보고서 검증결과 지적사항",
         "year": "2014",
         "title": "인터넷전화 소프트스위치 형태 분류 오류",
-        "content": "인터넷전화 소프트스위치는 교환기능설비로 분류하여야 하나, 전송기능설비로 분류하였음(#SSW, #Soft switch, #소프트스위치, #교환설비)\n※ SSW(Softswitch,소프트스위치):인터넷전화교환기",
+        "content": "인터넷전화 소프트스위치는 교환기능설비로 분류하여야 하나, 전송기능설비로 분류하였음\n※ SSW(Softswitch,소프트스위치):인터넷전화교환기",
         "source_company": null,
         "source_category": null,
         "related_tags": ["#SSW", "#Soft switch", "#소프트스위치", "#교환설비"]
@@ -1304,7 +1304,7 @@ window.registerData([
         "category": "영업보고서 검증결과 지적사항",
         "year": "2014",
         "title": "CSU 설비 형태 분류 오류",
-        "content": "CSU 설비는 전송기능설비로 분류하여야 하나, 교환기능설비로 분류하였음(#CSU, #전송설비,#인코딩, #디코딩)\n※ CSU(ChannelServiceUnit): 거리가 멀면 미세한 디지털파형은 전송되는 도중에 왜곡 현상이 발생하여 상대방이 인식할 수 없게되므로 이를 부호화(incoding)하여 전송하고, 부호화된 정보를 원래의 신호로 표본화, 양자화, 복호화(decoding)하는 장치",
+        "content": "CSU 설비는 전송기능설비로 분류하여야 하나, 교환기능설비로 분류하였음\n※ CSU(ChannelServiceUnit): 거리가 멀면 미세한 디지털파형은 전송되는 도중에 왜곡 현상이 발생하여 상대방이 인식할 수 없게되므로 이를 부호화(incoding)하여 전송하고, 부호화된 정보를 원래의 신호로 표본화, 양자화, 복호화(decoding)하는 장치",
         "source_company": null,
         "source_category": null,
         "related_tags": ["#CSU", "#전송설비", "#인코딩", "#디코딩"]
@@ -1314,7 +1314,7 @@ window.registerData([
         "category": "영업보고서 검증결과 지적사항",
         "year": "2014",
         "title": "AAA시스템 형태 분류 오류",
-        "content": "AAA시스템은 교환기능설비로 분류하여야 하나, 전송기능설비로 분류하였음(#AAA, #Authentication AuthorizationAccounting, #교환설비)\n※ AAA(Authentication, Authorization, Accounting): 이동통신에서 가입자 인증, 권한 부여, 계정관리를 수행하는 장비",
+        "content": "AAA시스템은 교환기능설비로 분류하여야 하나, 전송기능설비로 분류하였음\n※ AAA(Authentication, Authorization, Accounting): 이동통신에서 가입자 인증, 권한 부여, 계정관리를 수행하는 장비",
         "source_company": null,
         "source_category": null,
         "related_tags": ["#AAA", "#Authentication AuthorizationAccounting", "#교환설비"]
@@ -1324,7 +1324,7 @@ window.registerData([
         "category": "영업보고서 검증결과 지적사항",
         "year": "2014",
         "title": "SBC 유지보수비 기능 분류 오류",
-        "content": "SBC 유지보수비는 정보처리운영비용으로 분류하여야 하나, 교환운영비용으로 분류하였음(#정보처리운영비용)\n※ SBC(Serverbasedcomputing) : 분산화된 업무용 개인 컴퓨터의 애플리케이션을 중앙 서버 한곳에서 관리하는 서버 기반 컴퓨팅",
+        "content": "SBC 유지보수비는 정보처리운영비용으로 분류하여야 하나, 교환운영비용으로 분류하였음\n※ SBC(Serverbasedcomputing) : 분산화된 업무용 개인 컴퓨터의 애플리케이션을 중앙 서버 한곳에서 관리하는 서버 기반 컴퓨팅",
         "source_company": null,
         "source_category": null,
         "related_tags": ["#정보처리운영비용"]
@@ -1334,7 +1334,7 @@ window.registerData([
         "category": "영업보고서 검증결과 지적사항",
         "year": "2014",
         "title": "USIM의 무상지원금액 분류 오류",
-        "content": "USIM의 무상지원금액은 광고선전비외 판매촉진비로 분류하여야 하나, 통신단말장치구입지원비용으로분류하였음(#광고선전비외판촉비, #무상지원, #유상수리비)\n※ USIM(UniversalSubscriberIdentityModule): 범용 가입자 식별 모듈이란 가입자에게 인증과 요금 부과, 보안 기능 등의다양한서비스를 제공할 수 있도록 개인정보를 저장한 메모리카드 형태의 칩",
+        "content": "USIM의 무상지원금액은 광고선전비외 판매촉진비로 분류하여야 하나, 통신단말장치구입지원비용으로분류하였음\n※ USIM(UniversalSubscriberIdentityModule): 범용 가입자 식별 모듈이란 가입자에게 인증과 요금 부과, 보안 기능 등의다양한서비스를 제공할 수 있도록 개인정보를 저장한 메모리카드 형태의 칩",
         "source_company": null,
         "source_category": null,
         "related_tags": ["#광고선전비외판촉비", "#무상지원", "#유상수리비"]
@@ -1344,7 +1344,7 @@ window.registerData([
         "category": "영업보고서 검증결과 지적사항",
         "year": "2014",
         "title": "SSW, PBX 운영비용 형태 분류 오류",
-        "content": "SSW, PBX 운영비용은 교환운영비용으로 분류하여야 하나, 단말운영비용으로 분류하였음(#PBX , #교환설비, #구내통신, #IP,#PBAX, #PBAX, #이너텔, #교환기, #교환기능운영비용, #SSW, #Soft switch, #소프트 스위치, #ISDN )\n※ SSW(Softswitch,소프트스위치):인터넷전화교환기\n※ PBX(PrivateBranchExchange):사설구내교환기",
+        "content": "SSW, PBX 운영비용은 교환운영비용으로 분류하여야 하나, 단말운영비용으로 분류하였음\n※ SSW(Softswitch,소프트스위치):인터넷전화교환기\n※ PBX(PrivateBranchExchange):사설구내교환기",
         "source_company": null,
         "source_category": null,
         "related_tags": ["#PBX", "#교환설비", "#구내통신", "#IP", "#PBAX", "#PBAX", "#이너텔", "#교환기", "#교환기능운영비용", "#SSW", "#Soft switch", "#소프트 스위치", "#ISDN"]
@@ -1354,7 +1354,7 @@ window.registerData([
         "category": "영업보고서 검증결과 지적사항",
         "year": "2014",
         "title": "CDN(콘텐츠 전송네트워크) 및 코로케이션 서비스 관련 비용 기능 분류 오류",
-        "content": "CDN(콘텐츠 전송네트워크) 및 코로케이션 서비스 관련 비용은 전기통신공통설비운영비용 등으로 분류하여야 하나, 광고선전비외 판매촉진비로 분류하였음(#CDN, #부가통신역무)\n※ 코로케이션서비스 : 사내 전산실이나 전력이 불안정한 곳에서 사업을 운영하는 기업이운영의 안정성과 비용절감을 위해통신사의 IDC에서 전산 및 네트워크 등을 운영하는 서비스",
+        "content": "CDN(콘텐츠 전송네트워크) 및 코로케이션 서비스 관련 비용은 전기통신공통설비운영비용 등으로 분류하여야 하나, 광고선전비외 판매촉진비로 분류하였음\n※ 코로케이션서비스 : 사내 전산실이나 전력이 불안정한 곳에서 사업을 운영하는 기업이운영의 안정성과 비용절감을 위해통신사의 IDC에서 전산 및 네트워크 등을 운영하는 서비스",
         "source_company": null,
         "source_category": null,
         "related_tags": ["#CDN", "#부가통신역무"]
