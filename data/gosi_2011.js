@@ -184,7 +184,7 @@ window.registerData([
         "category": "영업보고서 검증결과 지적사항",
         "year": "2011",
         "title": "Provisioning Server 기능 분류 오류",
-        "content": "Provisioning Server는 정보처리 기능설비로 분류하여я 하나, 전송기능설비로 분류하였음\n※ Provision이란, 기설치된 시설을 활용하여 이용자의 요구에 따라 서비스를 유지/관리/개통/해지 등 서비스 구성을 위한 일련의 활동. 망 설비구성 추가,삭제 등을 위한 Network Provision과 가입자 청약,해지,계약변경 등을 위한 서비스 개통,해제,Billing 시에 가입자별 서비스 프로파일 정보를 바탕으로 개별화된 서비스 구현에 필요한 논리적인 제반 구성 작업을 의미하는 Service Provision 등으로 구분",
+        "content": "Provisioning Server는 정보처리 기능설비로 분류하여я 하나, 전송기능설비로 분류하였음\n※ Provision이란, 기설치된 시설을 활용하여 이용자의 요구에 따라 서비스를 유지/관리/개통/해지 등 서비스 구성을 위한 일련의 활동. 망 설비구성 추가, 삭제 등을 위한 Network Provision과 가입자 청약, 해지, 계약변경 등을 위한 서비스 개통, 해제,Billing 시에 가입자별 서비스 프로파일 정보를 바탕으로 개별화된 서비스 구현에 필요한 논리적인 제반 구성 작업을 의미하는 Service Provision 등으로 구분",
         "source_company": null,
         "source_category": null,
         "related_tags": ["#정보처리설비"]

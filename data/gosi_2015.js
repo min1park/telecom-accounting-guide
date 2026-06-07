@@ -1194,7 +1194,7 @@ window.registerData([
         "category": "영업보고서 검증결과 지적사항",
         "year": "2015",
         "title": "IMG 설비 형태 분류 오류",
-        "content": "IMG 설비는 교환기능자산으로 분류하여야 하나, 일부 설비를 정보처리 운영기능자산으로 분류하였음(#교환설비, #IMG설비,#All-IP망)\n※ IMG설비 : All-IP망에서 음성 및 멀티미디어서비스를 IP기술로 제공하기 위한 시스템으로 세션제어와 기존 망간 상호 연동,멀티미디어 제어기능을 수행",
+        "content": "IMG 설비는 교환기능자산으로 분류하여야 하나, 일부 설비를 정보처리 운영기능자산으로 분류하였음(#교환설비, #IMG설비,#All-IP망)\n※ IMG설비 : All-IP망에서 음성 및 멀티미디어서비스를 IP기술로 제공하기 위한 시스템으로 세션제어와 기존 망간 상호 연동, 멀티미디어 제어기능을 수행",
         "source_company": null,
         "source_category": null,
         "related_tags": ["#교환설비", "#IMG설비", "#All-IP망"]

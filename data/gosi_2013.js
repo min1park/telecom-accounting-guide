@@ -534,7 +534,7 @@ window.registerData([
         "category": "영업보고서 검증결과 지적사항",
         "year": "2013",
         "title": "C사(수익/비용 등) - CDN 솔루션 사용대가 기능 분류 오류",
-        "content": "IDC사업팀과 솔루션사업개발팀에서 지출한 CDN서비스를 제공하기 위하여 최적의 경로 및 이용자 정보를 알기 위하여 지불한 솔루션 사용대가는 전기통신공통설비운영비용으로 분류하여야 하는데,광고선전비외 판촉비로 분류하였음",
+        "content": "IDC사업팀과 솔루션사업개발팀에서 지출한 CDN서비스를 제공하기 위하여 최적의 경로 및 이용자 정보를 알기 위하여 지불한 솔루션 사용대가는 전기통신공통설비운영비용으로 분류하여야 하는데, 광고선전비외 판촉비로 분류하였음",
         "source_company": "C사",
         "source_category": "수익/비용 등",
         "related_tags": ["#CDN", "#솔루션사용대가", "#기능분류", "#전기통신공통설비운영비용"]
@@ -1334,7 +1334,7 @@ window.registerData([
         "category": "영업보고서 검증결과 지적사항",
         "year": "2013",
         "title": "HLR(Home Location Register, 가입자위치인식장치)는 교환설비 및 교환기능설비로…",
-        "content": "HLR(Home Location Register, 가입자위치인식장치)는 교환설비 및 교환기능설비로 형태 및 기능 분류하여야 하나,정보처리설비 및 정보처리기능설비로 형태 및 기능 분류하였음(#교환설비, #HLR, #Home Location Register,#가입자위치인식장치)\n※ HLR(Home Location Register, 가입자위치인식장치): 가입자 위치 확인 및 정당한 이용자 여부를 판정하는 장비",
+        "content": "HLR(Home Location Register, 가입자위치인식장치)는 교환설비 및 교환기능설비로 형태 및 기능 분류하여야 하나, 정보처리설비 및 정보처리기능설비로 형태 및 기능 분류하였음(#교환설비, #HLR, #Home Location Register,#가입자위치인식장치)\n※ HLR(Home Location Register, 가입자위치인식장치): 가입자 위치 확인 및 정당한 이용자 여부를 판정하는 장비",
         "source_company": null,
         "source_category": null,
         "related_tags": ["#교환설비", "#HLR", "#Home Location Register", "#가입자위치인식장치"]
@@ -1484,7 +1484,7 @@ window.registerData([
         "category": "영업보고서 검증결과 지적사항",
         "year": "2013",
         "title": "분당 및 부산 IDC 센터 및 청주 통신실에서 발생하는 전력비용 기능 분류 오류",
-        "content": "분당 및 부산 IDC 센터 및 청주 통신실에서 발생하는 전력비용은 전기통신설비공통운영비용으로 분류하여야 하나,전원비용으로 분류하였음(#IDC, #부가통신역무)",
+        "content": "분당 및 부산 IDC 센터 및 청주 통신실에서 발생하는 전력비용은 전기통신설비공통운영비용으로 분류하여야 하나, 전원비용으로 분류하였음(#IDC, #부가통신역무)",
         "source_company": null,
         "source_category": null,
         "related_tags": ["#IDC", "#부가통신역무"]
