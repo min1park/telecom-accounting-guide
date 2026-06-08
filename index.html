@@ -966,6 +966,10 @@
             const guideBase = ver ? `[가이드라인]영업보고서 작성 참고자료_${ver}.pdf` : null;
 
             if (cat.includes('영업보고서 검증') || cat.includes('지적사항')) {
+                // FY2023~ 지적사항은 해설서 PDF에서 추출
+                if (y === '2023' || y === '2024') {
+                    return '[해설서]전기통신사업 회계분리기준 해설서_2026.04.pdf (지적사항 섹션)';
+                }
                 return guideBase ? `${guideBase} (지적사항)`
                     : `[가이드라인] 영업보고서 작성 참고자료 — FY${y} (지적사항, 미상)`;
             }
