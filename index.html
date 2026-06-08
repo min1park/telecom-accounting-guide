@@ -933,36 +933,71 @@
                 </div>`;
         }
 
-        // 출처 PDF 라벨 생성 (카테고리 + 회계연도 기반)
+        // 출처 PDF 라벨 — 백업 폴더의 실제 파일명 매핑
+        // 옛 연도(개별 PDF 없음)는 [자문단] 파일결합본.pdf로 표시
         function getSourceLabel(item) {
             const cat = item.category || '';
             const y = item.year ? String(item.year) : '';
-            // 자문단 PDF
+            const co = item.source_company || '';
+
+            // 회계처리 일원화 방안 — 자문단
             if (cat.includes('회계처리 일원화')) {
-                return `[자문단] FY${y} 회계처리 일원화 방안`;
+                if (y === '2021') return '[자문단]2022.12_2021회계연도 회계처리 일원화 방안(배포용).pdf';
+                if (y === '2022') return '[자문단]2023.12_2022회계연도 일원화방안(회계법인).pdf';
+                return `[자문단] 파일결합본.pdf (FY${y} 회계처리 일원화 방안)`;
             }
+
+            // 회계전문위원회 회의 결과 — 자문단
             if (cat.includes('회계전문위원회')) {
-                return `[자문단] FY${y} 회계전문위원회 회의 결과`;
+                if (y === '2019') return '[자문단]2020.03_제1차 회계전문위원회 서면회의 안건_★ 회의결과_수정본.pdf';
+                if (y === '2021') return '[자문단]2022.12_FY2021 회계전문위원회 회의 결과(배포용).pdf';
+                if (y === '2022') return '[자문단]2023.12_2023년도 회계전문위원회 회의 결과 최종(회계법인).pdf';
+                if (y === '2023') return '[자문단]2024.12_2023회계연도 회계전문위원회 1차 안건(회의결과).pdf';
+                return `[자문단] 파일결합본.pdf (FY${y} 회계전문위원회 회의 결과)`;
             }
-            // 가이드라인 PDF — 부속자료 종류별 세분화
-            if (cat.includes('영업보고서 작성 주의')) {
-                return `[가이드라인] 영업보고서 작성 참고자료 (${y}) — 작성 주의사항`;
-            }
+
+            // 가이드라인 PDF — 회계연도 → 가이드라인 발간버전 매핑
+            const guidePdfByFy = {
+                '2016': '2017.12', '2017': '2018.03',
+                '2019': '2020.03', '2020': '2021.05',
+                '2021': '2022.04', '2022': '2023.04'
+            };
+            const ver = guidePdfByFy[y];
+            const guideBase = ver ? `[가이드라인]영업보고서 작성 참고자료_${ver}.pdf` : null;
+
             if (cat.includes('영업보고서 검증') || cat.includes('지적사항')) {
-                return `[가이드라인] 영업보고서 작성 참고자료 (${y}) — 지적사항`;
+                return guideBase ? `${guideBase} (지적사항)`
+                    : `[가이드라인] 영업보고서 작성 참고자료 — FY${y} (지적사항, 미상)`;
+            }
+            if (cat.includes('영업보고서 작성 주의')) {
+                return guideBase ? `${guideBase} (작성 주의사항)`
+                    : `[가이드라인] 영업보고서 작성 참고자료 — FY${y} (작성 주의사항, 미상)`;
             }
             if (cat === '참고자료' || cat.includes('참고자료')) {
-                return `[가이드라인] 영업보고서 작성 참고자료 (${y}) — 참고자료`;
+                return guideBase ? `${guideBase} (참고자료)`
+                    : `[가이드라인] 영업보고서 작성 참고자료 — FY${y} (참고자료, 미상)`;
             }
-            // 질의회신 PDF
+
+            // 질의 회신 — 연도·회사별로 실제 파일명 매핑
             if (cat.includes('질의')) {
-                const co = item.source_company ? ` _${item.source_company}` : '';
-                return `[질의회신] FY${y} 회계제도 질의·답변서${co}`;
+                if (y === '2020' && co === 'SK브로드밴드') {
+                    return '[사전질의]2020회계연도전기통신사업회계제도질의답변서_SK브로드밴드(배포용).pdf';
+                }
+                if (y === '2022') {
+                    return '[질의회신]2022회계연도 전기통신사업 회계제도 질의·답변서(배포용)_1차~4차.pdf';
+                }
+                if (y === '2025' && co) {
+                    return `[질의회신]2025회계연도 전기통신사업 회계제도 질의 답변서_${co}.pdf`;
+                }
+                const coLabel = co ? ` _${co}` : '';
+                return `[질의회신] FY${y} 회계제도 질의·답변서${coLabel} (파일 미상)`;
             }
-            // 해설서 PDF
+
+            // 해설서 (사이트 메인 데이터 소스)
             if (cat.includes('해설서')) {
-                return `[해설서] 전기통신사업 회계분리기준 해설서 (${y})`;
+                return '[해설서]전기통신사업 회계분리기준 해설서_2026.04.pdf';
             }
+
             return '';
         }
 
