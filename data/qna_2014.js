@@ -248,15 +248,5 @@ window.registerData([
         "source_company": null,
         "source_category": null,
         "related_tags": ["#백본회선료", "#회계처리", "#접속료"]
-    },
-    {
-        "id": "QNA-2014-026",
-        "category": "질의 회신",
-        "year": "2014",
-        "title": "전송설비(DWDM)를 타 통신사업자에게 임대 해주고 수익을 발생시키는 임대수익의 형태 및 역무분류는…",
-        "content": "□ 질의내용\no 전송설비(DWDM)를 타 통신사업자에게 임대 해주고 수익을 발생시키는 임대수익의 형태 및 역무분류는?\n□ 답변\n내용\no 단순히 설비를 빌려주는 것이므로 기타영업수익, 부가통신역무로 분류",
-        "source_company": null,
-        "source_category": null,
-        "related_tags": ["#설비임대수익", "#단순 설비임대", "#부가통신역무"]
     }
 ]);
