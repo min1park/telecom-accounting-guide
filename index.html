@@ -872,7 +872,12 @@
             if (typeof item.content === 'string') {
                 contentHtml = renderContent(item.content, keyword);
             } else if (item.content) {
-                const KEY_LABELS = { question: '질의 내용', answer: '답변 내용' };
+                const KEY_LABELS = {
+                    background: '현 황',
+                    question: '질의 내용',
+                    opinion: '질의자 의견',
+                    answer: '답변 내용'
+                };
                 for (const key in item.content) {
                     const value = item.content[key];
                     if (!value || !String(value).trim()) continue;  // skip empty fields
