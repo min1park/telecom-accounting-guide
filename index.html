@@ -564,6 +564,22 @@
             color: var(--text-muted);
         }
 
+        .detail-item .source {
+            margin-top: 10px;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .detail-item .source::before {
+            content: "📄";
+            font-size: 0.85rem;
+        }
+        .detail-item .source .src-label {
+            font-weight: 500;
+        }
+
         /* Search highlight */
         .search-results .detail-item mark {
             background: var(--highlight);
@@ -898,6 +914,10 @@
             const tagsHtml = tags.length
                 ? `<div class="tags">${tags.map(t => `<span>${highlight(t, keyword)}</span>`).join('')}</div>`
                 : '';
+            const sourceLabel = getSourceLabel(item);
+            const sourceHtml = sourceLabel
+                ? `<div class="source"><span class="src-label">출처:</span> ${sourceLabel}</div>`
+                : '';
 
             return `
                 <div class="detail-item">
@@ -909,7 +929,41 @@
                     </div>
                     <div class="content">${contentHtml}</div>
                     ${tagsHtml}
+                    ${sourceHtml}
                 </div>`;
+        }
+
+        // 출처 PDF 라벨 생성 (카테고리 + 회계연도 기반)
+        function getSourceLabel(item) {
+            const cat = item.category || '';
+            const y = item.year ? String(item.year) : '';
+            // 자문단 PDF
+            if (cat.includes('회계처리 일원화')) {
+                return `[자문단] FY${y} 회계처리 일원화 방안`;
+            }
+            if (cat.includes('회계전문위원회')) {
+                return `[자문단] FY${y} 회계전문위원회 회의 결과`;
+            }
+            // 가이드라인 PDF — 부속자료 종류별 세분화
+            if (cat.includes('영업보고서 작성 주의')) {
+                return `[가이드라인] 영업보고서 작성 참고자료 (${y}) — 작성 주의사항`;
+            }
+            if (cat.includes('영업보고서 검증') || cat.includes('지적사항')) {
+                return `[가이드라인] 영업보고서 작성 참고자료 (${y}) — 지적사항`;
+            }
+            if (cat === '참고자료' || cat.includes('참고자료')) {
+                return `[가이드라인] 영업보고서 작성 참고자료 (${y}) — 참고자료`;
+            }
+            // 질의회신 PDF
+            if (cat.includes('질의')) {
+                const co = item.source_company ? ` _${item.source_company}` : '';
+                return `[질의회신] FY${y} 회계제도 질의·답변서${co}`;
+            }
+            // 해설서 PDF
+            if (cat.includes('해설서')) {
+                return `[해설서] 전기통신사업 회계분리기준 해설서 (${y})`;
+            }
+            return '';
         }
 
         // 페이지 로딩 시작
