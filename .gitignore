@@ -1,2 +1,5 @@
 .claude/
 __pycache__/
+
+# 오프라인 번들 산출물 (build_offline.py로 매번 재생성)
+통신회계_가이드_offline_*.html
