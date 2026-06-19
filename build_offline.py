@@ -44,6 +44,15 @@ print('데이터 파일 인라인: %d개, 인라인 후 %.1fKB' % (len(data_file
 # ───────────────── 3. index.html 패치 ─────────────────
 html = open('index.html', encoding='utf-8').read()
 
+# (a-0) 헤더의 PDF 다운로드 링크 4개 제거 (오프라인 환경에선 PDF가 없어 동작 불가)
+pdf_link_pat = re.compile(
+    r'<a\s+href="data/\[(?:가이드라인|해설서|지침서|고시)[^"]*\.pdf"[^>]*>[^<]*</a>\s*',
+    re.DOTALL,
+)
+removed = pdf_link_pat.findall(html)
+html = pdf_link_pat.sub('', html)
+print('PDF 다운로드 링크 제거: %d개' % len(removed))
+
 # (a) 동적 로딩 차단: filesToLoad.push 블록을 비활성화
 dyn_pat = re.compile(
     r"const filesToLoad = \[\];\s*for \(const category in dataRegistry\) \{.*?\}\s*\)?\s*;?\s*\}",
