@@ -497,6 +497,17 @@
             border-radius: 2px;
             color: var(--text);
         }
+        .detail-item .content .c-part {
+            display: block;
+            font-weight: 700;
+            margin: 16px 0 6px;
+            padding: 5px 10px;
+            background: #eef2f7;
+            border-left: 3px solid #6b7c93;
+            color: #33475b;
+            border-radius: 2px;
+        }
+        .detail-item .content .c-part:first-child { margin-top: 0; }
         .detail-item .content strong.c-key {
             display: block;
             font-weight: 700;
@@ -892,6 +903,7 @@
                 if (/^<img\b/i.test(line)) return line;
                 const h = highlight(line, keyword);
                 if (/^☞/.test(line)) return `<span class="c-result">${h}</span>`;
+                if (/^■/.test(line)) return `<span class="c-part">${h}</span>`;
                 if (/^□/.test(line)) return `<span class="c-head">${h}</span>`;
                 if (/^[ⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩ][.\s]/.test(line)) return `<span class="c-head">${h}</span>`;
                 if (/^<\s*\d+\s*안/.test(line) || /^<\s*참고/.test(line) || /^<[^>]{1,40}>$/.test(line))
