@@ -130,7 +130,8 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
     <textarea id="cfg"></textarea>
     <div style="margin-top:8px"><button id="applycfg" class="sec">설정 적용 후 재실행</button></div>
     <div class="note">
-      ACCT_FORM: 계정과목(앞자리 매칭) → 허용 형태코드 접두어 (수익 4xx / 원가 5xx / 판관비 6xx).
+      ACCT_NAME_FORM: 계정명 키워드 → 허용 형태 접두어 (핵심 매칭 — 회사코드 무관).
+      ACCT_FORM: 계정코드 접두어 → 허용 형태 (계정명 매칭 실패 시 backup).
       FORM_FUNC: 형태코드 → 허용 기능코드 접두어 (§17 비용의 기능분류).
       EA_FORMS: 전기통신사업 형태 접두어. COMMON_FUNCS: 공통성 기능(직귀속 시 확인). NONBIZ_SVC: 사업외 역무.
     </div>
@@ -150,11 +151,63 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
 <script id="app">
 "use strict";
 /* ══════════════ 기본 설정 (UI에서 수정 가능) ══════════════ */
-/* ═══ P&L 매트릭스 초안 (원칙 기반 접두어 매칭) ═══
-   회사별 세부 코드는 UI의 [룰 설정 JSON] 편집으로 조정 가능.
+/* ═══ P&L 매트릭스 초안 (계정명 키워드 기반) ═══
+   계정코드는 회사마다 다르므로 계정명(계정과목명) 키워드로 매칭.
+   ACCT_NAME_FORM: 계정명에 키워드 포함 → 허용 형태 접두어.
+   ACCT_FORM: 코드 기반 backup (회사가 통일 코드 쓸 때).
    근거: 회계분리기준 고시 §16(수익 배부)·§17(비용 배부) + 해설서 2026.4 */
 var DEFAULT_CFG = {
-  /* 계정 접두어 → 허용 형태 접두어. 계정 체계(4xx수익, 5xx원가, 6xx판관비 등) */
+  /* 계정명 키워드 → 허용 형태 접두어 (핵심 매칭 축) */
+  ACCT_NAME_FORM: {
+    /* ─── 수익 ─── */
+    "요금수익":       ["FC70","FC71","FC72"],
+    "기본료":         ["FC70","FC71"],
+    "통화료":         ["FC70","FC71"],
+    "데이터수익":     ["FC70","FC72"],
+    "이용료":         ["FC70"],
+    "접속료수익":     ["FC73"],
+    "상호접속":       ["FC73"],
+    "도매제공수익":   ["FC74"],
+    "도매수익":       ["FC74"],
+    "내부거래수익":   ["FC75"],
+    "결합할인":       ["FC76"],
+    "장치비수익":     ["FC76"],
+    "단말임대수익":   ["FC76"],
+    "임대료수익":     ["FC76"],
+    "기타영업수익":   ["FC79"],
+    /* ─── 매출원가·설비운영비용 ─── */
+    "설비운영비용":   ["FC50","FC51"],
+    "시설운영비용":   ["FC50","FC51"],
+    "접속료비용":     ["FC52"],
+    "접속료":         ["FC52"],
+    "도매제공대가":   ["FC53"],
+    "망이용대가":     ["FC53"],
+    "내부거래비용":   ["FC54"],
+    /* ─── 판매관리비 ─── */
+    "인건비":         ["FC60","FC50"],
+    "급여":           ["FC60"],
+    "급료":           ["FC60"],
+    "임금":           ["FC60"],
+    "복리후생":       ["FC61"],
+    "감가상각":       ["FC62"],
+    "상각비":         ["FC62"],
+    "임차료":         ["FC63"],
+    "임대료":         ["FC63"],
+    "광고선전비":     ["FC64"],
+    "광고비":         ["FC64"],
+    "판매촉진비":     ["FC65"],
+    "판촉비":         ["FC65"],
+    "판매활성화":     ["FC65"],
+    "장려금":         ["FC65"],
+    "지원금":         ["FC65"],
+    "위탁수수료":     ["FC66"],
+    "용역대가":       ["FC66"],
+    "외주비":         ["FC66"],
+    "지급수수료":     ["FC66"],
+    "일반관리비":     ["FC69"]
+  },
+
+  /* 계정 접두어 → 허용 형태 (코드 통일 회사에만 backup 매칭) */
   ACCT_FORM: {
     /* ─── 수익 계정 (4xxxxx) ─── */
     "40":  ["FC70","FC71","FC72"],   /* 요금수익 → 수익형태 */
@@ -224,7 +277,7 @@ var CFG = JSON.parse(JSON.stringify(DEFAULT_CFG));
 
 var RULE_META = [
   {id:"R1", sev:"HIGH", name:"사업외 역무 × 전기통신사업 형태", basis:"역무가 사업외(S501 등)인데 형태가 전기통신사업 수익/비용(FC5·6 계열)로 유지됨. 사업외 거래의 형태·기능 오분류 — 실체(임대·매각·타용도 매출/비용) 확인. 회계분리기준 §5(사업 구분) 위반 후보."},
-  {id:"R2", sev:"HIGH", name:"계정과목 ↔ 형태코드 불일치 (재무회계 준용)", basis:"재무 P&L 계정과 통신 형태코드의 연쇄 불일치. 원칙: 수익 계정(4xx)→수익형태(FC7·), 원가 계정(5xx)→설비운영비용(FC5·), 판관비(6xx)→판관비형태(FC6·). 형태·기능만 정정하고 계정은 유지."},
+  {id:"R2", sev:"HIGH", name:"계정명 ↔ 형태코드 불일치 (재무회계 준용)", basis:"계정명(계정과목명)의 성격과 통신 형태코드의 연쇄 불일치. 계정코드는 회사마다 다르지만 계정명은 통상 명명 규칙을 따름 — '요금수익'→수익형태(FC7·), '광고선전비'→FC64, '감가상각'→FC62 등. 계정명 우선 매칭, 코드는 backup. 형태·기능만 정정하고 계정은 유지."},
   {id:"R3", sev:"MED",  name:"형태코드 ↔ 기능코드 불일치", basis:"형태(수익/비용 성격)와 기능(수행 기능)의 조합이 기준상 허용 조합을 벗어남. 예: 광고선전비 형태인데 기능이 설비운영(F00). §17 비용의 기능분류 연쇄 위반 후보."},
   {id:"R4", sev:"INFO", name:"공통성 비용의 단일역무 직귀속", basis:"설비운영(F00)·사업지원(F02)·일반관리(F03)·R&D(F06) 등 여러 역무 공용이 통상인 기능이 특정 역무에 100% 직귀속됨. 직귀속 근거(전용성) 문서화 여부 확인 — §16·§17 배부기준 위반 후보."},
   {id:"R5", sev:"HIGH", name:"데이터 정합 이상", basis:"금액 0(더미·조정), 음수 금액(환입·취소·차감) 등 비정상 데이터. 원장 정합성 및 조정 이력 → 건별 소명 필요."},
@@ -69440,10 +69493,26 @@ function runRules(rows, map, cfg){
     if(cfg.NONBIZ_SVC.indexOf(svc)>=0 && startsAny(form, cfg.EA_FORMS))
       hits.R1.push({r:r, note:"사업외 역무("+svc+") + 전기통신설비 형태("+form+") / 기능("+func+") 유지"});
 
-    /* R2 */
-    var allowed = prefixLookup(cfg.ACCT_FORM, acct);
-    if(allowed && form && !startsAny(form, allowed))
-      hits.R2.push({r:r, note:"계정 "+acct+(acctName?"("+acctName+")":"")+" 허용형태 ["+allowed.join(",")+"] ↔ 실제 "+form});
+    /* R2: 계정명 우선 매칭 (계정코드는 회사마다 다름) */
+    var allowed = null, matchedBy = "";
+    if (acctName && cfg.ACCT_NAME_FORM){
+      /* 긴 키워드부터 확인 (요금수익 > 수익) */
+      var kwSorted = Object.keys(cfg.ACCT_NAME_FORM).sort(function(a,b){return b.length-a.length;});
+      for (var kwi=0; kwi<kwSorted.length; kwi++){
+        if (acctName.indexOf(kwSorted[kwi]) >= 0){
+          allowed = cfg.ACCT_NAME_FORM[kwSorted[kwi]];
+          matchedBy = "계정명 키워드 [" + kwSorted[kwi] + "]";
+          break;
+        }
+      }
+    }
+    /* 계정명으로 못 잡히면 계정코드 접두어 backup */
+    if (!allowed){
+      allowed = prefixLookup(cfg.ACCT_FORM, acct);
+      if (allowed) matchedBy = "계정코드 [" + acct + "]";
+    }
+    if (allowed && form && !startsAny(form, allowed))
+      hits.R2.push({r:r, note: matchedBy + " 허용형태 ["+allowed.join(",")+"] ↔ 실제 "+form + (acctName?" ("+acctName+")":"")});
 
     /* R3 */
     var afuncs = prefixLookup(cfg.FORM_FUNC, form);
