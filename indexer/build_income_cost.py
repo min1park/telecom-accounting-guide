@@ -785,6 +785,106 @@ if OLD_CFG in new_html:
 else:
     print('!! (8) DEFAULT_CFG 마커 못 찾음')
 
+# ─────────── 12.4. 미분류 계정 리포트 (회사 무관 자동화의 핵심) ───────────
+UNMAPPED_FN = (
+    '\n'
+    '/* 미분류 계정 탐지: ACCT_NAME_FORM 키워드에 안 걸리는 계정명을 금액순으로 보고.\n'
+    '   새 회사 원장 투입 시 커버리지 확인 → UI 룰 JSON에 키워드 몇 개만 추가하면 됨 */\n'
+    'function findUnmappedAccounts(rows, map, cfg){\n'
+    '  var uniq = {};\n'
+    '  rows.forEach(function(r){\n'
+    '    var an = map.acctName ? String(r[map.acctName]||"").trim() : "";\n'
+    '    if(!an) return;\n'
+    '    if(!uniq[an]) uniq[an] = {cnt:0, amt:0};\n'
+    '    uniq[an].cnt++;\n'
+    '    uniq[an].amt += Math.abs(map.amt?num(r[map.amt]):0);\n'
+    '  });\n'
+    '  var kws = Object.keys(cfg.ACCT_NAME_FORM||{});\n'
+    '  var out = [];\n'
+    '  Object.keys(uniq).forEach(function(an){\n'
+    '    var clean = an.replace(/^\\(폐지\\)\\s*/, "");\n'
+    '    var hit = null;\n'
+    '    for(var i=0;i<kws.length;i++){ if(clean.indexOf(kws[i])>=0){hit=kws[i];break;} }\n'
+    '    if(!hit) out.push({name:an, cnt:uniq[an].cnt, amt:uniq[an].amt});\n'
+    '  });\n'
+    '  out.sort(function(a,b){return b.amt-a.amt;});\n'
+    '  return out;\n'
+    '}\n'
+)
+marker_um = '/* ══════════════ 룰 엔진 ══════════════ */'
+if marker_um in new_html:
+    new_html = new_html.replace(marker_um, UNMAPPED_FN + '\n' + marker_um, 1)
+    print('(10) 미분류 계정 탐지 함수 삽입 OK')
+else:
+    print('!! (10) 미분류 함수 마커 못 찾음')
+
+# 미분류 리포트 렌더: R_GL 카드 계산부 직후에 삽입
+UNMAPPED_RENDER = (
+    '\n'
+    '  /* ─── 미분류 계정 리포트 (커버리지 확인) ─── */\n'
+    '  var unmapped = findUnmappedAccounts(DATA.rows, MAP, CFG);\n'
+    '  LAST.unmapped = unmapped;\n'
+    '  if (unmapped.length){\n'
+    '    var umCard = document.createElement("div");\n'
+    '    umCard.className = "rc MED";\n'
+    '    umCard.innerHTML = "<span class=\'sev\'>MED</span><h3>R_UM. 미분류 계정</h3><div class=\'n\'>"+fmt(unmapped.length)+"<span style=\'font-size:12px\'> 계정</span></div><div class=\'m\'>키워드 사전에 없음 — 확인 필요</div>";\n'
+    '    umCard.onclick = function(){ var t=el("sec_R_UM"); if(t) t.scrollIntoView({behavior:"smooth"}); };\n'
+    '    cards.appendChild(umCard);\n'
+    '  }\n'
+)
+marker_umr = '  /* R_GL 매칭 실행 (카드·섹션 공용) */'
+if marker_umr in new_html:
+    new_html = new_html.replace(marker_umr, UNMAPPED_RENDER + '\n' + marker_umr, 1)
+    print('(11) 미분류 카드 삽입 OK')
+else:
+    print('!! (11) 미분류 카드 마커 못 찾음')
+
+# 미분류 상세 섹션: R_GL 섹션 뒤에
+UNMAPPED_SECTION = (
+    '\n'
+    '  /* ─── R_UM 미분류 계정 상세 ─── */\n'
+    '  if (unmapped.length){\n'
+    '    var umSec = document.createElement("div"); umSec.className="rulesec"; umSec.id="sec_R_UM";\n'
+    '    var umHtml = "<h3><span class=\'pill MED\'>MED</span>R_UM. 미분류 계정 — "+fmt(unmapped.length)+"개</h3>";\n'
+    '    umHtml += "<div class=\'basis\'>계정명이 ACCT_NAME_FORM 키워드 사전에 매칭되지 않아 R2(계정↔형태) 검증에서 제외된 계정입니다. "+\n'
+    '      "새 회사 원장이라면 정상 — 아래 계정의 성격 키워드를 [룰 설정 JSON]의 ACCT_NAME_FORM에 추가하면 다음 실행부터 검증에 포함됩니다. "+\n'
+    '      "금액이 큰 계정부터 추가하는 것이 효율적입니다.</div>";\n'
+    '    var umLim = Math.min(unmapped.length, 100);\n'
+    '    umHtml += "<div class=\'tblwrap\'><table><thead><tr><th>계정명</th><th>행수</th><th>금액 합계</th></tr></thead><tbody>";\n'
+    '    for (var ui=0; ui<umLim; ui++){\n'
+    '      var u = unmapped[ui];\n'
+    '      umHtml += "<tr><td><b>"+esc(u.name)+"</b></td><td class=\'num\'>"+fmt(u.cnt)+"</td><td class=\'num\'>"+fmtEok(u.amt)+"</td></tr>";\n'
+    '    }\n'
+    '    umHtml += "</tbody></table></div>";\n'
+    '    if (unmapped.length>umLim) umHtml += "<div class=\'stat\'>※ 화면에는 100개 — 전체는 엑셀 다운로드로 확인</div>";\n'
+    '    umSec.innerHTML = umHtml;\n'
+    '    out.appendChild(umSec);\n'
+    '  }\n'
+)
+marker_ums = '    out.appendChild(glSec);\n  }\n'
+if marker_ums in new_html:
+    new_html = new_html.replace(marker_ums, '    out.appendChild(glSec);\n  }\n' + UNMAPPED_SECTION, 1)
+    print('(12) 미분류 섹션 삽입 OK')
+else:
+    print('!! (12) 미분류 섹션 마커 못 찾음')
+
+# 엑셀에 미분류 시트 추가
+UNMAPPED_XLSX = (
+    '\n'
+    '  /* R_UM 미분류 계정 시트 */\n'
+    '  if (LAST.unmapped && LAST.unmapped.length){\n'
+    '    var umRows = [["계정명","행수","금액 합계"]];\n'
+    '    LAST.unmapped.forEach(function(u){ umRows.push([u.name, u.cnt, u.amt]); });\n'
+    '    XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(umRows), "R_UM_미분류계정");\n'
+    '  }\n'
+)
+marker_umx = '  /* R_GL 시트 */'
+if marker_umx in new_html:
+    new_html = new_html.replace(marker_umx, UNMAPPED_XLSX + '\n  /* R_GL 시트 */', 1)
+    print('(13) 미분류 엑셀 시트 OK')
+else:
+    print('!! (13) 미분류 엑셀 마커 못 찾음')
+
 # ─────────── 12.5. R2 로직: 계정명 우선 매칭 (계정코드 fallback) ───────────
 OLD_R2 = (
     '    /* R2 */\n'

@@ -69742,6 +69742,30 @@ function guidelineMatchBySubclass(rows, map, K){
   return out;
 }
 
+
+/* 미분류 계정 탐지: ACCT_NAME_FORM 키워드에 안 걸리는 계정명을 금액순으로 보고.
+   새 회사 원장 투입 시 커버리지 확인 → UI 룰 JSON에 키워드 몇 개만 추가하면 됨 */
+function findUnmappedAccounts(rows, map, cfg){
+  var uniq = {};
+  rows.forEach(function(r){
+    var an = map.acctName ? String(r[map.acctName]||"").trim() : "";
+    if(!an) return;
+    if(!uniq[an]) uniq[an] = {cnt:0, amt:0};
+    uniq[an].cnt++;
+    uniq[an].amt += Math.abs(map.amt?num(r[map.amt]):0);
+  });
+  var kws = Object.keys(cfg.ACCT_NAME_FORM||{});
+  var out = [];
+  Object.keys(uniq).forEach(function(an){
+    var clean = an.replace(/^\(폐지\)\s*/, "");
+    var hit = null;
+    for(var i=0;i<kws.length;i++){ if(clean.indexOf(kws[i])>=0){hit=kws[i];break;} }
+    if(!hit) out.push({name:an, cnt:uniq[an].cnt, amt:uniq[an].amt});
+  });
+  out.sort(function(a,b){return b.amt-a.amt;});
+  return out;
+}
+
 /* ══════════════ 룰 엔진 ══════════════ */
 function prefixLookup(table, code){
   if(!code) return null;
@@ -69914,6 +69938,18 @@ function execute(){
     d.onclick=function(){ var t=el("sec_"+m.id); if(t) t.scrollIntoView({behavior:"smooth"}); };
     cards.appendChild(d);
   });
+
+  /* ─── 미분류 계정 리포트 (커버리지 확인) ─── */
+  var unmapped = findUnmappedAccounts(DATA.rows, MAP, CFG);
+  LAST.unmapped = unmapped;
+  if (unmapped.length){
+    var umCard = document.createElement("div");
+    umCard.className = "rc MED";
+    umCard.innerHTML = "<span class='sev'>MED</span><h3>R_UM. 미분류 계정</h3><div class='n'>"+fmt(unmapped.length)+"<span style='font-size:12px'> 계정</span></div><div class='m'>키워드 사전에 없음 — 확인 필요</div>";
+    umCard.onclick = function(){ var t=el("sec_R_UM"); if(t) t.scrollIntoView({behavior:"smooth"}); };
+    cards.appendChild(umCard);
+  }
+
   /* R_GL 매칭 실행 (카드·섹션 공용) */
   var glResults = guidelineMatchBySubclass(DATA.rows, MAP, 5);
   LAST.glResults = glResults;
@@ -69993,6 +70029,25 @@ function execute(){
     out.appendChild(glSec);
   }
 
+  /* ─── R_UM 미분류 계정 상세 ─── */
+  if (unmapped.length){
+    var umSec = document.createElement("div"); umSec.className="rulesec"; umSec.id="sec_R_UM";
+    var umHtml = "<h3><span class='pill MED'>MED</span>R_UM. 미분류 계정 — "+fmt(unmapped.length)+"개</h3>";
+    umHtml += "<div class='basis'>계정명이 ACCT_NAME_FORM 키워드 사전에 매칭되지 않아 R2(계정↔형태) 검증에서 제외된 계정입니다. "+
+      "새 회사 원장이라면 정상 — 아래 계정의 성격 키워드를 [룰 설정 JSON]의 ACCT_NAME_FORM에 추가하면 다음 실행부터 검증에 포함됩니다. "+
+      "금액이 큰 계정부터 추가하는 것이 효율적입니다.</div>";
+    var umLim = Math.min(unmapped.length, 100);
+    umHtml += "<div class='tblwrap'><table><thead><tr><th>계정명</th><th>행수</th><th>금액 합계</th></tr></thead><tbody>";
+    for (var ui=0; ui<umLim; ui++){
+      var u = unmapped[ui];
+      umHtml += "<tr><td><b>"+esc(u.name)+"</b></td><td class='num'>"+fmt(u.cnt)+"</td><td class='num'>"+fmtEok(u.amt)+"</td></tr>";
+    }
+    umHtml += "</tbody></table></div>";
+    if (unmapped.length>umLim) umHtml += "<div class='stat'>※ 화면에는 100개 — 전체는 엑셀 다운로드로 확인</div>";
+    umSec.innerHTML = umHtml;
+    out.appendChild(umSec);
+  }
+
 }
 
 function download(){
@@ -70014,6 +70069,14 @@ function download(){
     });
     XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(rows), m.id);
   });
+
+
+  /* R_UM 미분류 계정 시트 */
+  if (LAST.unmapped && LAST.unmapped.length){
+    var umRows = [["계정명","행수","금액 합계"]];
+    LAST.unmapped.forEach(function(u){ umRows.push([u.name, u.cnt, u.amt]); });
+    XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(umRows), "R_UM_미분류계정");
+  }
 
   /* R_GL 시트 */
   if (LAST.glResults && LAST.glResults.length){
