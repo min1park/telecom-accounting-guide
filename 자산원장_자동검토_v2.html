@@ -69297,12 +69297,20 @@ function matchGuidelines(rowTags, K){
   return out.slice(0, K);
 }
 
-/* 세분류(subclass) 단위 그룹핑 → 대세 자산 대표로 매칭 */
+/* 세분류(subclass) 단위 그룹핑 → 대세 자산 대표로 매칭.
+   세분류 없으면 형태|기능|역무 조합으로 fallback 그룹핑 */
 function guidelineMatchBySubclass(rows, map, K){
   var groups = {};
+  var hasSubclass = !!map.subclass;
   rows.forEach(function(r){
-    var sc = map.subclass ? String(r[map.subclass]||"").trim() : "";
-    if (!sc) return;
+    var sc = hasSubclass ? String(r[map.subclass]||"").trim() : "";
+    if (!sc){
+      var form = map.form ? String(r[map.form]||"").trim() : "";
+      var func = map.func ? String(r[map.func]||"").trim() : "";
+      var svc  = map.svc  ? String(r[map.svc] ||"").trim() : "";
+      sc = (form||"?")+"|"+(func||"?")+"|"+(svc||"?");
+      if (sc === "?|?|?") return;
+    }
     if (!groups[sc]) groups[sc] = {sample:r, cnt:0, acq:0, forms:{}, funcs:{}, svcs:{}};
     var g = groups[sc]; g.cnt++;
     var acq = map.acq ? num(r[map.acq]) : 0; g.acq += Math.abs(acq);
