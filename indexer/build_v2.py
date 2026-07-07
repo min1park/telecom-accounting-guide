@@ -205,12 +205,12 @@ XLSX_ADD = (
 # ─────────── 삽입 ───────────
 new_html = v1
 
-# (a) execute() 시작 부분 안내 텍스트 뒤에 GL 렌더링
-# execute 안 마지막 out.appendChild(sec); 뒤에 GL_RENDER 삽입
+# (a) execute() 안의 RULE_META.forEach 뒤, execute 함수 끝 앞에 GL_RENDER 삽입
+# 주의: GL_RENDER는 forEach 콜백 밖에 있어야 함 (안이면 R1~R7 각각마다 반복 렌더)
 marker_a = '  });\n}\n\nfunction download('
 if marker_a in new_html:
-    new_html = new_html.replace(marker_a, GL_RENDER + '  });\n}\n\nfunction download(', 1)
-    print('(a) execute() GL_RENDER 삽입 OK')
+    new_html = new_html.replace(marker_a, '  });\n' + GL_RENDER + '\n}\n\nfunction download(', 1)
+    print('(a) execute() GL_RENDER 삽입 OK (forEach 밖)')
 else:
     print('!! (a) 마커 못 찾음')
 

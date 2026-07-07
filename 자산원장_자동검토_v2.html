@@ -69521,6 +69521,7 @@ function execute(){
     if(hs.length>limit) html+="<div class='stat'>※ 화면에는 300행까지 표시 — 전체 "+fmt(hs.length)+"행은 엑셀 다운로드로 확인</div>";
     sec.innerHTML=html;
     out.appendChild(sec);
+  });
 
   /* ─── R_GL 가이드라인 조항 매칭 (세분류별) ─── */
   if (glResults.length){
@@ -69555,7 +69556,7 @@ function execute(){
     glSec.innerHTML = glHtml;
     out.appendChild(glSec);
   }
-  });
+
 }
 
 function download(){
