@@ -70263,13 +70263,18 @@ function handleFile(f){
     rd.onload=function(e){
       try{
         var wb=XLSX.read(new Uint8Array(e.target.result),{type:"array"});
-        var ws=wb.Sheets[wb.SheetNames[0]];
-        var arr=XLSX.utils.sheet_to_json(ws,{header:1,raw:true,defval:""});
-        arr = arr.filter(function(r){return r.some(function(c){return c!=="";});});
-        if(arr.length<2){el("err").textContent="시트에 데이터가 없습니다.";return;}
+        /* 첫 시트가 표지·빈 시트인 파일 대응: 데이터가 가장 많은 시트 자동 선택 */
+        var bestName=null, bestArr=null;
+        for(var si=0; si<wb.SheetNames.length; si++){
+          var arr0=XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[si]],{header:1,raw:true,defval:""});
+          arr0 = arr0.filter(function(r){return r.some(function(c){return c!=="";});});
+          if(arr0.length>=2 && (!bestArr || arr0.length>bestArr.length)){ bestName=wb.SheetNames[si]; bestArr=arr0; }
+        }
+        if(!bestArr){el("err").textContent="시트에 데이터가 없습니다. (파일 내 시트: "+wb.SheetNames.join(", ")+" — 모두 빈 시트이거나 머리글만 존재)";return;}
+        var arr=bestArr;
         var head=arr[0].map(function(h){return String(h).trim();});
         var rows=arr.slice(1).map(function(r){ var o={}; head.forEach(function(h,i){o[h]=r[i];}); return o; });
-        loadRows({headers:head,rows:rows}, f.name+" ["+wb.SheetNames[0]+"]");
+        loadRows({headers:head,rows:rows}, f.name+" ["+bestName+"] (시트 "+wb.SheetNames.length+"개 중 자동선택)");
       }catch(ex){ el("err").textContent="엑셀 파싱 오류: "+ex.message; }
     };
     rd.readAsArrayBuffer(f);

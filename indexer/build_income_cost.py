@@ -1157,6 +1157,38 @@ new_html = new_html.replace(
     '<br><span style="font-size:11px;color:#889">※ 수십만 행 이상 대용량은 붙여넣기 대신 파일 업로드 필수 — .csv/.txt가 .xlsx보다 훨씬 빠릅니다</span>', 1)
 print('(17) 대용량 안내 문구 OK')
 
+# ─────────── 18. xlsx 다중 시트: 데이터 최다 시트 자동 선택 ───────────
+OLD_SHEET = (
+    '        var wb=XLSX.read(new Uint8Array(e.target.result),{type:"array"});\n'
+    '        var ws=wb.Sheets[wb.SheetNames[0]];\n'
+    '        var arr=XLSX.utils.sheet_to_json(ws,{header:1,raw:true,defval:""});\n'
+    '        arr = arr.filter(function(r){return r.some(function(c){return c!=="";});});\n'
+    '        if(arr.length<2){el("err").textContent="시트에 데이터가 없습니다.";return;}\n'
+    '        var head=arr[0].map(function(h){return String(h).trim();});\n'
+    '        var rows=arr.slice(1).map(function(r){ var o={}; head.forEach(function(h,i){o[h]=r[i];}); return o; });\n'
+    '        loadRows({headers:head,rows:rows}, f.name+" ["+wb.SheetNames[0]+"]");'
+)
+NEW_SHEET = (
+    '        var wb=XLSX.read(new Uint8Array(e.target.result),{type:"array"});\n'
+    '        /* 첫 시트가 표지·빈 시트인 파일 대응: 데이터가 가장 많은 시트 자동 선택 */\n'
+    '        var bestName=null, bestArr=null;\n'
+    '        for(var si=0; si<wb.SheetNames.length; si++){\n'
+    '          var arr0=XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[si]],{header:1,raw:true,defval:""});\n'
+    '          arr0 = arr0.filter(function(r){return r.some(function(c){return c!=="";});});\n'
+    '          if(arr0.length>=2 && (!bestArr || arr0.length>bestArr.length)){ bestName=wb.SheetNames[si]; bestArr=arr0; }\n'
+    '        }\n'
+    '        if(!bestArr){el("err").textContent="시트에 데이터가 없습니다. (파일 내 시트: "+wb.SheetNames.join(", ")+" — 모두 빈 시트이거나 머리글만 존재)";return;}\n'
+    '        var arr=bestArr;\n'
+    '        var head=arr[0].map(function(h){return String(h).trim();});\n'
+    '        var rows=arr.slice(1).map(function(r){ var o={}; head.forEach(function(h,i){o[h]=r[i];}); return o; });\n'
+    '        loadRows({headers:head,rows:rows}, f.name+" ["+bestName+"] (시트 "+wb.SheetNames.length+"개 중 자동선택)");'
+)
+if OLD_SHEET in new_html:
+    new_html = new_html.replace(OLD_SHEET, NEW_SHEET, 1)
+    print('(18) 다중 시트 자동 선택 OK')
+else:
+    print('!! (18) 시트 선택 마커 못 찾음')
+
 # ─────────── 저장 ───────────
 out_path = os.path.join(ROOT, '수익비용_자동검토_v1.html')
 io.open(out_path, 'w', encoding='utf-8').write(new_html)
