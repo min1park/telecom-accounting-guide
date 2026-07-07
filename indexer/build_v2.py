@@ -128,8 +128,6 @@ RULE_ADD = (
 GL_RENDER = (
     '\n'
     '  /* ─── R_GL 가이드라인 조항 매칭 (세분류별) ─── */\n'
-    '  var glResults = guidelineMatchBySubclass(DATA.rows, MAP, 5);\n'
-    '  LAST.glResults = glResults;\n'
     '  if (glResults.length){\n'
     '    var glSec = document.createElement("div"); glSec.className="rulesec"; glSec.id="sec_R_GL";\n'
     '    var glHtml = "<h3><span class=\'pill INFO\'>INFO</span>"+GL_META.id+". "+esc(GL_META.name)+" — 세분류 "+fmt(glResults.length)+"개 매칭</h3>";\n'
@@ -167,6 +165,9 @@ GL_RENDER = (
 # ─────────── 4. 요약 카드에도 R_GL 카드 추가 (INFO 뱃지, 클릭 시 스크롤) ───────────
 GL_CARD = (
     '\n'
+    '  /* R_GL 매칭 실행 (카드·섹션 공용) */\n'
+    '  var glResults = guidelineMatchBySubclass(DATA.rows, MAP, 5);\n'
+    '  LAST.glResults = glResults;\n'
     '  if (glResults && glResults.length){\n'
     '    var glCard = document.createElement("div");\n'
     '    glCard.className = "rc INFO";\n'

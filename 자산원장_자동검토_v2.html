@@ -69484,6 +69484,9 @@ function execute(){
     d.onclick=function(){ var t=el("sec_"+m.id); if(t) t.scrollIntoView({behavior:"smooth"}); };
     cards.appendChild(d);
   });
+  /* R_GL 매칭 실행 (카드·섹션 공용) */
+  var glResults = guidelineMatchBySubclass(DATA.rows, MAP, 5);
+  LAST.glResults = glResults;
   if (glResults && glResults.length){
     var glCard = document.createElement("div");
     glCard.className = "rc INFO";
@@ -69520,8 +69523,6 @@ function execute(){
     out.appendChild(sec);
 
   /* ─── R_GL 가이드라인 조항 매칭 (세분류별) ─── */
-  var glResults = guidelineMatchBySubclass(DATA.rows, MAP, 5);
-  LAST.glResults = glResults;
   if (glResults.length){
     var glSec = document.createElement("div"); glSec.className="rulesec"; glSec.id="sec_R_GL";
     var glHtml = "<h3><span class='pill INFO'>INFO</span>"+GL_META.id+". "+esc(GL_META.name)+" — 세분류 "+fmt(glResults.length)+"개 매칭</h3>";
