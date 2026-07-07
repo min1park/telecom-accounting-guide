@@ -159,7 +159,7 @@ NEW_OUT = (
     '    if (top.length > 0){\n'
     '      var topN = function(d,n){ return Object.keys(d).sort(function(a,b){return d[b]-d[a];}).slice(0,n||1); };\n'
     '      out.push({\n'
-    '        subclass: key,\n'
+    '        subclass: sc,\n'
     '        cnt: g.cnt, acq: g.acq,\n'
     '        acct: topN(g.accts)[0]||"", form: topN(g.forms)[0]||"", func: topN(g.funcs)[0]||"", svc: topN(g.svcs)[0]||"",\n'
     '        descTop:   topN(g.descs, 3),\n'
@@ -807,6 +807,33 @@ NEW_CFG = (
     '    "일반관리비":     ["FC69"]\n'
     '  },\n'
     '\n'
+    '  /* 형태코드가 회사 자체 체계일 때: 표준 형태코드 → 형태명 키워드로 대체 검사.\n'
+    '     예: 허용형태 FC70인데 실제 코드가 FI1310이면, 형태명 "정액요금수익"에\n'
+    '     "요금수익" 키워드가 있으므로 통과 (지적 안 함) */\n'
+    '  FORM_NAME_KEYWORDS: {\n'
+    '    "FC70": ["요금수익","기본료","통화","정액","이용료","데이터","부가","정보이용"],\n'
+    '    "FC71": ["요금수익","기본료","통화","음성"],\n'
+    '    "FC72": ["요금수익","데이터","정보이용","부가","콘텐츠","이용료"],\n'
+    '    "FC73": ["접속"],\n'
+    '    "FC74": ["도매","MVNO","재판매"],\n'
+    '    "FC75": ["내부거래"],\n'
+    '    "FC76": ["임대","장치","결합"],\n'
+    '    "FC79": ["기타","잡이익"],\n'
+    '    "FC50": ["운영","원가","설비","수선","전력","유지"],\n'
+    '    "FC51": ["운영","경비","수선"],\n'
+    '    "FC52": ["접속","정산","전파","분담"],\n'
+    '    "FC53": ["도매","망이용","회선","구입"],\n'
+    '    "FC54": ["내부거래"],\n'
+    '    "FC60": ["인건","급여","급료","노무","수당","퇴직"],\n'
+    '    "FC61": ["복리","후생"],\n'
+    '    "FC62": ["감가","상각"],\n'
+    '    "FC63": ["임차","렌탈","리스"],\n'
+    '    "FC64": ["광고"],\n'
+    '    "FC65": ["판촉","판매촉진","장려","지원","모집","획득","유지","마케팅"],\n'
+    '    "FC66": ["수수료","위탁","용역","외주","도급"],\n'
+    '    "FC69": ["기타","일반","경비","관리","세금","공과"]\n'
+    '  },\n'
+    '\n'
     '  /* 계정 접두어 → 허용 형태 (코드 통일 회사에만 backup 매칭) */\n'
     '  ACCT_FORM: {\n'
     '    /* ─── 수익 계정 (4xxxxx) ─── */\n'
@@ -1014,8 +1041,19 @@ NEW_R2 = (
     '      allowed = prefixLookup(cfg.ACCT_FORM, acct);\n'
     '      if (allowed) matchedBy = "계정코드 [" + acct + "]";\n'
     '    }\n'
-    '    if (allowed && form && !startsAny(form, allowed))\n'
-    '      hits.R2.push({r:r, note: matchedBy + " 허용형태 ["+allowed.join(",")+"] ↔ 실제 "+form + (acctName?" ("+acctName+")":"")});'
+    '    if (allowed && form){\n'
+    '      var _pass = startsAny(form, allowed);\n'
+    '      /* 회사 자체 형태코드 체계(FI1310 등) 대응: 코드 불일치 시 형태명 키워드로 대체 검사 */\n'
+    '      var _fn = get(r,"formName");\n'
+    '      if(!_pass && _fn && cfg.FORM_NAME_KEYWORDS){\n'
+    '        for(var _ai=0; _ai<allowed.length && !_pass; _ai++){\n'
+    '          var _ks = cfg.FORM_NAME_KEYWORDS[allowed[_ai]] || [];\n'
+    '          for(var _ki=0; _ki<_ks.length; _ki++){ if(_fn.indexOf(_ks[_ki])>=0){ _pass=true; break; } }\n'
+    '        }\n'
+    '      }\n'
+    '      if(!_pass)\n'
+    '        hits.R2.push({r:r, note: matchedBy + " 허용형태 ["+allowed.join(",")+"] ↔ 실제 "+form+(_fn?"("+_fn+")":"")+(acctName?" / "+acctName:"")});\n'
+    '    }'
 )
 if OLD_R2 in new_html:
     new_html = new_html.replace(OLD_R2, NEW_R2, 1)
@@ -1188,6 +1226,52 @@ if OLD_SHEET in new_html:
     print('(18) 다중 시트 자동 선택 OK')
 else:
     print('!! (18) 시트 선택 마커 못 찾음')
+
+# ─────────── 19. CSV 따옴표 파서 (엑셀 CSV의 "1,234,567" 금액 필드 대응) ───────────
+OLD_PARSE = (
+    'function parseDelimited(text){\n'
+    '  var lines = text.replace(/\\r/g,"").split("\\n").filter(function(l){return l.trim()!=="";});\n'
+    '  if(lines.length<2) return null;\n'
+    '  var delim = lines[0].indexOf("\\t")>=0 ? "\\t" : ",";\n'
+    '  var head = lines[0].split(delim).map(function(h){return h.trim();});\n'
+    '  var rows = [];\n'
+    '  for(var i=1;i<lines.length;i++){\n'
+    '    var c = lines[i].split(delim);'
+)
+NEW_PARSE = (
+    '/* 따옴표 인식 분할: 엑셀 CSV는 쉼표 포함 금액을 "1,234,567"로 감싸므로 단순 split 불가 */\n'
+    'function splitCSV(line, delim){\n'
+    '  if(delim==="\\t") return line.split("\\t");\n'
+    '  if(line.indexOf(\'"\')<0) return line.split(delim);\n'
+    '  var out=[], cur="", q=false;\n'
+    '  for(var i=0;i<line.length;i++){\n'
+    '    var ch=line[i];\n'
+    '    if(q){\n'
+    '      if(ch===\'"\'){ if(line[i+1]===\'"\'){cur+=\'"\';i++;} else q=false; }\n'
+    '      else cur+=ch;\n'
+    '    } else {\n'
+    '      if(ch===\'"\') q=true;\n'
+    '      else if(ch===delim){ out.push(cur); cur=""; }\n'
+    '      else cur+=ch;\n'
+    '    }\n'
+    '  }\n'
+    '  out.push(cur);\n'
+    '  return out;\n'
+    '}\n'
+    'function parseDelimited(text){\n'
+    '  var lines = text.replace(/\\r/g,"").split("\\n").filter(function(l){return l.trim()!=="";});\n'
+    '  if(lines.length<2) return null;\n'
+    '  var delim = lines[0].indexOf("\\t")>=0 ? "\\t" : ",";\n'
+    '  var head = splitCSV(lines[0], delim).map(function(h){return h.trim();});\n'
+    '  var rows = [];\n'
+    '  for(var i=1;i<lines.length;i++){\n'
+    '    var c = splitCSV(lines[i], delim);'
+)
+if OLD_PARSE in new_html:
+    new_html = new_html.replace(OLD_PARSE, NEW_PARSE, 1)
+    print('(19) CSV 따옴표 파서 OK')
+else:
+    print('!! (19) CSV 파서 마커 못 찾음')
 
 # ─────────── 저장 ───────────
 out_path = os.path.join(ROOT, '수익비용_자동검토_v1.html')

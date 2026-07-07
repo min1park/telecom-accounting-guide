@@ -598,6 +598,33 @@ var DEFAULT_CFG = {
     "일반관리비":     ["FC69"]
   },
 
+  /* 형태코드가 회사 자체 체계일 때: 표준 형태코드 → 형태명 키워드로 대체 검사.
+     예: 허용형태 FC70인데 실제 코드가 FI1310이면, 형태명 "정액요금수익"에
+     "요금수익" 키워드가 있으므로 통과 (지적 안 함) */
+  FORM_NAME_KEYWORDS: {
+    "FC70": ["요금수익","기본료","통화","정액","이용료","데이터","부가","정보이용"],
+    "FC71": ["요금수익","기본료","통화","음성"],
+    "FC72": ["요금수익","데이터","정보이용","부가","콘텐츠","이용료"],
+    "FC73": ["접속"],
+    "FC74": ["도매","MVNO","재판매"],
+    "FC75": ["내부거래"],
+    "FC76": ["임대","장치","결합"],
+    "FC79": ["기타","잡이익"],
+    "FC50": ["운영","원가","설비","수선","전력","유지"],
+    "FC51": ["운영","경비","수선"],
+    "FC52": ["접속","정산","전파","분담"],
+    "FC53": ["도매","망이용","회선","구입"],
+    "FC54": ["내부거래"],
+    "FC60": ["인건","급여","급료","노무","수당","퇴직"],
+    "FC61": ["복리","후생"],
+    "FC62": ["감가","상각"],
+    "FC63": ["임차","렌탈","리스"],
+    "FC64": ["광고"],
+    "FC65": ["판촉","판매촉진","장려","지원","모집","획득","유지","마케팅"],
+    "FC66": ["수수료","위탁","용역","외주","도급"],
+    "FC69": ["기타","일반","경비","관리","세금","공과"]
+  },
+
   /* 계정 접두어 → 허용 형태 (코드 통일 회사에만 backup 매칭) */
   ACCT_FORM: {
     /* ─── 수익 계정 (4xxxxx) ─── */
@@ -686,14 +713,33 @@ function fmtEok(n){ return (n/1e8).toLocaleString("ko-KR",{maximumFractionDigits
 function esc(s){ return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
 
 /* ══════════════ 파싱 ══════════════ */
+/* 따옴표 인식 분할: 엑셀 CSV는 쉼표 포함 금액을 "1,234,567"로 감싸므로 단순 split 불가 */
+function splitCSV(line, delim){
+  if(delim==="\t") return line.split("\t");
+  if(line.indexOf('"')<0) return line.split(delim);
+  var out=[], cur="", q=false;
+  for(var i=0;i<line.length;i++){
+    var ch=line[i];
+    if(q){
+      if(ch==='"'){ if(line[i+1]==='"'){cur+='"';i++;} else q=false; }
+      else cur+=ch;
+    } else {
+      if(ch==='"') q=true;
+      else if(ch===delim){ out.push(cur); cur=""; }
+      else cur+=ch;
+    }
+  }
+  out.push(cur);
+  return out;
+}
 function parseDelimited(text){
   var lines = text.replace(/\r/g,"").split("\n").filter(function(l){return l.trim()!=="";});
   if(lines.length<2) return null;
   var delim = lines[0].indexOf("\t")>=0 ? "\t" : ",";
-  var head = lines[0].split(delim).map(function(h){return h.trim();});
+  var head = splitCSV(lines[0], delim).map(function(h){return h.trim();});
   var rows = [];
   for(var i=1;i<lines.length;i++){
-    var c = lines[i].split(delim);
+    var c = splitCSV(lines[i], delim);
     var o = {};
     for(var j=0;j<head.length;j++) o[head[j]] = (c[j]!==undefined?c[j].trim():"");
     rows.push(o);
@@ -69825,7 +69871,7 @@ function guidelineMatchBySubclass(rows, map, K){
     if (top.length > 0){
       var topN = function(d,n){ return Object.keys(d).sort(function(a,b){return d[b]-d[a];}).slice(0,n||1); };
       out.push({
-        subclass: key,
+        subclass: sc,
         cnt: g.cnt, acq: g.acq,
         acct: topN(g.accts)[0]||"", form: topN(g.forms)[0]||"", func: topN(g.funcs)[0]||"", svc: topN(g.svcs)[0]||"",
         descTop:   topN(g.descs, 3),
@@ -69935,8 +69981,19 @@ function runRules(rows, map, cfg){
       allowed = prefixLookup(cfg.ACCT_FORM, acct);
       if (allowed) matchedBy = "계정코드 [" + acct + "]";
     }
-    if (allowed && form && !startsAny(form, allowed))
-      hits.R2.push({r:r, note: matchedBy + " 허용형태 ["+allowed.join(",")+"] ↔ 실제 "+form + (acctName?" ("+acctName+")":"")});
+    if (allowed && form){
+      var _pass = startsAny(form, allowed);
+      /* 회사 자체 형태코드 체계(FI1310 등) 대응: 코드 불일치 시 형태명 키워드로 대체 검사 */
+      var _fn = get(r,"formName");
+      if(!_pass && _fn && cfg.FORM_NAME_KEYWORDS){
+        for(var _ai=0; _ai<allowed.length && !_pass; _ai++){
+          var _ks = cfg.FORM_NAME_KEYWORDS[allowed[_ai]] || [];
+          for(var _ki=0; _ki<_ks.length; _ki++){ if(_fn.indexOf(_ks[_ki])>=0){ _pass=true; break; } }
+        }
+      }
+      if(!_pass)
+        hits.R2.push({r:r, note: matchedBy + " 허용형태 ["+allowed.join(",")+"] ↔ 실제 "+form+(_fn?"("+_fn+")":"")+(acctName?" / "+acctName:"")});
+    }
 
     /* R3 */
     var afuncs = prefixLookup(cfg.FORM_FUNC, form);
