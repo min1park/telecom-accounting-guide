@@ -90,7 +90,7 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
 
 <div class="card">
   <h2>1. 데이터 입력</h2>
-  <div id="drop">여기를 클릭하거나 파일을 끌어다 놓으세요<br><b>.xlsx / .csv / .txt(탭구분)</b> — 자산원장(행단위) 또는 피벗 집계표 모두 가능
+  <div id="drop">여기를 클릭하거나 파일을 끌어다 놓으세요<br><b>.xlsx / .csv / .txt(탭구분)</b> — 수익·비용 원장(행단위) 또는 피벗 집계표 모두 가능<br><span style="font-size:11px;color:#889">※ 수십만 행 이상 대용량은 붙여넣기 대신 파일 업로드 필수 — .csv/.txt가 .xlsx보다 훨씬 빠릅니다</span>
     <input type="file" id="file" accept=".xlsx,.xls,.csv,.txt,.tsv" style="display:none">
   </div>
   <textarea id="paste" placeholder="또는 엑셀에서 범위를 복사(Ctrl+C)하여 여기에 붙여넣기(Ctrl+V) — 첫 행은 머리글이어야 합니다"></textarea>
@@ -707,7 +707,7 @@ var FIELDS = [
   {key:"acctName",label:"계정명",       req:false, find:function(h){return /계정/.test(h) && /내역|명/.test(h);}},
   {key:"form",  label:"형태코드",       req:true,  find:function(h){return /형태/.test(h) && !/명/.test(h);}},
   {key:"formName",label:"형태명",       req:false, find:function(h){return /형태명/.test(h);}},
-  {key:"func",  label:"기능코드",       req:true,  find:function(h){return /기능/.test(h) && !/명/.test(h);}},
+  {key:"func",  label:"기능코드",       req:false, find:function(h){return /기능/.test(h) && !/명/.test(h);}},
   {key:"funcName",label:"기능명",       req:false, find:function(h){return /기능명/.test(h);}},
   {key:"svc",   label:"역무(서비스)코드",req:true, find:function(h){return (/역무/.test(h)&&!/명/.test(h)) || /서비스코드/.test(h);}},
   {key:"svcName",label:"서비스명",      req:false, find:function(h){return /서비스명|역무명/.test(h);}},
@@ -69816,10 +69816,12 @@ function guidelineMatchBySubclass(rows, map, K){
     if (map.cc)     { var v=String(r[map.cc]    ||"").trim(); if(v) g.ccs[v]    =(g.ccs[v]    ||0)+1; }
   });
   var out = [];
+  var _glCache = {};  /* 태그 시그니처 → 매칭 결과 캐시 (그룹 수천 개여도 유니크 태그 조합은 수십 개) */
   Object.keys(groups).forEach(function(sc){
     var g = groups[sc];
     var tags = rowToTags(g.sample, map);
-    var top = matchGuidelines(tags, K);
+    var _sig = JSON.stringify(tags);
+    var top = _glCache[_sig] || (_glCache[_sig] = matchGuidelines(tags, K));
     if (top.length > 0){
       var topN = function(d,n){ return Object.keys(d).sort(function(a,b){return d[b]-d[a];}).slice(0,n||1); };
       out.push({
@@ -69958,9 +69960,9 @@ function runRules(rows, map, cfg){
         hits.R6.push({r:r, note:"계정 "+acctSc+" 대세("+d.combo.replace("|"," / ")+" "+(d.share*100).toFixed(0)+"%) ↔ 본 조합 "+(share*100).toFixed(1)+"%"});
     }
 
-    /* R7 */
-    if(cfg.DUMMY_SVC.indexOf(svc)>=0 || svc==="" || func==="" || form==="")
-      hits.R7.push({r:r, note:"더미/공란 코드 (역무:"+(svc||"공란")+", 기능:"+(func||"공란")+", 형태:"+(form||"공란")+")"});
+    /* R7: 매핑된 컬럼만 공란 검사 — 기능코드 컬럼 자체가 없는 수익원장에서 전 행 오탐 방지 */
+    if(cfg.DUMMY_SVC.indexOf(svc)>=0 || (map.svc&&svc==="") || (map.func&&func==="") || (map.form&&form===""))
+      hits.R7.push({r:r, note:"더미/공란 코드 (역무:"+(svc||"공란")+", 기능:"+(map.func?(func||"공란"):"컬럼없음")+", 형태:"+(form||"공란")+")"});
   });
 
   return {hits:hits, tot:tot};
@@ -69991,7 +69993,7 @@ function loadRows(parsed, srcName){
   el("loadinfo").textContent = srcName+" — "+fmt(parsed.rows.length)+"행 로드됨";
   renderMap();
   el("mapcard").classList.remove("hide");
-  execute();
+  runAsync();
 }
 
 function renderMap(){
@@ -70280,9 +70282,19 @@ el("paste").addEventListener("paste", function(){
   var self=this;
   setTimeout(function(){ var p=parseDelimited(self.value); if(p) loadRows(p,"붙여넣기 데이터"); }, 50);
 });
+function runAsync(){
+  var btn = el("run");
+  btn.textContent = "검토 중... (수십만 행이면 1~2분)"; btn.disabled = true;
+  el("err").textContent = "";
+  setTimeout(function(){
+    try { execute(); }
+    catch(ex){ el("err").textContent = "실행 오류: " + ex.message; }
+    finally { btn.textContent = "검토 실행"; btn.disabled = false; }
+  }, 50);
+}
 el("run").onclick=function(){
   if(!DATA && el("paste").value.trim()){ var p=parseDelimited(el("paste").value); if(p){loadRows(p,"붙여넣기 데이터");return;} }
-  execute();
+  runAsync();
 };
 el("dl").onclick=download;
 el("aipk").onclick=buildAIPacket;

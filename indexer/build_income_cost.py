@@ -51,7 +51,7 @@ NEW_FIELDS = (
     '  {key:"acctName",label:"계정명",       req:false, find:function(h){return /계정/.test(h) && /내역|명/.test(h);}},\n'
     '  {key:"form",  label:"형태코드",       req:true,  find:function(h){return /형태/.test(h) && !/명/.test(h);}},\n'
     '  {key:"formName",label:"형태명",       req:false, find:function(h){return /형태명/.test(h);}},\n'
-    '  {key:"func",  label:"기능코드",       req:true,  find:function(h){return /기능/.test(h) && !/명/.test(h);}},\n'
+    '  {key:"func",  label:"기능코드",       req:false, find:function(h){return /기능/.test(h) && !/명/.test(h);}},\n'
     '  {key:"funcName",label:"기능명",       req:false, find:function(h){return /기능명/.test(h);}},\n'
     '  {key:"svc",   label:"역무(서비스)코드",req:true, find:function(h){return (/역무/.test(h)&&!/명/.test(h)) || /서비스코드/.test(h);}},\n'
     '  {key:"svcName",label:"서비스명",      req:false, find:function(h){return /서비스명|역무명/.test(h);}},\n'
@@ -1062,6 +1062,100 @@ new_html = new_html.replace(
     '      ACCT_FORM: 계정코드 접두어 → 허용 형태 (계정명 매칭 실패 시 backup).\n'
     '      FORM_FUNC: 형태코드 → 허용 기능코드 접두어 (§17 비용의 기능분류).\n'
     '      EA_FORMS: 전기통신사업 형태 접두어. COMMON_FUNCS: 공통성 기능(직귀속 시 확인). NONBIZ_SVC: 사업외 역무.', 1)
+
+# ─────────── 14. R7: 매핑된 컬럼만 공란 검사 (기능코드 없는 수익원장 대응) ───────────
+OLD_R7 = (
+    '    /* R7 */\n'
+    '    if(cfg.DUMMY_SVC.indexOf(svc)>=0 || svc==="" || func==="" || form==="")\n'
+    '      hits.R7.push({r:r, note:"더미/공란 코드 (역무:"+(svc||"공란")+", 기능:"+(func||"공란")+", 형태:"+(form||"공란")+")"});'
+)
+NEW_R7 = (
+    '    /* R7: 매핑된 컬럼만 공란 검사 — 기능코드 컬럼 자체가 없는 수익원장에서 전 행 오탐 방지 */\n'
+    '    if(cfg.DUMMY_SVC.indexOf(svc)>=0 || (map.svc&&svc==="") || (map.func&&func==="") || (map.form&&form===""))\n'
+    '      hits.R7.push({r:r, note:"더미/공란 코드 (역무:"+(svc||"공란")+", 기능:"+(map.func?(func||"공란"):"컬럼없음")+", 형태:"+(form||"공란")+")"});'
+)
+if OLD_R7 in new_html:
+    new_html = new_html.replace(OLD_R7, NEW_R7, 1)
+    print('(14) R7 공란 검사 조건 수정 OK')
+else:
+    print('!! (14) R7 마커 못 찾음')
+
+# ─────────── 15. R_GL 매칭 캐시 (동일 태그 조합 재사용 — 대용량 성능) ───────────
+OLD_GLLOOP = (
+    '  var out = [];\n'
+    '  Object.keys(groups).forEach(function(sc){\n'
+    '    var g = groups[sc];\n'
+    '    var tags = rowToTags(g.sample, map);\n'
+    '    var top = matchGuidelines(tags, K);\n'
+)
+NEW_GLLOOP = (
+    '  var out = [];\n'
+    '  var _glCache = {};  /* 태그 시그니처 → 매칭 결과 캐시 (그룹 수천 개여도 유니크 태그 조합은 수십 개) */\n'
+    '  Object.keys(groups).forEach(function(sc){\n'
+    '    var g = groups[sc];\n'
+    '    var tags = rowToTags(g.sample, map);\n'
+    '    var _sig = JSON.stringify(tags);\n'
+    '    var top = _glCache[_sig] || (_glCache[_sig] = matchGuidelines(tags, K));\n'
+)
+if OLD_GLLOOP in new_html:
+    new_html = new_html.replace(OLD_GLLOOP, NEW_GLLOOP, 1)
+    print('(15) R_GL 매칭 캐시 OK')
+else:
+    print('!! (15) R_GL 캐시 마커 못 찾음')
+
+# ─────────── 16. 비동기 실행 (대용량에서 브라우저 멈춤 방지 + 진행 표시) ───────────
+OLD_RUN = (
+    'el("run").onclick=function(){\n'
+    '  if(!DATA && el("paste").value.trim()){ var p=parseDelimited(el("paste").value); if(p){loadRows(p,"붙여넣기 데이터");return;} }\n'
+    '  execute();\n'
+    '};'
+)
+NEW_RUN = (
+    'function runAsync(){\n'
+    '  var btn = el("run");\n'
+    '  btn.textContent = "검토 중... (수십만 행이면 1~2분)"; btn.disabled = true;\n'
+    '  el("err").textContent = "";\n'
+    '  setTimeout(function(){\n'
+    '    try { execute(); }\n'
+    '    catch(ex){ el("err").textContent = "실행 오류: " + ex.message; }\n'
+    '    finally { btn.textContent = "검토 실행"; btn.disabled = false; }\n'
+    '  }, 50);\n'
+    '}\n'
+    'el("run").onclick=function(){\n'
+    '  if(!DATA && el("paste").value.trim()){ var p=parseDelimited(el("paste").value); if(p){loadRows(p,"붙여넣기 데이터");return;} }\n'
+    '  runAsync();\n'
+    '};'
+)
+if OLD_RUN in new_html:
+    new_html = new_html.replace(OLD_RUN, NEW_RUN, 1)
+    print('(16a) runAsync 정의·버튼 핸들러 OK')
+else:
+    print('!! (16a) run 핸들러 마커 못 찾음')
+
+OLD_LOADEXEC = (
+    '  renderMap();\n'
+    '  el("mapcard").classList.remove("hide");\n'
+    '  execute();\n'
+    '}'
+)
+NEW_LOADEXEC = (
+    '  renderMap();\n'
+    '  el("mapcard").classList.remove("hide");\n'
+    '  runAsync();\n'
+    '}'
+)
+if OLD_LOADEXEC in new_html:
+    new_html = new_html.replace(OLD_LOADEXEC, NEW_LOADEXEC, 1)
+    print('(16b) loadRows 비동기 실행 OK')
+else:
+    print('!! (16b) loadRows 마커 못 찾음')
+
+# ─────────── 17. 대용량 안내 문구 ───────────
+new_html = new_html.replace(
+    '.xlsx / .csv / .txt(탭구분)</b> — 자산원장(행단위) 또는 피벗 집계표 모두 가능',
+    '.xlsx / .csv / .txt(탭구분)</b> — 수익·비용 원장(행단위) 또는 피벗 집계표 모두 가능'
+    '<br><span style="font-size:11px;color:#889">※ 수십만 행 이상 대용량은 붙여넣기 대신 파일 업로드 필수 — .csv/.txt가 .xlsx보다 훨씬 빠릅니다</span>', 1)
+print('(17) 대용량 안내 문구 OK')
 
 # ─────────── 저장 ───────────
 out_path = os.path.join(ROOT, '수익비용_자동검토_v1.html')
