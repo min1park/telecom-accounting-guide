@@ -1498,45 +1498,5 @@ window.registerData([
         "source_company": null,
         "source_category": null,
         "related_tags": ["#업무투입비율", "#인건비"]
-    },
-    {
-        "id": "GOSI-2013-151",
-        "category": "영업보고서 검증결과 지적사항",
-        "year": "2013",
-        "title": "XACAS(Exchangeable CAS) 분류 오류",
-        "content": "XACAS(Exchangeable CAS)는 정보처리설비로 분류하여야 하나, 전송설비로 분류하였음\n※ Exchangeable CAS(다운로드형 수신제한시스템) : 별도의 케이블카드를 셋탑박스에 장착하지 않고도 수신제한시스템을가입자 단말에 직접 다운로드시켜 케이블방송을 시청할 수 있도록 하는 수신인증시스템",
-        "source_company": null,
-        "source_category": null,
-        "related_tags": ["#정보처리설비", "#XACAS"]
-    },
-    {
-        "id": "GOSI-2013-152",
-        "category": "영업보고서 검증결과 지적사항",
-        "year": "2013",
-        "title": "DBMS(DataBase Management System) 분류 오류",
-        "content": "DBMS(DataBase Management System)은 정보처리설비로 분류하여야하나, 전송설비로 분류하였음\n※ DBMS(DataBase Management System) : 데이터베이스의 생성, 사용을 관리, 제어하는 소프트웨어를 총칭. 모든 응용들이데이터베이스를 공유할 수 있도록 관리, 지원하여 주는 소프트웨어",
-        "source_company": null,
-        "source_category": null,
-        "related_tags": ["#정보처리설비", "#DBMS"]
-    },
-    {
-        "id": "GOSI-2013-153",
-        "category": "영업보고서 검증결과 지적사항",
-        "year": "2013",
-        "title": "미디어컨버터터 형태 분류 오류",
-        "content": "미디어컨버터터는 전송설비로 분류하여야 하나, 전원설비로 분류하였음\n※ 미디어컨버터(Media Converter) : 광케이블을 UTP케이블로 변환시켜 통신이 가능하도록 지원해 주는 장비로 광송수신기이나허브, PC등 일반지원자산에서 나오는 출력을 단순히 전달만 하는 장비임",
-        "source_company": null,
-        "source_category": null,
-        "related_tags": ["#전송설비", "#미디어컨버터"]
-    },
-    {
-        "id": "GOSI-2013-154",
-        "category": "영업보고서 검증결과 지적사항",
-        "year": "2013",
-        "title": "QAM(Quadrature Amplitude Modulation) 분류 오류",
-        "content": "QAM(Quadrature Amplitude Modulation)는 전송설비로 분류하여야 하나, 선로설비로 분류하였음\n※ Quadrature Amplitude Modulation(직교 진폭변조기) : 제한된 주파수 대역폭에서도 전송효율을 향상시키기 위하여 전송파의진폭과 위상을 동시에 결합하여 편이 변조하는 방식",
-        "source_company": null,
-        "source_category": null,
-        "related_tags": ["#전송설비", "#QAM"]
     }
 ]);

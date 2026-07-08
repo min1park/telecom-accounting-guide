@@ -20,16 +20,6 @@ window.registerData([
         "related_tags": ["#할당"]
     },
     {
-        "id": "GOSI-2024-003",
-        "category": "영업보고서 검증결과 지적사항",
-        "year": "2024",
-        "title": "판매목적의 앱에서 발생한 수익 역무 분류 오류",
-        "content": "판매목적의 앱에서 발생한 수익은 전기통신사업외의 사업으로 분류하여야 하나, 부가통신역무로 할당하였음",
-        "source_company": null,
-        "source_category": null,
-        "related_tags": ["#고객서비스 앱", "#서비스 제공 목적 앱", "#판매목적앱", "#앱 서비스"]
-    },
-    {
         "id": "GOSI-2024-004",
         "category": "영업보고서 검증결과 지적사항",
         "year": "2024",
@@ -78,16 +68,6 @@ window.registerData([
         "source_company": null,
         "source_category": null,
         "related_tags": ["#고객서비스 앱", "#서비스 제공 목적 앱", "#판매목적앱", "#앱 서비스"]
-    },
-    {
-        "id": "GOSI-2024-009",
-        "category": "영업보고서 검증결과 지적사항",
-        "year": "2024",
-        "title": "자사의 통신서비스와 무관하게 별개의 상품인 유료 구독 상품을 제공하면서 역무 분류 오류",
-        "content": "자사의 통신서비스와 무관하게 별개의 상품인 유료 구독 상품을 제공하면서 수취한 수익은 전기통신사업외의 사업으로 분류하여야 하나, 3G, LTE, 5G 서비스 등으로 할당하였음",
-        "source_company": null,
-        "source_category": null,
-        "related_tags": ["#구독서비스", "#무료", "#이동통신서비스"]
     },
     {
         "id": "GOSI-2024-010",
@@ -168,16 +148,6 @@ window.registerData([
         "source_company": null,
         "source_category": null,
         "related_tags": ["#할당", "#배부", "#비용의 기능"]
-    },
-    {
-        "id": "GOSI-2024-018",
-        "category": "영업보고서 검증결과 지적사항",
-        "year": "2024",
-        "title": "MNO 사업자가 MVNO 사업자의 이동통신서비스 신규 가입자 유치 등을 배부 분류 오류",
-        "content": "MNO 사업자가 MVNO 사업자의 이동통신서비스 신규 가입자 유치 등을 목적으로 MVNO 사업자에게 지급하는 장려금(판매활성화장려금)은 사용용도가 분명한 경우 해당 서비스로 할당하여야 하며, 사용용도가 불분명한 경우 이동통신공통서비스(LTE, 5G서비스)로 분류 후, 역무별 도매제공수익 비율로 배부하여야 하나, 자사의 신규가입자 요금수익 비율로 배부하였음",
-        "source_company": null,
-        "source_category": null,
-        "related_tags": ["#판매활성화장려금", "#MVNO", "#기타영업수익", "#MNO", "#가입자유지수수료", "#광고선전비외판촉비", "#일반", "#도매제공수익", "#순액"]
     },
     {
         "id": "GOSI-2024-019",
@@ -550,16 +520,6 @@ window.registerData([
         "related_tags": ["#자산 형태분류"]
     },
     {
-        "id": "GOSI-2024-056",
-        "category": "영업보고서 검증결과 지적사항",
-        "year": "2024",
-        "title": "자사의 전기통신사업외의 사업 형태 분류 오류",
-        "content": "자사의 전기통신사업외의 사업(IPTV 등)을 위해 사용하는 여러 종류의 신호를 하나로 결합시켜 전송하는 설비는 전송설비(형태) 및 전송기능설비(기능)로 분류하여야 하나 교환설비(형태) 및 교환기능설비(기능) 등으로 분류하였음\n* utrans : PDH 신호 및 동기식 광 신호 등을 다중화ㆍ역다중화하여 광 전송, 분기결합 및 상호분배 기능을 제공하는 설비",
-        "source_company": null,
-        "source_category": null,
-        "related_tags": ["#자산 형태분류"]
-    },
-    {
         "id": "GOSI-2024-057",
         "category": "영업보고서 검증결과 지적사항",
         "year": "2024",
@@ -618,16 +578,6 @@ window.registerData([
         "source_company": null,
         "source_category": null,
         "related_tags": ["#자산 형태분류"]
-    },
-    {
-        "id": "GOSI-2024-063",
-        "category": "영업보고서 검증결과 지적사항",
-        "year": "2024",
-        "title": "이동통신가입자가 플랫폼 사업자 역무 분류 오류",
-        "content": "이동통신가입자가 플랫폼 사업자(구글마켓 등)를 통해 콘텐츠 이용료 등을 결제하고, 통신사는 실제 서비스 제공자인 플랫폼사업자(구글마켓 등)와 이용요금을 정산하면서 수취한 수수료 수익은 부가통신역무로 할당하여야 하나, 전기통신사업외의 사업으로 분류하였음",
-        "source_company": null,
-        "source_category": null,
-        "related_tags": ["#회수대행수수료수익", "#기타영업수익", "#회수대행수수료비용", "#청구수납비용"]
     },
     {
         "id": "GOSI-2024-064",
@@ -768,16 +718,6 @@ window.registerData([
         "source_company": null,
         "source_category": null,
         "related_tags": ["#국제정산수익", "#국제전화"]
-    },
-    {
-        "id": "GOSI-2024-078",
-        "category": "영업보고서 검증결과 지적사항",
-        "year": "2024",
-        "title": "소액결제서비스를 제공하면서 발생한 각종 수수료 등의 비용 역무 분류 오류",
-        "content": "소액결제서비스를 제공하면서 발생한 각종 수수료 등의 비용은 부가통신역무로 할당하여야 하나, 3G, LTE, 5G 서비스로 분류하였음",
-        "source_company": null,
-        "source_category": null,
-        "related_tags": ["#회수대행수수료수익", "#기타영업수익", "#회수대행수수료비용", "#청구수납비용"]
     },
     {
         "id": "GOSI-2024-079",
@@ -960,16 +900,6 @@ window.registerData([
         "related_tags": ["#콜센터 전용자산"]
     },
     {
-        "id": "GOSI-2024-097",
-        "category": "영업보고서 검증결과 지적사항",
-        "year": "2024",
-        "title": "자사 고객 관리 등의 업무를 수행하는 고객센터(콜센터) 전용 자산 형태 분류 오류",
-        "content": "자사 고객 관리 등의 업무를 수행하는 고객센터(콜센터) 전용 자산은 사용용도에 따라 일반지원자산(기타 일반지원자산)(형태) 및 일반지원자산등(고객서비스지원기능 자산)(기능)으로 분류하여야 하나, 정보처리설비(형태) 및 정보처리기능설비(기능)로 분류하였음",
-        "source_company": null,
-        "source_category": null,
-        "related_tags": ["#콜센터 전용자산"]
-    },
-    {
         "id": "GOSI-2024-098",
         "category": "영업보고서 검증결과 지적사항",
         "year": "2024",
@@ -1018,16 +948,6 @@ window.registerData([
         "source_company": null,
         "source_category": null,
         "related_tags": ["#전기통신공통설비운영비용"]
-    },
-    {
-        "id": "GOSI-2024-103",
-        "category": "영업보고서 검증결과 지적사항",
-        "year": "2024",
-        "title": "자사 고객 관리 등의 업무를 수행하는 고객센터(콜센터) 전용 자산 형태 분류 오류",
-        "content": "자사 고객 관리 등의 업무를 수행하는 고객센터(콜센터) 전용 자산은 사용용도에 따라 일반지원자산(기타 일반지원자산)(형태) 및 일반지원자산등(고객서비스지원기능 자산)(기능)으로 분류하여야 하나, 교환설비, 정보처리설비(형태) 및 교환기능설비, 정보처리기능설비(기능)로 분류하였음",
-        "source_company": null,
-        "source_category": null,
-        "related_tags": ["#콜센터 전용자산"]
     },
     {
         "id": "GOSI-2024-104",
@@ -1248,16 +1168,6 @@ window.registerData([
         "source_company": null,
         "source_category": null,
         "related_tags": ["#일반관리비용", "#온실가스배출권"]
-    },
-    {
-        "id": "GOSI-2024-126",
-        "category": "영업보고서 검증결과 지적사항",
-        "year": "2024",
-        "title": "이동통신서비스의 신규 가입자 가입절차 검증을 목적으로 협회에 지급하는 기능 분류 오류",
-        "content": "이동통신서비스의 신규 가입자 가입절차 검증을 목적으로 협회에 지급하는 위탁사업비는 일반관리기능비용 및 전기통신사업과 전기통신사업외의 사업 공통으로 분류하여야 하나, 고객서비스기능비용(가입자관리비용) 및 3G, LTE, 5G 서비스로 분류하였음",
-        "source_company": null,
-        "source_category": null,
-        "related_tags": ["#협회비"]
     },
     {
         "id": "GOSI-2024-127",
