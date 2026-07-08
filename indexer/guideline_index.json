@@ -1,16 +1,16 @@
 {
  "_meta": {
   "version": "0.1",
-  "total_entries": 1857,
+  "total_entries": 1815,
   "stats": {
-   "total": 1857,
-   "with_asset": 525,
-   "with_function": 418,
-   "with_service": 1013,
-   "with_revenue": 322,
-   "with_cost": 545,
-   "with_any": 1639,
-   "no_tag": 218
+   "total": 1815,
+   "with_asset": 511,
+   "with_function": 411,
+   "with_service": 984,
+   "with_revenue": 318,
+   "with_cost": 537,
+   "with_any": 1600,
+   "no_tag": 215
   },
   "categories": [
    "asset",
@@ -4692,31 +4692,6 @@
    "id": "acmt_2018#3",
    "source_file": "acmt_2018.js",
    "index_in_file": 3,
-   "title": "[공통] 중고폰 선보상 제도 관련 평가차액의 통신원가 인정 여부",
-   "category": "회계전문위원회 회의 결과",
-   "year": "2018",
-   "source_company": null,
-   "source_pdf": "[자문단] 파일결합본.pdf (FY2018 회계전문위원회 회의 결과)",
-   "tags": {
-    "asset": [],
-    "function": [],
-    "service": [],
-    "revenue": [],
-    "cost": []
-   },
-   "decision_types": [
-    "원가",
-    "인식"
-   ],
-   "conclusions": [
-    "☞ 2안 (단말판매와 유사하므로 통신원가로 인정 불가) 선보상제도로 인한 평가차액 발생 유무와는 별개로 실제 회계처리 등이 이동전화단말 매출과 동일하므로 전기통신사업 원가로 인정할 수 없음"
-   ],
-   "content_length": 566
-  },
-  {
-   "id": "acmt_2018#4",
-   "source_file": "acmt_2018.js",
-   "index_in_file": 4,
    "title": "[공통] 동등결합상품의 결합 범위 포함 여부",
    "category": "회계전문위원회 회의 결과",
    "year": "2018",
@@ -4750,9 +4725,9 @@
    "content_length": 716
   },
   {
-   "id": "acmt_2018#5",
+   "id": "acmt_2018#4",
    "source_file": "acmt_2018.js",
-   "index_in_file": 5,
+   "index_in_file": 4,
    "title": "앱 관련 기능·서비스 분류(1) 앱의 자산·수익·비용의 서비스 분류",
    "category": "회계전문위원회 회의 결과",
    "year": "2018",
@@ -4789,43 +4764,6 @@
    "id": "acmt_2019#0",
    "source_file": "acmt_2019.js",
    "index_in_file": 0,
-   "title": "국제전기통신역무의 범위",
-   "category": "회계전문위원회 회의 결과",
-   "year": "2019",
-   "source_company": null,
-   "source_pdf": "[자문단]2020.03_제1차 회계전문위원회 서면회의 안건_★ 회의결과_수정본.pdf",
-   "tags": {
-    "asset": [],
-    "function": [],
-    "service": [
-     {
-      "term": "국제전화",
-      "code": "A040",
-      "count": 4
-     },
-     {
-      "term": "국제로밍",
-      "code": "B*.RM",
-      "count": 2
-     }
-    ],
-    "revenue": [],
-    "cost": []
-   },
-   "decision_types": [
-    "범위",
-    "배부",
-    "인식"
-   ],
-   "conclusions": [
-    "☞ [1안] [국제전화, 이동통신역무에만 한정] 국제정산수익 또는 부담금은 기존과 동일하게 요금 정산에 대한 대가로 발생하는 것으로 보는 것이 타당"
-   ],
-   "content_length": 793
-  },
-  {
-   "id": "acmt_2019#1",
-   "source_file": "acmt_2019.js",
-   "index_in_file": 1,
    "title": "국제정산부담금 : 다른 사업자의 전기통신망을 사용하는 대가로 지불하는비용 중 외국정부 또는 외국인과 국제전기통신역무의 취급에 따른 요금의정산 부담금2. 콘텐츠비용의 형태·역무 분류",
    "category": "회계전문위원회 회의 결과",
    "year": "2019",
@@ -4964,7 +4902,7 @@
    "id": "acmt_2020#1",
    "source_file": "acmt_2020.js",
    "index_in_file": 1,
-   "title": "고객서비스기능비용다. 청구·수납비용 : 서비스의 요금청구서 작성, 요금청구와 수납, 체납청구와수납, 요금의환불등과관련하여발생한비용을말한다. 청구와수납활동에따라발생한수수료는성격에따라보조기록부에기록하고보관한다.2. 부가서비스 상품의 역무분류",
+   "title": "[공통] 부가서비스 상품(인증·결제 등)의 역무분류",
    "category": "회계전문위원회 회의 결과",
    "year": "2020",
    "source_company": null,
@@ -5000,26 +4938,15 @@
    "id": "acmt_2020#2",
    "source_file": "acmt_2020.js",
    "index_in_file": 2,
-   "title": "앱 관련 기능·서비스 분류(1) 앱의 자산·수익·비용의 서비스 분류",
+   "title": "[공통] 앱의 자산·수익·비용의 서비스 분류",
    "category": "회계전문위원회 회의 결과",
    "year": "2020",
    "source_company": null,
    "source_pdf": "[자문단] 파일결합본.pdf (FY2020 회계전문위원회 회의 결과)",
    "tags": {
-    "asset": [
-     {
-      "term": "차량운반구",
-      "code": "AST.VEHICLE",
-      "count": 9
-     }
-    ],
+    "asset": [],
     "function": [],
     "service": [
-     {
-      "term": "MVNO",
-      "code": "B*.MVNO",
-      "count": 9
-     },
      {
       "term": "부가통신",
       "code": "E010",
@@ -5029,12 +4956,121 @@
       "term": "전기통신사업외",
       "code": "F010",
       "count": 4
+     }
+    ],
+    "revenue": [],
+    "cost": []
+   },
+   "decision_types": [
+    "원가"
+   ],
+   "conclusions": [
+    "☞ 3안 (부가통신역무) 고객서비스를 목적으로 하거나 자사 고객의 서비스 제공을 필수적으로 필요한 앱에 대해서“각 해당서비스로 분류”하는 기준은 유지 (2011년 자문단 회의 결과, 2013년 질의회신 참고) 그러나 앱 관련 시장 환경 변화를 고려해 위 기준 외에 모두 비전기로 분류하도록 하였던 기존 해석을 수정해 통신사 가입 여부와 무관하게 누구나 사용가"
+   ],
+   "content_length": 835
+  },
+  {
+   "id": "acmt_2020#3",
+   "source_file": "acmt_2020.js",
+   "index_in_file": 3,
+   "title": "[공통] 차량관제(IoT) 회선 수익의 형태 분류 (도매제공수익 vs 정액요금수익)",
+   "category": "회계전문위원회 회의 결과",
+   "year": "2020",
+   "source_company": null,
+   "source_pdf": "[자문단] 파일결합본.pdf (FY2020 회계전문위원회 회의 결과)",
+   "tags": {
+    "asset": [
+     {
+      "term": "차량운반구",
+      "code": "AST.VEHICLE",
+      "count": 10
+     }
+    ],
+    "function": [],
+    "service": [
+     {
+      "term": "MVNO",
+      "code": "B*.MVNO",
+      "count": 9
+     }
+    ],
+    "revenue": [
+     {
+      "term": "도매제공수익",
+      "code": "REV.WHOLE",
+      "count": 7
      },
+     {
+      "term": "요금수익",
+      "code": "REV.FEE",
+      "count": 4
+     }
+    ],
+    "cost": [
+     {
+      "term": "도매제공대가",
+      "code": "COST.WHOLE",
+      "count": 1
+     }
+    ]
+   },
+   "decision_types": [
+    "인식"
+   ],
+   "conclusions": [
+    "☞ [2안] [거래 유형에 따라 각각 분류] 사업의 실질을 우선적으로 고려하여 거래 유형에 따라 자동차회사가MVNO로 등록하여 서비스를 제공하면서 MVNO 가입회선으로 정리된 경우 도매제공수익으로 분류하며, 그 외의 경우는 정액요금수익으로 분류하도록 함",
+    "☞ 1안(도매제공대가 수익으로 인식)"
+   ],
+   "content_length": 1088
+  },
+  {
+   "id": "acmt_2020#4",
+   "source_file": "acmt_2020.js",
+   "index_in_file": 4,
+   "title": "[공통] 합병에 따른 과징금 산정 방법",
+   "category": "회계전문위원회 회의 결과",
+   "year": "2020",
+   "source_company": null,
+   "source_pdf": "[자문단] 파일결합본.pdf (FY2020 회계전문위원회 회의 결과)",
+   "tags": {
+    "asset": [],
+    "function": [],
+    "service": [
      {
       "term": "CATV",
       "code": "D030",
       "count": 2
-     },
+     }
+    ],
+    "revenue": [],
+    "cost": []
+   },
+   "decision_types": [
+    "검증/지적",
+    "범위",
+    "인식"
+   ],
+   "conclusions": [
+    "☞ [2안] [합병 전·후 개별 법인으로 각각 산정] 합병 전·후 발생한 위반 행위 및 성격 등 오류의 발생 원인이 다르므로, 합병 전 합병법인, 합병 전 피합병법인, 합병 후 합병법인의 과징금을 각각 산정하여야 함",
+    "☞ [2안] [피합병법인이 제공한 서비스는 제외] 합병법인과 피합병법인은 개별 독립적인 사업자로서 영업보고서를 각각 제출·검증받고 있으므로, 피합병법인이 제공한 서비스는 제외",
+    "☞ [합병 후 존속법인의 감경비율 적용] 위반사업자의 현실적 부담능력(당기순손실 및 자본잠식)은 시정명령 등의 부과 대상사업자의 재정상태 등 현실적 부담능력을 고려하여 과징금 감경비율 등을 확대하기 위한 것이므로, 합병법인의 재무상태 등을 고려하여 감경비율을 적용하는 것이 타당",
+    "☞ 1안[회계분리를 실시한 경우 제공 서비스수로 산정] 서비스 제공 전일지라도 자산, 비용 등의 회계분리를 실시하였다면 관련 서비스를 제공 서비스수로 포함하여 산정하는 것이 타당함. 다만, 회계 분리 실시여부에 대해 검증회계법인의 최종 검토를 거쳐 제공서비스수를 산정하도록 함"
+   ],
+   "content_length": 2283
+  },
+  {
+   "id": "acmt_2020#5",
+   "source_file": "acmt_2020.js",
+   "index_in_file": 5,
+   "title": "[공통] 자가소비사업용 손익 인식 방법 (임직원 이동통신 단가)",
+   "category": "회계전문위원회 회의 결과",
+   "year": "2020",
+   "source_company": null,
+   "source_pdf": "[자문단] 파일결합본.pdf (FY2020 회계전문위원회 회의 결과)",
+   "tags": {
+    "asset": [],
+    "function": [],
+    "service": [
      {
       "term": "이동전화_LTE",
       "code": "B090",
@@ -5051,43 +5087,18 @@
       "count": 1
      }
     ],
-    "revenue": [
-     {
-      "term": "도매제공수익",
-      "code": "REV.WHOLE",
-      "count": 6
-     },
-     {
-      "term": "요금수익",
-      "code": "REV.FEE",
-      "count": 3
-     }
-    ],
-    "cost": [
-     {
-      "term": "도매제공대가",
-      "code": "COST.WHOLE",
-      "count": 1
-     }
-    ]
+    "revenue": [],
+    "cost": []
    },
    "decision_types": [
-    "검증/지적",
     "인식",
     "원가"
    ],
    "conclusions": [
-    "☞ 3안 (부가통신역무) 고객서비스를 목적으로 하거나 자사 고객의 서비스 제공을 필수적으로 필요한 앱에 대해서“각 해당서비스로 분류”하는 기준은 유지 (2011년 자문단 회의 결과, 2013년 질의회신 참고) 그러나 앱 관련 시장 환경 변화를 고려해 위 기준 외에 모두 비전기로 분류하도록 하였던 기존 해석을 수정해 통신사 가입 여부와 무관하게 누구나 사용가",
-    "☞ [2안] [거래 유형에 따라 각각 분류] 사업의 실질을 우선적으로 고려하여 거래 유형에 따라 자동차회사가MVNO로 등록하여 서비스를 제공하면서 MVNO 가입회선으로 정리된 경우 도매제공수익으로 분류하며, 그 외의 경우는 정액요금수익으로 분류하도록 함",
-    "☞ 1안(도매제공대가 수익으로 인식)",
-    "☞ [2안] [합병 전·후 개별 법인으로 각각 산정] 합병 전·후 발생한 위반 행위 및 성격 등 오류의 발생 원인이 다르므로, 합병 전 합병법인, 합병 전 피합병법인, 합병 후 합병법인의 과징금을 각각 산정하여야 함",
-    "☞ [2안] [피합병법인이 제공한 서비스는 제외] 합병법인과 피합병법인은 개별 독립적인 사업자로서 영업보고서를 각각 제출·검증받고 있으므로, 피합병법인이 제공한 서비스는 제외",
-    "☞ [합병 후 존속법인의 감경비율 적용] 위반사업자의 현실적 부담능력(당기순손실 및 자본잠식)은 시정명령 등의 부과 대상사업자의 재정상태 등 현실적 부담능력을 고려하여 과징금 감경비율 등을 확대하기 위한 것이므로, 합병법인의 재무상태 등을 고려하여 감경비율을 적용하는 것이 타당",
-    "☞ 1안[회계분리를 실시한 경우 제공 서비스수로 산정] 서비스 제공 전일지라도 자산, 비용 등의 회계분리를 실시하였다면 관련 서비스를 제공 서비스수로 포함하여 산정하는 것이 타당함. 다만, 회계 분리 실시여부에 대해 검증회계법인의 최종 검토를 거쳐 제공서비스수를 산정하도록 함",
     "☞ [1안] [각 서비스별 최저요금제 적용] 통신비 상한이 거의 없는 상황에서 데이터 무제한 요금제를 적용하는 것이 보다 실질을 반영한다고 볼 수 있으므로, 각 이동통신 서비스별 이용약관상 최저요금제를 적용하는 것이 타당",
     "☞ [2안] [실제 출시한 이용약관상 최저요금제 적용] 이동통신 시장의 실제 운영되는 요금제를 반영하도록 하는 취지에 따라 각 통신사에서 제공하고 있는 이용약관상 서비스별 최저 요금제를 적용하여야 함"
    ],
-   "content_length": 5567
+   "content_length": 1338
   },
   {
    "id": "acmt_2021#0",
@@ -11280,45 +11291,6 @@
    "id": "gosi_2013#58",
    "source_file": "gosi_2013.js",
    "index_in_file": 58,
-   "title": "E사(자산) - 일반지원자산 배부 기준 오류",
-   "category": "영업보고서 검증결과 지적사항",
-   "year": "2013",
-   "source_company": "E사",
-   "source_pdf": "[가이드라인] FY2013 (지적사항, 미상)",
-   "tags": {
-    "asset": [
-     {
-      "term": "구축물",
-      "code": "AST.STRUCT",
-      "count": 1
-     },
-     {
-      "term": "토지",
-      "code": "AST.LAND",
-      "count": 1
-     },
-     {
-      "term": "건물",
-      "code": "AST.BLDG",
-      "count": 1
-     }
-    ],
-    "function": [],
-    "service": [],
-    "revenue": [],
-    "cost": []
-   },
-   "decision_types": [
-    "배부",
-    "검증/지적"
-   ],
-   "conclusions": [],
-   "content_length": 71
-  },
-  {
-   "id": "gosi_2013#59",
-   "source_file": "gosi_2013.js",
-   "index_in_file": 59,
    "title": "E사(수익/비용 등) - 감가상각비 내용연수 적용 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2013",
@@ -11344,59 +11316,9 @@
    "content_length": 54
   },
   {
-   "id": "gosi_2013#60",
+   "id": "gosi_2013#59",
    "source_file": "gosi_2013.js",
-   "index_in_file": 60,
-   "title": "E사(수익/비용 등) - 전력수도료 기능 분류 오류",
-   "category": "영업보고서 검증결과 지적사항",
-   "year": "2013",
-   "source_company": "E사",
-   "source_pdf": "[가이드라인] FY2013 (지적사항, 미상)",
-   "tags": {
-    "asset": [],
-    "function": [
-     {
-      "term": "시설운영기능",
-      "code": "A03",
-      "count": 1
-     },
-     {
-      "term": "일반관리기능",
-      "code": "A05",
-      "count": 1
-     }
-    ],
-    "service": [
-     {
-      "term": "공통_전기통신",
-      "code": "Z110",
-      "count": 1
-     }
-    ],
-    "revenue": [],
-    "cost": [
-     {
-      "term": "설비운영비용",
-      "code": "COST.OP",
-      "count": 2
-     },
-     {
-      "term": "일반관리비",
-      "code": "COST.G&A",
-      "count": 1
-     }
-    ]
-   },
-   "decision_types": [
-    "검증/지적"
-   ],
-   "conclusions": [],
-   "content_length": 80
-  },
-  {
-   "id": "gosi_2013#61",
-   "source_file": "gosi_2013.js",
-   "index_in_file": 61,
+   "index_in_file": 59,
    "title": "E사(수익/비용 등) - 일반소송 법률비용 기능 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2013",
@@ -11428,222 +11350,9 @@
    "content_length": 48
   },
   {
-   "id": "gosi_2013#62",
+   "id": "gosi_2013#60",
    "source_file": "gosi_2013.js",
-   "index_in_file": 62,
-   "title": "E사(수익/비용 등) - 전기통신설비지원기능자산 운영비용 배부 기준 오류",
-   "category": "영업보고서 검증결과 지적사항",
-   "year": "2013",
-   "source_company": "E사",
-   "source_pdf": "[가이드라인] FY2013 (지적사항, 미상)",
-   "tags": {
-    "asset": [
-     {
-      "term": "구축물",
-      "code": "AST.STRUCT",
-      "count": 1
-     },
-     {
-      "term": "토지",
-      "code": "AST.LAND",
-      "count": 1
-     },
-     {
-      "term": "건물",
-      "code": "AST.BLDG",
-      "count": 1
-     }
-    ],
-    "function": [],
-    "service": [],
-    "revenue": [],
-    "cost": []
-   },
-   "decision_types": [
-    "배부",
-    "검증/지적"
-   ],
-   "conclusions": [],
-   "content_length": 82
-  },
-  {
-   "id": "gosi_2013#63",
-   "source_file": "gosi_2013.js",
-   "index_in_file": 63,
-   "title": "F사(자산) - 영업전산시스템(PCBS) 기능 분류 오류",
-   "category": "영업보고서 검증결과 지적사항",
-   "year": "2013",
-   "source_company": "F사",
-   "source_pdf": "[가이드라인] FY2013 (지적사항, 미상)",
-   "tags": {
-    "asset": [],
-    "function": [
-     {
-      "term": "판매영업기능",
-      "code": "A02",
-      "count": 1
-     }
-    ],
-    "service": [],
-    "revenue": [],
-    "cost": []
-   },
-   "decision_types": [
-    "검증/지적"
-   ],
-   "conclusions": [],
-   "content_length": 57
-  },
-  {
-   "id": "gosi_2013#64",
-   "source_file": "gosi_2013.js",
-   "index_in_file": 64,
-   "title": "F사(자산) - DIG 설비 분류 오류",
-   "category": "영업보고서 검증결과 지적사항",
-   "year": "2013",
-   "source_company": "F사",
-   "source_pdf": "[가이드라인] FY2013 (지적사항, 미상)",
-   "tags": {
-    "asset": [
-     {
-      "term": "무형자산.주파수이용권",
-      "code": "AST.INTAN.SPEC",
-      "count": 1
-     }
-    ],
-    "function": [],
-    "service": [
-     {
-      "term": "이동전화_3G",
-      "code": "B080",
-      "count": 2
-     },
-     {
-      "term": "이동전화_LTE",
-      "code": "B090",
-      "count": 1
-     }
-    ],
-    "revenue": [],
-    "cost": []
-   },
-   "decision_types": [
-    "검증/지적"
-   ],
-   "conclusions": [],
-   "content_length": 87
-  },
-  {
-   "id": "gosi_2013#65",
-   "source_file": "gosi_2013.js",
-   "index_in_file": 65,
-   "title": "F사(자산) - 미사용자산 분류 오류 (국제전화 선불카드)",
-   "category": "영업보고서 검증결과 지적사항",
-   "year": "2013",
-   "source_company": "F사",
-   "source_pdf": "[가이드라인] FY2013 (지적사항, 미상)",
-   "tags": {
-    "asset": [],
-    "function": [],
-    "service": [
-     {
-      "term": "국제전화",
-      "code": "A040",
-      "count": 2
-     }
-    ],
-    "revenue": [],
-    "cost": []
-   },
-   "decision_types": [
-    "검증/지적"
-   ],
-   "conclusions": [],
-   "content_length": 69
-  },
-  {
-   "id": "gosi_2013#66",
-   "source_file": "gosi_2013.js",
-   "index_in_file": 66,
-   "title": "F사(자산) - 위치관제서비스 설비 분류 오류",
-   "category": "영업보고서 검증결과 지적사항",
-   "year": "2013",
-   "source_company": "F사",
-   "source_pdf": "[가이드라인] FY2013 (지적사항, 미상)",
-   "tags": {
-    "asset": [
-     {
-      "term": "무형자산.주파수이용권",
-      "code": "AST.INTAN.SPEC",
-      "count": 2
-     }
-    ],
-    "function": [],
-    "service": [
-     {
-      "term": "공통_전기통신",
-      "code": "Z110",
-      "count": 1
-     }
-    ],
-    "revenue": [],
-    "cost": []
-   },
-   "decision_types": [
-    "검증/지적"
-   ],
-   "conclusions": [],
-   "content_length": 76
-  },
-  {
-   "id": "gosi_2013#67",
-   "source_file": "gosi_2013.js",
-   "index_in_file": 67,
-   "title": "F사(수익/비용 등) - 교환설비 접속수익 분류 오류",
-   "category": "영업보고서 검증결과 지적사항",
-   "year": "2013",
-   "source_company": "F사",
-   "source_pdf": "[가이드라인] FY2013 (지적사항, 미상)",
-   "tags": {
-    "asset": [
-     {
-      "term": "구축물.교환설비",
-      "code": "AST.STRUCT.SWITCH",
-      "count": 2
-     },
-     {
-      "term": "무형자산.주파수이용권",
-      "code": "AST.INTAN.SPEC",
-      "count": 1
-     }
-    ],
-    "function": [],
-    "service": [
-     {
-      "term": "전기통신사업외",
-      "code": "F010",
-      "count": 1
-     }
-    ],
-    "revenue": [
-     {
-      "term": "요금수익",
-      "code": "REV.FEE",
-      "count": 1
-     }
-    ],
-    "cost": []
-   },
-   "decision_types": [
-    "검증/지적"
-   ],
-   "conclusions": [],
-   "content_length": 69
-  },
-  {
-   "id": "gosi_2013#68",
-   "source_file": "gosi_2013.js",
-   "index_in_file": 68,
+   "index_in_file": 60,
    "title": "G사(수익/비용 등) - 차량유지관리비 기능 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2013",
@@ -11681,9 +11390,9 @@
    "content_length": 50
   },
   {
-   "id": "gosi_2013#69",
+   "id": "gosi_2013#61",
    "source_file": "gosi_2013.js",
-   "index_in_file": 69,
+   "index_in_file": 61,
    "title": "G사(수익/비용 등) - 비즈레터링 정산비용 형태 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2013",
@@ -11709,9 +11418,9 @@
    "content_length": 41
   },
   {
-   "id": "gosi_2013#70",
+   "id": "gosi_2013#62",
    "source_file": "gosi_2013.js",
-   "index_in_file": 70,
+   "index_in_file": 62,
    "title": "G사(수익/비용 등) - 브랜드사용료 기능 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2013",
@@ -11731,9 +11440,9 @@
    "content_length": 51
   },
   {
-   "id": "gosi_2013#71",
+   "id": "gosi_2013#63",
    "source_file": "gosi_2013.js",
-   "index_in_file": 71,
+   "index_in_file": 63,
    "title": "G사(수익/비용 등) - SBC 유지보수비 기능 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2013",
@@ -11753,9 +11462,9 @@
    "content_length": 46
   },
   {
-   "id": "gosi_2013#72",
+   "id": "gosi_2013#64",
    "source_file": "gosi_2013.js",
-   "index_in_file": 72,
+   "index_in_file": 64,
    "title": "H사(자산) - 망 테스트 설비 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2013",
@@ -11781,9 +11490,9 @@
    "content_length": 57
   },
   {
-   "id": "gosi_2013#73",
+   "id": "gosi_2013#65",
    "source_file": "gosi_2013.js",
-   "index_in_file": 73,
+   "index_in_file": 65,
    "title": "I사(자산) - 인터넷전화 빌링시스템 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2013",
@@ -11809,43 +11518,9 @@
    "content_length": 53
   },
   {
-   "id": "gosi_2013#74",
+   "id": "gosi_2013#66",
    "source_file": "gosi_2013.js",
-   "index_in_file": 74,
-   "title": "I사(자산) - 방화벽 장비 분류 오류",
-   "category": "영업보고서 검증결과 지적사항",
-   "year": "2013",
-   "source_company": "I사",
-   "source_pdf": "[가이드라인] FY2013 (지적사항, 미상)",
-   "tags": {
-    "asset": [
-     {
-      "term": "기계장치.서버라우터",
-      "code": "AST.MACH.SVR",
-      "count": 2
-     }
-    ],
-    "function": [],
-    "service": [
-     {
-      "term": "인터넷백본",
-      "code": "C030",
-      "count": 5
-     }
-    ],
-    "revenue": [],
-    "cost": []
-   },
-   "decision_types": [
-    "검증/지적"
-   ],
-   "conclusions": [],
-   "content_length": 64
-  },
-  {
-   "id": "gosi_2013#75",
-   "source_file": "gosi_2013.js",
-   "index_in_file": 75,
+   "index_in_file": 66,
    "title": "I사(수익/비용 등) - 선로설비 유지보수비용 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2013",
@@ -11871,54 +11546,9 @@
    "content_length": 54
   },
   {
-   "id": "gosi_2013#76",
+   "id": "gosi_2013#67",
    "source_file": "gosi_2013.js",
-   "index_in_file": 76,
-   "title": "I사(수익/비용 등) - 통신실 지급임차료 기능 분류 오류",
-   "category": "영업보고서 검증결과 지적사항",
-   "year": "2013",
-   "source_company": "I사",
-   "source_pdf": "[가이드라인] FY2013 (지적사항, 미상)",
-   "tags": {
-    "asset": [],
-    "function": [
-     {
-      "term": "시설운영기능",
-      "code": "A03",
-      "count": 1
-     }
-    ],
-    "service": [
-     {
-      "term": "공통_전기통신",
-      "code": "Z110",
-      "count": 1
-     }
-    ],
-    "revenue": [],
-    "cost": [
-     {
-      "term": "설비운영비용",
-      "code": "COST.OP",
-      "count": 2
-     },
-     {
-      "term": "임차료",
-      "code": "COST.RENT",
-      "count": 2
-     }
-    ]
-   },
-   "decision_types": [
-    "검증/지적"
-   ],
-   "conclusions": [],
-   "content_length": 61
-  },
-  {
-   "id": "gosi_2013#77",
-   "source_file": "gosi_2013.js",
-   "index_in_file": 77,
+   "index_in_file": 67,
    "title": "J사(자산) - CSU 설비 기능 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2013",
@@ -11938,65 +11568,9 @@
    "content_length": 39
   },
   {
-   "id": "gosi_2013#78",
+   "id": "gosi_2013#68",
    "source_file": "gosi_2013.js",
-   "index_in_file": 78,
-   "title": "J사(자산) - SI사업 자산 분류 오류",
-   "category": "영업보고서 검증결과 지적사항",
-   "year": "2013",
-   "source_company": "J사",
-   "source_pdf": "[가이드라인] FY2013 (지적사항, 미상)",
-   "tags": {
-    "asset": [],
-    "function": [],
-    "service": [
-     {
-      "term": "전기통신사업외",
-      "code": "F010",
-      "count": 1
-     }
-    ],
-    "revenue": [],
-    "cost": []
-   },
-   "decision_types": [
-    "검증/지적"
-   ],
-   "conclusions": [],
-   "content_length": 61
-  },
-  {
-   "id": "gosi_2013#79",
-   "source_file": "gosi_2013.js",
-   "index_in_file": 79,
-   "title": "J사(수익/비용 등) - 전산실 운용 용역수익 분류 오류",
-   "category": "영업보고서 검증결과 지적사항",
-   "year": "2013",
-   "source_company": "J사",
-   "source_pdf": "[가이드라인] FY2013 (지적사항, 미상)",
-   "tags": {
-    "asset": [],
-    "function": [],
-    "service": [
-     {
-      "term": "전기통신사업외",
-      "code": "F010",
-      "count": 1
-     }
-    ],
-    "revenue": [],
-    "cost": []
-   },
-   "decision_types": [
-    "검증/지적"
-   ],
-   "conclusions": [],
-   "content_length": 60
-  },
-  {
-   "id": "gosi_2013#80",
-   "source_file": "gosi_2013.js",
-   "index_in_file": 80,
+   "index_in_file": 68,
    "title": "J사(수익/비용 등) - 투자보수 계산 시 퇴직금 누락",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2013",
@@ -12016,31 +11590,9 @@
    "content_length": 34
   },
   {
-   "id": "gosi_2013#81",
+   "id": "gosi_2013#69",
    "source_file": "gosi_2013.js",
-   "index_in_file": 81,
-   "title": "K사(자산) - FMS 설비 분류 오류",
-   "category": "영업보고서 검증결과 지적사항",
-   "year": "2013",
-   "source_company": "K사",
-   "source_pdf": "[가이드라인] FY2013 (지적사항, 미상)",
-   "tags": {
-    "asset": [],
-    "function": [],
-    "service": [],
-    "revenue": [],
-    "cost": []
-   },
-   "decision_types": [
-    "검증/지적"
-   ],
-   "conclusions": [],
-   "content_length": 70
-  },
-  {
-   "id": "gosi_2013#82",
-   "source_file": "gosi_2013.js",
-   "index_in_file": 82,
+   "index_in_file": 69,
    "title": "K사(자산) - QDF 설비 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2013",
@@ -12066,89 +11618,9 @@
    "content_length": 50
   },
   {
-   "id": "gosi_2013#83",
+   "id": "gosi_2013#70",
    "source_file": "gosi_2013.js",
-   "index_in_file": 83,
-   "title": "K사(자산) - DOTS 설비 분류 오류",
-   "category": "영업보고서 검증결과 지적사항",
-   "year": "2013",
-   "source_company": "K사",
-   "source_pdf": "[가이드라인] FY2013 (지적사항, 미상)",
-   "tags": {
-    "asset": [],
-    "function": [],
-    "service": [
-     {
-      "term": "인터넷백본",
-      "code": "C030",
-      "count": 3
-     },
-     {
-      "term": "전용회선",
-      "code": "A060",
-      "count": 2
-     },
-     {
-      "term": "인터넷전용회선",
-      "code": "C040",
-      "count": 1
-     },
-     {
-      "term": "공통_전기통신",
-      "code": "Z110",
-      "count": 1
-     }
-    ],
-    "revenue": [],
-    "cost": []
-   },
-   "decision_types": [
-    "검증/지적",
-    "범위"
-   ],
-   "conclusions": [],
-   "content_length": 73
-  },
-  {
-   "id": "gosi_2013#84",
-   "source_file": "gosi_2013.js",
-   "index_in_file": 84,
-   "title": "K사(자산) - 건물 배부 기준 오류",
-   "category": "영업보고서 검증결과 지적사항",
-   "year": "2013",
-   "source_company": "K사",
-   "source_pdf": "[가이드라인] FY2013 (지적사항, 미상)",
-   "tags": {
-    "asset": [
-     {
-      "term": "건물",
-      "code": "AST.BLDG",
-      "count": 2
-     }
-    ],
-    "function": [],
-    "service": [
-     {
-      "term": "전기통신사업외",
-      "code": "F010",
-      "count": 2
-     }
-    ],
-    "revenue": [],
-    "cost": []
-   },
-   "decision_types": [
-    "배부",
-    "범위",
-    "검증/지적"
-   ],
-   "conclusions": [],
-   "content_length": 69
-  },
-  {
-   "id": "gosi_2013#85",
-   "source_file": "gosi_2013.js",
-   "index_in_file": 85,
+   "index_in_file": 70,
    "title": "K사(자산) - 판매영업기능지원자산 등 배부 기준 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2013",
@@ -12175,9 +11647,9 @@
    "content_length": 44
   },
   {
-   "id": "gosi_2013#86",
+   "id": "gosi_2013#71",
    "source_file": "gosi_2013.js",
-   "index_in_file": 86,
+   "index_in_file": 71,
    "title": "K사(수익/비용 등) - 인건비 배부 기준 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2013",
@@ -12204,45 +11676,9 @@
    "content_length": 34
   },
   {
-   "id": "gosi_2013#87",
+   "id": "gosi_2013#72",
    "source_file": "gosi_2013.js",
-   "index_in_file": 87,
-   "title": "K사(수익/비용 등) - 지급임차료 등 배부 기준 오류",
-   "category": "영업보고서 검증결과 지적사항",
-   "year": "2013",
-   "source_company": "K사",
-   "source_pdf": "[가이드라인] FY2013 (지적사항, 미상)",
-   "tags": {
-    "asset": [],
-    "function": [],
-    "service": [
-     {
-      "term": "전기통신사업외",
-      "code": "F010",
-      "count": 2
-     }
-    ],
-    "revenue": [],
-    "cost": [
-     {
-      "term": "임차료",
-      "code": "COST.RENT",
-      "count": 2
-     }
-    ]
-   },
-   "decision_types": [
-    "배부",
-    "범위",
-    "검증/지적"
-   ],
-   "conclusions": [],
-   "content_length": 74
-  },
-  {
-   "id": "gosi_2013#88",
-   "source_file": "gosi_2013.js",
-   "index_in_file": 88,
+   "index_in_file": 72,
    "title": "L사(자산) - 케이블모뎀 등 분류 오류 (수정)",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2013",
@@ -12278,99 +11714,9 @@
    "content_length": 106
   },
   {
-   "id": "gosi_2013#89",
+   "id": "gosi_2013#73",
    "source_file": "gosi_2013.js",
-   "index_in_file": 89,
-   "title": "L사(자산) - 일반지원기능공통자산 배부 기준 오류",
-   "category": "영업보고서 검증결과 지적사항",
-   "year": "2013",
-   "source_company": "L사",
-   "source_pdf": "[가이드라인] FY2013 (지적사항, 미상)",
-   "tags": {
-    "asset": [],
-    "function": [
-     {
-      "term": "일반관리기능",
-      "code": "A05",
-      "count": 2
-     }
-    ],
-    "service": [],
-    "revenue": [],
-    "cost": [
-     {
-      "term": "일반관리비",
-      "code": "COST.G&A",
-      "count": 1
-     }
-    ]
-   },
-   "decision_types": [
-    "배부",
-    "검증/지적"
-   ],
-   "conclusions": [],
-   "content_length": 71
-  },
-  {
-   "id": "gosi_2013#90",
-   "source_file": "gosi_2013.js",
-   "index_in_file": 90,
-   "title": "L사(자산) - 전송/선로설비 분류 오류",
-   "category": "영업보고서 검증결과 지적사항",
-   "year": "2013",
-   "source_company": "L사",
-   "source_pdf": "[가이드라인] FY2013 (지적사항, 미상)",
-   "tags": {
-    "asset": [
-     {
-      "term": "구축물.선로설비",
-      "code": "AST.STRUCT.LINE",
-      "count": 4
-     }
-    ],
-    "function": [],
-    "service": [
-     {
-      "term": "인터넷백본",
-      "code": "C030",
-      "count": 9
-     },
-     {
-      "term": "인터넷가입자접속",
-      "code": "C020",
-      "count": 1
-     },
-     {
-      "term": "인터넷전용회선",
-      "code": "C040",
-      "count": 1
-     },
-     {
-      "term": "인터넷전화",
-      "code": "A050",
-      "count": 1
-     },
-     {
-      "term": "전용회선",
-      "code": "A060",
-      "count": 1
-     }
-    ],
-    "revenue": [],
-    "cost": []
-   },
-   "decision_types": [
-    "범위",
-    "검증/지적"
-   ],
-   "conclusions": [],
-   "content_length": 104
-  },
-  {
-   "id": "gosi_2013#91",
-   "source_file": "gosi_2013.js",
-   "index_in_file": 91,
+   "index_in_file": 73,
    "title": "L사(수익/비용 등) - 영업비용 누락",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2013",
@@ -12388,82 +11734,9 @@
    "content_length": 35
   },
   {
-   "id": "gosi_2013#92",
+   "id": "gosi_2013#74",
    "source_file": "gosi_2013.js",
-   "index_in_file": 92,
-   "title": "L사(수익/비용 등) - 일반지원기능공통자산 운영비용 배부 기준 오류",
-   "category": "영업보고서 검증결과 지적사항",
-   "year": "2013",
-   "source_company": "L사",
-   "source_pdf": "[가이드라인] FY2013 (지적사항, 미상)",
-   "tags": {
-    "asset": [],
-    "function": [
-     {
-      "term": "일반관리기능",
-      "code": "A05",
-      "count": 2
-     }
-    ],
-    "service": [],
-    "revenue": [],
-    "cost": [
-     {
-      "term": "일반관리비",
-      "code": "COST.G&A",
-      "count": 1
-     }
-    ]
-   },
-   "decision_types": [
-    "배부",
-    "검증/지적"
-   ],
-   "conclusions": [],
-   "content_length": 76
-  },
-  {
-   "id": "gosi_2013#93",
-   "source_file": "gosi_2013.js",
-   "index_in_file": 93,
-   "title": "M사(자산) - CMTS 설비 분류 오류",
-   "category": "영업보고서 검증결과 지적사항",
-   "year": "2013",
-   "source_company": "M사",
-   "source_pdf": "[가이드라인] FY2013 (지적사항, 미상)",
-   "tags": {
-    "asset": [],
-    "function": [],
-    "service": [
-     {
-      "term": "인터넷가입자접속",
-      "code": "C020",
-      "count": 2
-     },
-     {
-      "term": "인터넷전화",
-      "code": "A050",
-      "count": 2
-     },
-     {
-      "term": "전용회선",
-      "code": "A060",
-      "count": 1
-     }
-    ],
-    "revenue": [],
-    "cost": []
-   },
-   "decision_types": [
-    "검증/지적"
-   ],
-   "conclusions": [],
-   "content_length": 85
-  },
-  {
-   "id": "gosi_2013#94",
-   "source_file": "gosi_2013.js",
-   "index_in_file": 94,
+   "index_in_file": 74,
    "title": "M사(자산) - 콜센터 자산 기능 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2013",
@@ -12489,47 +11762,9 @@
    "content_length": 53
   },
   {
-   "id": "gosi_2013#95",
+   "id": "gosi_2013#75",
    "source_file": "gosi_2013.js",
-   "index_in_file": 95,
-   "title": "M사(자산) - 전략채널센터 분류 오류",
-   "category": "영업보고서 검증결과 지적사항",
-   "year": "2013",
-   "source_company": "M사",
-   "source_pdf": "[가이드라인] FY2013 (지적사항, 미상)",
-   "tags": {
-    "asset": [],
-    "function": [],
-    "service": [
-     {
-      "term": "인터넷가입자접속",
-      "code": "C020",
-      "count": 1
-     },
-     {
-      "term": "전기통신사업외",
-      "code": "F010",
-      "count": 1
-     },
-     {
-      "term": "인터넷전화",
-      "code": "A050",
-      "count": 1
-     }
-    ],
-    "revenue": [],
-    "cost": []
-   },
-   "decision_types": [
-    "검증/지적"
-   ],
-   "conclusions": [],
-   "content_length": 67
-  },
-  {
-   "id": "gosi_2013#96",
-   "source_file": "gosi_2013.js",
-   "index_in_file": 96,
+   "index_in_file": 75,
    "title": "M사(수익/비용 등) - 국제로밍음성발신 매출액 형태 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2013",
@@ -12561,9 +11796,9 @@
    "content_length": 48
   },
   {
-   "id": "gosi_2013#97",
+   "id": "gosi_2013#76",
    "source_file": "gosi_2013.js",
-   "index_in_file": 97,
+   "index_in_file": 76,
    "title": "M사(수익/비용 등) - 티빙서비스 이용료 수익 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2013",
@@ -12600,147 +11835,9 @@
    "content_length": 54
   },
   {
-   "id": "gosi_2013#98",
+   "id": "gosi_2013#77",
    "source_file": "gosi_2013.js",
-   "index_in_file": 98,
-   "title": "M사(수익/비용 등) - 인터넷전화 발신 국제전화 통화료 분류 오류",
-   "category": "영업보고서 검증결과 지적사항",
-   "year": "2013",
-   "source_company": "M사",
-   "source_pdf": "[가이드라인] FY2013 (지적사항, 미상)",
-   "tags": {
-    "asset": [],
-    "function": [],
-    "service": [
-     {
-      "term": "인터넷전화",
-      "code": "A050",
-      "count": 4
-     },
-     {
-      "term": "국제전화",
-      "code": "A040",
-      "count": 4
-     }
-    ],
-    "revenue": [
-     {
-      "term": "요금수익",
-      "code": "REV.FEE",
-      "count": 2
-     }
-    ],
-    "cost": []
-   },
-   "decision_types": [
-    "검증/지적"
-   ],
-   "conclusions": [],
-   "content_length": 58
-  },
-  {
-   "id": "gosi_2013#99",
-   "source_file": "gosi_2013.js",
-   "index_in_file": 99,
-   "title": "M사(수익/비용 등) - 인터넷전화 타지역 착신서비스 수수료 분류 오류",
-   "category": "영업보고서 검증결과 지적사항",
-   "year": "2013",
-   "source_company": "M사",
-   "source_pdf": "[가이드라인] FY2013 (지적사항, 미상)",
-   "tags": {
-    "asset": [],
-    "function": [],
-    "service": [
-     {
-      "term": "인터넷전화",
-      "code": "A050",
-      "count": 4
-     },
-     {
-      "term": "전기통신사업외",
-      "code": "F010",
-      "count": 1
-     }
-    ],
-    "revenue": [],
-    "cost": []
-   },
-   "decision_types": [
-    "검증/지적"
-   ],
-   "conclusions": [],
-   "content_length": 59
-  },
-  {
-   "id": "gosi_2013#100",
-   "source_file": "gosi_2013.js",
-   "index_in_file": 100,
-   "title": "M사(수익/비용 등) - 인터넷 가입자유치비용 분류 오류",
-   "category": "영업보고서 검증결과 지적사항",
-   "year": "2013",
-   "source_company": "M사",
-   "source_pdf": "[가이드라인] FY2013 (지적사항, 미상)",
-   "tags": {
-    "asset": [],
-    "function": [],
-    "service": [
-     {
-      "term": "인터넷가입자접속",
-      "code": "C020",
-      "count": 4
-     },
-     {
-      "term": "전기통신사업외",
-      "code": "F010",
-      "count": 1
-     }
-    ],
-    "revenue": [],
-    "cost": []
-   },
-   "decision_types": [
-    "검증/지적"
-   ],
-   "conclusions": [],
-   "content_length": 61
-  },
-  {
-   "id": "gosi_2013#101",
-   "source_file": "gosi_2013.js",
-   "index_in_file": 101,
-   "title": "M사(수익/비용 등) - CMTS 유지보수비 분류 오류",
-   "category": "영업보고서 검증결과 지적사항",
-   "year": "2013",
-   "source_company": "M사",
-   "source_pdf": "[가이드라인] FY2013 (지적사항, 미상)",
-   "tags": {
-    "asset": [],
-    "function": [],
-    "service": [
-     {
-      "term": "인터넷가입자접속",
-      "code": "C020",
-      "count": 2
-     },
-     {
-      "term": "인터넷전화",
-      "code": "A050",
-      "count": 2
-     }
-    ],
-    "revenue": [],
-    "cost": []
-   },
-   "decision_types": [
-    "검증/지적"
-   ],
-   "conclusions": [],
-   "content_length": 77
-  },
-  {
-   "id": "gosi_2013#102",
-   "source_file": "gosi_2013.js",
-   "index_in_file": 102,
+   "index_in_file": 77,
    "title": "M사(수익/비용 등) - SSW/PBX 운영비용 기능 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2013",
@@ -12766,9 +11863,9 @@
    "content_length": 48
   },
   {
-   "id": "gosi_2013#103",
+   "id": "gosi_2013#78",
    "source_file": "gosi_2013.js",
-   "index_in_file": 103,
+   "index_in_file": 78,
    "title": "M사(수익/비용 등) - 청구 우편발송료 기능 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2013",
@@ -12810,53 +11907,9 @@
    "content_length": 48
   },
   {
-   "id": "gosi_2013#104",
+   "id": "gosi_2013#79",
    "source_file": "gosi_2013.js",
-   "index_in_file": 104,
-   "title": "M사(수익/비용 등) - 판촉 아웃바운드 대행수수료 기능 분류 오류",
-   "category": "영업보고서 검증결과 지적사항",
-   "year": "2013",
-   "source_company": "M사",
-   "source_pdf": "[가이드라인] FY2013 (지적사항, 미상)",
-   "tags": {
-    "asset": [],
-    "function": [
-     {
-      "term": "판매영업.광고선전",
-      "code": "A02.ADV",
-      "count": 2
-     },
-     {
-      "term": "판매영업.판매촉진",
-      "code": "A02.PRO",
-      "count": 2
-     }
-    ],
-    "service": [],
-    "revenue": [],
-    "cost": [
-     {
-      "term": "광고선전비",
-      "code": "COST.ADV",
-      "count": 1
-     },
-     {
-      "term": "판매촉진비",
-      "code": "COST.PROMO",
-      "count": 1
-     }
-    ]
-   },
-   "decision_types": [
-    "검증/지적"
-   ],
-   "conclusions": [],
-   "content_length": 67
-  },
-  {
-   "id": "gosi_2013#105",
-   "source_file": "gosi_2013.js",
-   "index_in_file": 105,
+   "index_in_file": 79,
    "title": "N사(자산) - Gateway 설비 형태 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2013",
@@ -12882,9 +11935,9 @@
    "content_length": 41
   },
   {
-   "id": "gosi_2013#106",
+   "id": "gosi_2013#80",
    "source_file": "gosi_2013.js",
-   "index_in_file": 106,
+   "index_in_file": 80,
    "title": "N사(자산) - IVR 설비 형태 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2013",
@@ -12910,121 +11963,9 @@
    "content_length": 37
   },
   {
-   "id": "gosi_2013#107",
+   "id": "gosi_2013#81",
    "source_file": "gosi_2013.js",
-   "index_in_file": 107,
-   "title": "N사(자산) - SMS 관련 설비 배부 오류",
-   "category": "영업보고서 검증결과 지적사항",
-   "year": "2013",
-   "source_company": "N사",
-   "source_pdf": "[가이드라인] FY2013 (지적사항, 미상)",
-   "tags": {
-    "asset": [],
-    "function": [],
-    "service": [
-     {
-      "term": "인터넷전화",
-      "code": "A050",
-      "count": 1
-     },
-     {
-      "term": "국제전화",
-      "code": "A040",
-      "count": 1
-     },
-     {
-      "term": "부가통신",
-      "code": "E010",
-      "count": 1
-     }
-    ],
-    "revenue": [],
-    "cost": []
-   },
-   "decision_types": [
-    "배부",
-    "검증/지적"
-   ],
-   "conclusions": [],
-   "content_length": 90
-  },
-  {
-   "id": "gosi_2013#108",
-   "source_file": "gosi_2013.js",
-   "index_in_file": 108,
-   "title": "N사(자산) - 인터넷전용회선 설비 분류 오류",
-   "category": "영업보고서 검증결과 지적사항",
-   "year": "2013",
-   "source_company": "N사",
-   "source_pdf": "[가이드라인] FY2013 (지적사항, 미상)",
-   "tags": {
-    "asset": [],
-    "function": [],
-    "service": [
-     {
-      "term": "인터넷전용회선",
-      "code": "C040",
-      "count": 6
-     },
-     {
-      "term": "전용회선",
-      "code": "A060",
-      "count": 6
-     },
-     {
-      "term": "인터넷전화",
-      "code": "A050",
-      "count": 1
-     },
-     {
-      "term": "부가통신",
-      "code": "E010",
-      "count": 1
-     }
-    ],
-    "revenue": [],
-    "cost": []
-   },
-   "decision_types": [
-    "검증/지적"
-   ],
-   "conclusions": [],
-   "content_length": 82
-  },
-  {
-   "id": "gosi_2013#109",
-   "source_file": "gosi_2013.js",
-   "index_in_file": 109,
-   "title": "N사(자산) - MVNO 미사용 설비 배부 오류",
-   "category": "영업보고서 검증결과 지적사항",
-   "year": "2013",
-   "source_company": "N사",
-   "source_pdf": "[가이드라인] FY2013 (지적사항, 미상)",
-   "tags": {
-    "asset": [],
-    "function": [],
-    "service": [
-     {
-      "term": "MVNO",
-      "code": "B*.MVNO",
-      "count": 4
-     }
-    ],
-    "revenue": [],
-    "cost": []
-   },
-   "decision_types": [
-    "배부",
-    "범위",
-    "검증/지적"
-   ],
-   "conclusions": [],
-   "content_length": 86
-  },
-  {
-   "id": "gosi_2013#110",
-   "source_file": "gosi_2013.js",
-   "index_in_file": 110,
+   "index_in_file": 81,
    "title": "N사(자산) - 설비임대서비스 설비 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2013",
@@ -13055,9 +11996,9 @@
    "content_length": 55
   },
   {
-   "id": "gosi_2013#111",
+   "id": "gosi_2013#82",
    "source_file": "gosi_2013.js",
-   "index_in_file": 111,
+   "index_in_file": 82,
    "title": "N사(자산) - 판매영업기능지원자산 등 배부 기준 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2013",
@@ -13084,9 +12025,9 @@
    "content_length": 44
   },
   {
-   "id": "gosi_2013#112",
+   "id": "gosi_2013#83",
    "source_file": "gosi_2013.js",
-   "index_in_file": 112,
+   "index_in_file": 83,
    "title": "N사(수익/비용 등) - 인건비 배부 기준 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2013",
@@ -13113,9 +12054,9 @@
    "content_length": 34
   },
   {
-   "id": "gosi_2013#113",
+   "id": "gosi_2013#84",
    "source_file": "gosi_2013.js",
-   "index_in_file": 113,
+   "index_in_file": 84,
    "title": "N사(수익/비용 등) - 전송/선로운영 공통비용 배부 기준 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2013",
@@ -13142,9 +12083,9 @@
    "content_length": 34
   },
   {
-   "id": "gosi_2013#114",
+   "id": "gosi_2013#85",
    "source_file": "gosi_2013.js",
-   "index_in_file": 114,
+   "index_in_file": 85,
    "title": "N사(수익/비용 등) - 기타 일반지원자산운영비용 배부 기준 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2013",
@@ -13181,39 +12122,9 @@
    "content_length": 58
   },
   {
-   "id": "gosi_2013#115",
+   "id": "gosi_2013#86",
    "source_file": "gosi_2013.js",
-   "index_in_file": 115,
-   "title": "N사(수익/비용 등) - MVNO 미사용 비용 배부 오류",
-   "category": "영업보고서 검증결과 지적사항",
-   "year": "2013",
-   "source_company": "N사",
-   "source_pdf": "[가이드라인] FY2013 (지적사항, 미상)",
-   "tags": {
-    "asset": [],
-    "function": [],
-    "service": [
-     {
-      "term": "MVNO",
-      "code": "B*.MVNO",
-      "count": 4
-     }
-    ],
-    "revenue": [],
-    "cost": []
-   },
-   "decision_types": [
-    "배부",
-    "범위",
-    "검증/지적"
-   ],
-   "conclusions": [],
-   "content_length": 86
-  },
-  {
-   "id": "gosi_2013#116",
-   "source_file": "gosi_2013.js",
-   "index_in_file": 116,
+   "index_in_file": 86,
    "title": "O사(수익/비용 등) - 마케팅수수료 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2013",
@@ -13261,9 +12172,9 @@
    "content_length": 54
   },
   {
-   "id": "gosi_2013#117",
+   "id": "gosi_2013#87",
    "source_file": "gosi_2013.js",
-   "index_in_file": 117,
+   "index_in_file": 87,
    "title": "O사(수익/비용 등) - 입금수수료 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2013",
@@ -13302,9 +12213,9 @@
    "content_length": 91
   },
   {
-   "id": "gosi_2013#118",
+   "id": "gosi_2013#88",
    "source_file": "gosi_2013.js",
-   "index_in_file": 118,
+   "index_in_file": 88,
    "title": "KT 114전화번호 안내서비스의 사용료를 과금 대행한 금액 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2013",
@@ -13324,9 +12235,9 @@
    "content_length": 93
   },
   {
-   "id": "gosi_2013#119",
+   "id": "gosi_2013#89",
    "source_file": "gosi_2013.js",
-   "index_in_file": 119,
+   "index_in_file": 89,
    "title": "글로벌가속서비스 역무 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2013",
@@ -13352,9 +12263,9 @@
    "content_length": 157
   },
   {
-   "id": "gosi_2013#120",
+   "id": "gosi_2013#90",
    "source_file": "gosi_2013.js",
-   "index_in_file": 120,
+   "index_in_file": 90,
    "title": "MDF설비 미보유 사업자의 일반전화 접속가입자서비스 회계처리 가능 여부",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2013",
@@ -13374,9 +12285,9 @@
    "content_length": 78
   },
   {
-   "id": "gosi_2013#121",
+   "id": "gosi_2013#91",
    "source_file": "gosi_2013.js",
-   "index_in_file": 121,
+   "index_in_file": 91,
    "title": "분당 IDC 센터의 코로케이션 서비스 지원비용(지급임차료) 역무 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2013",
@@ -13413,9 +12324,9 @@
    "content_length": 65
   },
   {
-   "id": "gosi_2013#122",
+   "id": "gosi_2013#92",
    "source_file": "gosi_2013.js",
-   "index_in_file": 122,
+   "index_in_file": 92,
    "title": "발신번호 조작 방지시스템 등 서버 증설비용 형태 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2013",
@@ -13446,9 +12357,9 @@
    "content_length": 54
   },
   {
-   "id": "gosi_2013#123",
+   "id": "gosi_2013#93",
    "source_file": "gosi_2013.js",
-   "index_in_file": 123,
+   "index_in_file": 93,
    "title": "XACAS(Exchangeable CAS) 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2013",
@@ -13485,9 +12396,9 @@
    "content_length": 170
   },
   {
-   "id": "gosi_2013#124",
+   "id": "gosi_2013#94",
    "source_file": "gosi_2013.js",
-   "index_in_file": 124,
+   "index_in_file": 94,
    "title": "DBMS(DataBase Management System) 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2013",
@@ -13518,9 +12429,9 @@
    "content_length": 179
   },
   {
-   "id": "gosi_2013#125",
+   "id": "gosi_2013#95",
    "source_file": "gosi_2013.js",
-   "index_in_file": 125,
+   "index_in_file": 95,
    "title": "일반 컨버터 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2013",
@@ -13546,9 +12457,9 @@
    "content_length": 52
   },
   {
-   "id": "gosi_2013#126",
+   "id": "gosi_2013#96",
    "source_file": "gosi_2013.js",
-   "index_in_file": 126,
+   "index_in_file": 96,
    "title": "밧데리, 정류기 및 전원 모듈 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2013",
@@ -13574,9 +12485,9 @@
    "content_length": 45
   },
   {
-   "id": "gosi_2013#127",
+   "id": "gosi_2013#97",
    "source_file": "gosi_2013.js",
-   "index_in_file": 127,
+   "index_in_file": 97,
    "title": "UPS는 전원설비로 분류하여야 하나, 정보처리설비로 분류하였음",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2013",
@@ -13594,9 +12505,9 @@
    "content_length": 34
   },
   {
-   "id": "gosi_2013#128",
+   "id": "gosi_2013#98",
    "source_file": "gosi_2013.js",
-   "index_in_file": 128,
+   "index_in_file": 98,
    "title": "미디어컨버터터 형태 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2013",
@@ -13622,9 +12533,9 @@
    "content_length": 151
   },
   {
-   "id": "gosi_2013#129",
+   "id": "gosi_2013#99",
    "source_file": "gosi_2013.js",
-   "index_in_file": 129,
+   "index_in_file": 99,
    "title": "QAM(Quadrature Amplitude Modulation) 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2013",
@@ -13660,9 +12571,9 @@
    "content_length": 174
   },
   {
-   "id": "gosi_2013#130",
+   "id": "gosi_2013#100",
    "source_file": "gosi_2013.js",
-   "index_in_file": 130,
+   "index_in_file": 100,
    "title": "설비 중 일부 폐기만 한 경우 남아있 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2013",
@@ -13688,9 +12599,9 @@
    "content_length": 60
   },
   {
-   "id": "gosi_2013#131",
+   "id": "gosi_2013#101",
    "source_file": "gosi_2013.js",
-   "index_in_file": 131,
+   "index_in_file": 101,
    "title": "전주, 강관주, 백관주등 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2013",
@@ -13726,9 +12637,9 @@
    "content_length": 48
   },
   {
-   "id": "gosi_2013#132",
+   "id": "gosi_2013#102",
    "source_file": "gosi_2013.js",
-   "index_in_file": 132,
+   "index_in_file": 102,
    "title": "DUCT 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2013",
@@ -13759,9 +12670,9 @@
    "content_length": 108
   },
   {
-   "id": "gosi_2013#133",
+   "id": "gosi_2013#103",
    "source_file": "gosi_2013.js",
-   "index_in_file": 133,
+   "index_in_file": 103,
    "title": "HLR(가입자위치인식장치)의 형태·기능 분류 (교환설비 vs 정보처리설비)",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2013",
@@ -13787,9 +12698,9 @@
    "content_length": 179
   },
   {
-   "id": "gosi_2013#134",
+   "id": "gosi_2013#104",
    "source_file": "gosi_2013.js",
-   "index_in_file": 134,
+   "index_in_file": 104,
    "title": "공유기 및 전용회선장비 위약금 수익 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2013",
@@ -13832,9 +12743,9 @@
    "content_length": 53
   },
   {
-   "id": "gosi_2013#135",
+   "id": "gosi_2013#105",
    "source_file": "gosi_2013.js",
-   "index_in_file": 135,
+   "index_in_file": 105,
    "title": "정보처리설비에 설치되는 OS와 이에 수반되는 기술지원관련 자산 형태 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2013",
@@ -13870,9 +12781,9 @@
    "content_length": 109
   },
   {
-   "id": "gosi_2013#136",
+   "id": "gosi_2013#106",
    "source_file": "gosi_2013.js",
-   "index_in_file": 136,
+   "index_in_file": 106,
    "title": "냉각탑은 일반지원자산으로 분류하여야 하나, 전송설비 또 형태 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2013",
@@ -13898,9 +12809,9 @@
    "content_length": 43
   },
   {
-   "id": "gosi_2013#137",
+   "id": "gosi_2013#107",
    "source_file": "gosi_2013.js",
-   "index_in_file": 137,
+   "index_in_file": 107,
    "title": "항온항습기 형태 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2013",
@@ -13920,9 +12831,9 @@
    "content_length": 39
   },
   {
-   "id": "gosi_2013#138",
+   "id": "gosi_2013#108",
    "source_file": "gosi_2013.js",
-   "index_in_file": 138,
+   "index_in_file": 108,
    "title": "낙전수입 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2013",
@@ -13948,9 +12859,9 @@
    "content_length": 51
   },
   {
-   "id": "gosi_2013#139",
+   "id": "gosi_2013#109",
    "source_file": "gosi_2013.js",
-   "index_in_file": 139,
+   "index_in_file": 109,
    "title": "망감시용 회선의 회계처리 (자가소비 인식 vs 회선설치원가 배부)",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2013",
@@ -13972,9 +12883,9 @@
    "content_length": 157
   },
   {
-   "id": "gosi_2013#140",
+   "id": "gosi_2013#110",
    "source_file": "gosi_2013.js",
-   "index_in_file": 140,
+   "index_in_file": 110,
    "title": "HFC(광동축혼합망) 관련 자본적 지출 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2013",
@@ -14000,9 +12911,9 @@
    "content_length": 52
   },
   {
-   "id": "gosi_2013#141",
+   "id": "gosi_2013#111",
    "source_file": "gosi_2013.js",
-   "index_in_file": 141,
+   "index_in_file": 111,
    "title": "가입자단 광랜장비(L3, L2) 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2013",
@@ -14022,9 +12933,9 @@
    "content_length": 48
   },
   {
-   "id": "gosi_2013#142",
+   "id": "gosi_2013#112",
    "source_file": "gosi_2013.js",
-   "index_in_file": 142,
+   "index_in_file": 112,
    "title": "DWDM(Dense Wavelength Division Multiplexing) 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2013",
@@ -14050,9 +12961,9 @@
    "content_length": 212
   },
   {
-   "id": "gosi_2013#143",
+   "id": "gosi_2013#113",
    "source_file": "gosi_2013.js",
-   "index_in_file": 143,
+   "index_in_file": 113,
    "title": "카드사 입금수수료의 기능 분류 (청구/수납 vs 판매촉진)",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2013",
@@ -14076,9 +12987,9 @@
    "content_length": 63
   },
   {
-   "id": "gosi_2013#144",
+   "id": "gosi_2013#114",
    "source_file": "gosi_2013.js",
-   "index_in_file": 144,
+   "index_in_file": 114,
    "title": "코덱장비 이용료 기능 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2013",
@@ -14122,9 +13033,9 @@
    "content_length": 119
   },
   {
-   "id": "gosi_2013#145",
+   "id": "gosi_2013#115",
    "source_file": "gosi_2013.js",
-   "index_in_file": 145,
+   "index_in_file": 115,
    "title": "중계기 설치비용 기능 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2013",
@@ -14156,9 +13067,9 @@
    "content_length": 43
   },
   {
-   "id": "gosi_2013#146",
+   "id": "gosi_2013#116",
    "source_file": "gosi_2013.js",
-   "index_in_file": 146,
+   "index_in_file": 116,
    "title": "가입자가 부담해야 할 단말기보증보험료를 대납한 비용 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2013",
@@ -14200,9 +13111,9 @@
    "content_length": 65
   },
   {
-   "id": "gosi_2013#147",
+   "id": "gosi_2013#117",
    "source_file": "gosi_2013.js",
-   "index_in_file": 147,
+   "index_in_file": 117,
    "title": "회사와 SO사업자간 체결한 인터넷전화 재판매 계약에 의해 회사가 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2013",
@@ -14233,9 +13144,9 @@
    "content_length": 92
   },
   {
-   "id": "gosi_2013#148",
+   "id": "gosi_2013#118",
    "source_file": "gosi_2013.js",
-   "index_in_file": 148,
+   "index_in_file": 118,
    "title": "분당 및 부산 IDC 센터 및 청주 통신실에서 발생하는 전력비용 기능 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2013",
@@ -14255,9 +13166,9 @@
    "content_length": 74
   },
   {
-   "id": "gosi_2013#149",
+   "id": "gosi_2013#119",
    "source_file": "gosi_2013.js",
-   "index_in_file": 149,
+   "index_in_file": 119,
    "title": "마케팅부서의 임원급여 기능 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2013",
@@ -14302,144 +13213,6 @@
    ],
    "conclusions": [],
    "content_length": 58
-  },
-  {
-   "id": "gosi_2013#150",
-   "source_file": "gosi_2013.js",
-   "index_in_file": 150,
-   "title": "XACAS(Exchangeable CAS) 분류 오류",
-   "category": "영업보고서 검증결과 지적사항",
-   "year": "2013",
-   "source_company": null,
-   "source_pdf": "[가이드라인] FY2013 (지적사항, 미상)",
-   "tags": {
-    "asset": [
-     {
-      "term": "구축물.전송설비",
-      "code": "AST.STRUCT.TRANS",
-      "count": 1
-     },
-     {
-      "term": "구축물.단말기능설비",
-      "code": "AST.STRUCT.TERM",
-      "count": 1
-     }
-    ],
-    "function": [],
-    "service": [
-     {
-      "term": "CATV",
-      "code": "D030",
-      "count": 1
-     }
-    ],
-    "revenue": [],
-    "cost": []
-   },
-   "decision_types": [
-    "검증/지적"
-   ],
-   "conclusions": [],
-   "content_length": 170
-  },
-  {
-   "id": "gosi_2013#151",
-   "source_file": "gosi_2013.js",
-   "index_in_file": 151,
-   "title": "DBMS(DataBase Management System) 분류 오류",
-   "category": "영업보고서 검증결과 지적사항",
-   "year": "2013",
-   "source_company": null,
-   "source_pdf": "[가이드라인] FY2013 (지적사항, 미상)",
-   "tags": {
-    "asset": [
-     {
-      "term": "무형자산.소프트웨어",
-      "code": "AST.INTAN.SW",
-      "count": 2
-     },
-     {
-      "term": "구축물.전송설비",
-      "code": "AST.STRUCT.TRANS",
-      "count": 1
-     }
-    ],
-    "function": [],
-    "service": [],
-    "revenue": [],
-    "cost": []
-   },
-   "decision_types": [
-    "검증/지적"
-   ],
-   "conclusions": [],
-   "content_length": 178
-  },
-  {
-   "id": "gosi_2013#152",
-   "source_file": "gosi_2013.js",
-   "index_in_file": 152,
-   "title": "미디어컨버터터 형태 분류 오류",
-   "category": "영업보고서 검증결과 지적사항",
-   "year": "2013",
-   "source_company": null,
-   "source_pdf": "[가이드라인] FY2013 (지적사항, 미상)",
-   "tags": {
-    "asset": [
-     {
-      "term": "구축물.전송설비",
-      "code": "AST.STRUCT.TRANS",
-      "count": 1
-     }
-    ],
-    "function": [],
-    "service": [],
-    "revenue": [],
-    "cost": []
-   },
-   "decision_types": [
-    "검증/지적"
-   ],
-   "conclusions": [],
-   "content_length": 151
-  },
-  {
-   "id": "gosi_2013#153",
-   "source_file": "gosi_2013.js",
-   "index_in_file": 153,
-   "title": "QAM(Quadrature Amplitude Modulation) 분류 오류",
-   "category": "영업보고서 검증결과 지적사항",
-   "year": "2013",
-   "source_company": null,
-   "source_pdf": "[가이드라인] FY2013 (지적사항, 미상)",
-   "tags": {
-    "asset": [
-     {
-      "term": "구축물.선로설비",
-      "code": "AST.STRUCT.LINE",
-      "count": 2
-     },
-     {
-      "term": "구축물.전송설비",
-      "code": "AST.STRUCT.TRANS",
-      "count": 1
-     },
-     {
-      "term": "무형자산.주파수이용권",
-      "code": "AST.INTAN.SPEC",
-      "count": 1
-     }
-    ],
-    "function": [],
-    "service": [],
-    "revenue": [],
-    "cost": []
-   },
-   "decision_types": [
-    "검증/지적"
-   ],
-   "conclusions": [],
-   "content_length": 174
   },
   {
    "id": "gosi_2014#0",
@@ -51664,40 +50437,6 @@
    "id": "gosi_2024#2",
    "source_file": "gosi_2024.js",
    "index_in_file": 2,
-   "title": "판매목적의 앱에서 발생한 수익 역무 분류 오류",
-   "category": "영업보고서 검증결과 지적사항",
-   "year": "2024",
-   "source_company": null,
-   "source_pdf": "[해설서]전기통신사업 회계분리기준 해설서_2026.04.pdf (지적사항 섹션)",
-   "tags": {
-    "asset": [],
-    "function": [],
-    "service": [
-     {
-      "term": "전기통신사업외",
-      "code": "F010",
-      "count": 2
-     },
-     {
-      "term": "부가통신",
-      "code": "E010",
-      "count": 2
-     }
-    ],
-    "revenue": [],
-    "cost": []
-   },
-   "decision_types": [
-    "배부",
-    "검증/지적"
-   ],
-   "conclusions": [],
-   "content_length": 55
-  },
-  {
-   "id": "gosi_2024#3",
-   "source_file": "gosi_2024.js",
-   "index_in_file": 3,
    "title": "자사의 통신서비스와 무관하게 별개의 상품인 유료 구독 상품을 제공하면서 역무 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -51744,9 +50483,9 @@
    "content_length": 103
   },
   {
-   "id": "gosi_2024#4",
+   "id": "gosi_2024#3",
    "source_file": "gosi_2024.js",
-   "index_in_file": 4,
+   "index_in_file": 3,
    "title": "국제전화, 인터넷가입자접속, 인터넷전화, LTE 역무 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -51802,9 +50541,9 @@
    "content_length": 111
   },
   {
-   "id": "gosi_2024#5",
+   "id": "gosi_2024#4",
    "source_file": "gosi_2024.js",
-   "index_in_file": 5,
+   "index_in_file": 4,
    "title": "MNO 사업자가 MVNO 사업자에게 지급하는 기능 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -51873,9 +50612,9 @@
    "content_length": 121
   },
   {
-   "id": "gosi_2024#6",
+   "id": "gosi_2024#5",
    "source_file": "gosi_2024.js",
-   "index_in_file": 6,
+   "index_in_file": 5,
    "title": "MNO 사업자가 MVNO 사업자의 이동통신서비스 신규 가입자 유치 등을 배부 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -51944,9 +50683,9 @@
    "content_length": 203
   },
   {
-   "id": "gosi_2024#7",
+   "id": "gosi_2024#6",
    "source_file": "gosi_2024.js",
-   "index_in_file": 7,
+   "index_in_file": 6,
    "title": "판매목적의 앱에서 발생한 수익 역무 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -51988,53 +50727,9 @@
    "content_length": 64
   },
   {
-   "id": "gosi_2024#8",
+   "id": "gosi_2024#7",
    "source_file": "gosi_2024.js",
-   "index_in_file": 8,
-   "title": "자사의 통신서비스와 무관하게 별개의 상품인 유료 구독 상품을 제공하면서 역무 분류 오류",
-   "category": "영업보고서 검증결과 지적사항",
-   "year": "2024",
-   "source_company": null,
-   "source_pdf": "[해설서]전기통신사업 회계분리기준 해설서_2026.04.pdf (지적사항 섹션)",
-   "tags": {
-    "asset": [],
-    "function": [],
-    "service": [
-     {
-      "term": "전기통신사업외",
-      "code": "F010",
-      "count": 2
-     },
-     {
-      "term": "이동전화_LTE",
-      "code": "B090",
-      "count": 1
-     },
-     {
-      "term": "이동전화_3G",
-      "code": "B080",
-      "count": 1
-     },
-     {
-      "term": "이동전화_5G",
-      "code": "B100",
-      "count": 1
-     }
-    ],
-    "revenue": [],
-    "cost": []
-   },
-   "decision_types": [
-    "배부",
-    "검증/지적"
-   ],
-   "conclusions": [],
-   "content_length": 97
-  },
-  {
-   "id": "gosi_2024#9",
-   "source_file": "gosi_2024.js",
-   "index_in_file": 9,
+   "index_in_file": 7,
    "title": "회사가 취득한 동영상압출기술의 특허권과 관련하여 대행기관으로부터 정산 역무 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -52076,9 +50771,9 @@
    "content_length": 98
   },
   {
-   "id": "gosi_2024#10",
+   "id": "gosi_2024#8",
    "source_file": "gosi_2024.js",
-   "index_in_file": 10,
+   "index_in_file": 8,
    "title": "LTE, 5G 서비스를 제공하는 이동통신단말장치를 구입한 가입자가 일정 기간 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -52116,9 +50811,9 @@
    "content_length": 123
   },
   {
-   "id": "gosi_2024#11",
+   "id": "gosi_2024#9",
    "source_file": "gosi_2024.js",
-   "index_in_file": 11,
+   "index_in_file": 9,
    "title": "전기통신사업외의 사업을 목적으로 취득한 특허권 역무 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -52145,9 +50840,9 @@
    "content_length": 138
   },
   {
-   "id": "gosi_2024#12",
+   "id": "gosi_2024#10",
    "source_file": "gosi_2024.js",
-   "index_in_file": 12,
+   "index_in_file": 10,
    "title": "자사 이동통신서비스 가입자에게 마일리지 및 멤버쉽 혜택을 제공하기 위해 기능 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -52189,9 +50884,9 @@
    "content_length": 169
   },
   {
-   "id": "gosi_2024#13",
+   "id": "gosi_2024#11",
    "source_file": "gosi_2024.js",
-   "index_in_file": 13,
+   "index_in_file": 11,
    "title": "선로 지중화 과정에서 발생한 도로점용료 기능 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -52250,9 +50945,9 @@
    "content_length": 100
   },
   {
-   "id": "gosi_2024#14",
+   "id": "gosi_2024#12",
    "source_file": "gosi_2024.js",
-   "index_in_file": 14,
+   "index_in_file": 12,
    "title": "LTE, 5G 서비스를 제공하는 단말 관련 경비(광고선전비) 기능 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -52300,9 +50995,9 @@
    "content_length": 108
   },
   {
-   "id": "gosi_2024#15",
+   "id": "gosi_2024#13",
    "source_file": "gosi_2024.js",
-   "index_in_file": 15,
+   "index_in_file": 13,
    "title": "인터넷전화서비스를 제공하면서 발생한 접속료(접속통화료) 역무 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -52345,9 +51040,9 @@
    "content_length": 68
   },
   {
-   "id": "gosi_2024#16",
+   "id": "gosi_2024#14",
    "source_file": "gosi_2024.js",
-   "index_in_file": 16,
+   "index_in_file": 14,
    "title": "개별 IT 시스템의 운영비용 형태 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -52390,75 +51085,9 @@
    "content_length": 151
   },
   {
-   "id": "gosi_2024#17",
+   "id": "gosi_2024#15",
    "source_file": "gosi_2024.js",
-   "index_in_file": 17,
-   "title": "MNO 사업자가 MVNO 사업자의 이동통신서비스 신규 가입자 유치 등을 배부 분류 오류",
-   "category": "영업보고서 검증결과 지적사항",
-   "year": "2024",
-   "source_company": null,
-   "source_pdf": "[해설서]전기통신사업 회계분리기준 해설서_2026.04.pdf (지적사항 섹션)",
-   "tags": {
-    "asset": [],
-    "function": [],
-    "service": [
-     {
-      "term": "MVNO",
-      "code": "B*.MVNO",
-      "count": 3
-     },
-     {
-      "term": "MNO",
-      "code": "B*.MNO",
-      "count": 2
-     },
-     {
-      "term": "이동전화_LTE",
-      "code": "B090",
-      "count": 1
-     },
-     {
-      "term": "이동전화_5G",
-      "code": "B100",
-      "count": 1
-     }
-    ],
-    "revenue": [
-     {
-      "term": "장려금수익",
-      "code": "REV.INCENT",
-      "count": 3
-     },
-     {
-      "term": "도매제공수익",
-      "code": "REV.WHOLE",
-      "count": 1
-     },
-     {
-      "term": "요금수익",
-      "code": "REV.FEE",
-      "count": 1
-     }
-    ],
-    "cost": [
-     {
-      "term": "판매활성화장려금",
-      "code": "COST.INCENT",
-      "count": 1
-     }
-    ]
-   },
-   "decision_types": [
-    "배부",
-    "검증/지적"
-   ],
-   "conclusions": [],
-   "content_length": 199
-  },
-  {
-   "id": "gosi_2024#18",
-   "source_file": "gosi_2024.js",
-   "index_in_file": 18,
+   "index_in_file": 15,
    "title": "별지 제10-2호(이동통신단말장치 등에 관한 명세서) 서식 상 배부 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -52480,9 +51109,9 @@
    "content_length": 143
   },
   {
-   "id": "gosi_2024#19",
+   "id": "gosi_2024#16",
    "source_file": "gosi_2024.js",
-   "index_in_file": 19,
+   "index_in_file": 16,
    "title": "합병 전에 취득한 시스템 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -52503,9 +51132,9 @@
    "content_length": 72
   },
   {
-   "id": "gosi_2024#20",
+   "id": "gosi_2024#17",
    "source_file": "gosi_2024.js",
-   "index_in_file": 20,
+   "index_in_file": 17,
    "title": "전기통신사업외의 사업(CATV)를 제공하기 위해 취득한 건설 중인 역무 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -52536,9 +51165,9 @@
    "content_length": 96
   },
   {
-   "id": "gosi_2024#21",
+   "id": "gosi_2024#18",
    "source_file": "gosi_2024.js",
-   "index_in_file": 21,
+   "index_in_file": 18,
    "title": "자사의 전기통신서비스 제공 없이 타사 시스템이나 IT 장비 등에 대한 역무 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -52575,9 +51204,9 @@
    "content_length": 203
   },
   {
-   "id": "gosi_2024#22",
+   "id": "gosi_2024#19",
    "source_file": "gosi_2024.js",
-   "index_in_file": 22,
+   "index_in_file": 19,
    "title": "국내회선설비임대서비스를 제공하면서 발생한 정액제요금수익_정액요금수익 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -52615,9 +51244,9 @@
    "content_length": 83
   },
   {
-   "id": "gosi_2024#23",
+   "id": "gosi_2024#20",
    "source_file": "gosi_2024.js",
-   "index_in_file": 23,
+   "index_in_file": 20,
    "title": "인터넷가입자접속서비스를 제공하면서 발생한 정액제요금수익_정액요금수익 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -52655,9 +51284,9 @@
    "content_length": 71
   },
   {
-   "id": "gosi_2024#24",
+   "id": "gosi_2024#21",
    "source_file": "gosi_2024.js",
-   "index_in_file": 24,
+   "index_in_file": 21,
    "title": "전기통신사업외의 사업 목적으로 개발 중인 IT 시스템 역무 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -52698,9 +51327,9 @@
    "content_length": 100
   },
   {
-   "id": "gosi_2024#25",
+   "id": "gosi_2024#22",
    "source_file": "gosi_2024.js",
-   "index_in_file": 25,
+   "index_in_file": 22,
    "title": "자사의 이동통신서비스(3G, LTE 서비스)에 사용되는 시스템 개발비 역무 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -52772,9 +51401,9 @@
    "content_length": 123
   },
   {
-   "id": "gosi_2024#26",
+   "id": "gosi_2024#23",
    "source_file": "gosi_2024.js",
-   "index_in_file": 26,
+   "index_in_file": 23,
    "title": "종료된 비면허 사물인터넷서비스 수익의 분류 (전기통신사업외 vs 비면허 IoT)",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -52806,9 +51435,9 @@
    "content_length": 92
   },
   {
-   "id": "gosi_2024#27",
+   "id": "gosi_2024#24",
    "source_file": "gosi_2024.js",
-   "index_in_file": 27,
+   "index_in_file": 24,
    "title": "회사에서 제공하던 비면허 사물인터넷서비스가 종료된 이후 발생한 경비 역무 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -52847,9 +51476,9 @@
    "content_length": 98
   },
   {
-   "id": "gosi_2024#28",
+   "id": "gosi_2024#25",
    "source_file": "gosi_2024.js",
-   "index_in_file": 28,
+   "index_in_file": 25,
    "title": "MNO 사업자로부터 자사의 이동통신서비스 신규 가입자 유치 등을 목적으로 배부 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -52903,9 +51532,9 @@
    "content_length": 187
   },
   {
-   "id": "gosi_2024#29",
+   "id": "gosi_2024#26",
    "source_file": "gosi_2024.js",
-   "index_in_file": 29,
+   "index_in_file": 26,
    "title": "LTE, 5G 서비스 가입자로부터 수취한 정액제요금수익_정액요금초과수 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -52943,9 +51572,9 @@
    "content_length": 85
   },
   {
-   "id": "gosi_2024#30",
+   "id": "gosi_2024#27",
    "source_file": "gosi_2024.js",
-   "index_in_file": 30,
+   "index_in_file": 27,
    "title": "회사의 전반적인 관리 및 업무 지원 과정에서 발생한 경비 기능 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -52998,9 +51627,9 @@
    "content_length": 150
   },
   {
-   "id": "gosi_2024#31",
+   "id": "gosi_2024#28",
    "source_file": "gosi_2024.js",
-   "index_in_file": 31,
+   "index_in_file": 28,
    "title": "LTE 요금제와 관련된 프로모션 비용 등 기능 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -53059,9 +51688,9 @@
    "content_length": 114
   },
   {
-   "id": "gosi_2024#32",
+   "id": "gosi_2024#29",
    "source_file": "gosi_2024.js",
-   "index_in_file": 32,
+   "index_in_file": 29,
    "title": "단말 재고 관리 목적으로 발생한 비용 기능 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -53109,9 +51738,9 @@
    "content_length": 83
   },
   {
-   "id": "gosi_2024#33",
+   "id": "gosi_2024#30",
    "source_file": "gosi_2024.js",
-   "index_in_file": 33,
+   "index_in_file": 30,
    "title": "LTE, 5G 서비스의 신규 가입자 유치 등을 목적으로 대리점에 기능 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -53179,9 +51808,9 @@
    "content_length": 156
   },
   {
-   "id": "gosi_2024#34",
+   "id": "gosi_2024#31",
    "source_file": "gosi_2024.js",
-   "index_in_file": 34,
+   "index_in_file": 31,
    "title": "LTE, 5G 서비스의 신규 가입자 유치 등을 목적으로 무료로 지급한 기능 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -53244,9 +51873,9 @@
    "content_length": 124
   },
   {
-   "id": "gosi_2024#35",
+   "id": "gosi_2024#32",
    "source_file": "gosi_2024.js",
-   "index_in_file": 35,
+   "index_in_file": 32,
    "title": "전기통신설비를 지원하기 위한 자산 형태 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -53266,9 +51895,9 @@
    "content_length": 119
   },
   {
-   "id": "gosi_2024#36",
+   "id": "gosi_2024#33",
    "source_file": "gosi_2024.js",
-   "index_in_file": 36,
+   "index_in_file": 33,
    "title": "임대 목적으로 보유한 자산(토지, 건물) 형태 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -53315,9 +51944,9 @@
    "content_length": 89
   },
   {
-   "id": "gosi_2024#37",
+   "id": "gosi_2024#34",
    "source_file": "gosi_2024.js",
-   "index_in_file": 37,
+   "index_in_file": 34,
    "title": "전기통신사업외의 사업을 제공하면서 발생한 비용 역무 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -53343,9 +51972,9 @@
    "content_length": 74
   },
   {
-   "id": "gosi_2024#38",
+   "id": "gosi_2024#35",
    "source_file": "gosi_2024.js",
-   "index_in_file": 38,
+   "index_in_file": 35,
    "title": "회선설비보유사업자로부터 지급받 배부 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -53372,9 +52001,9 @@
    "content_length": 134
   },
   {
-   "id": "gosi_2024#39",
+   "id": "gosi_2024#36",
    "source_file": "gosi_2024.js",
-   "index_in_file": 39,
+   "index_in_file": 36,
    "title": "자사의 전기통신설비의 이용 없이 매장 솔루션 단말 판매로 수취한 수익 역무 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -53406,9 +52035,9 @@
    "content_length": 113
   },
   {
-   "id": "gosi_2024#40",
+   "id": "gosi_2024#37",
    "source_file": "gosi_2024.js",
-   "index_in_file": 40,
+   "index_in_file": 37,
    "title": "IDC 센터 설립 목적으로 취득한 토지 역무 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -53456,9 +52085,9 @@
    "content_length": 169
   },
   {
-   "id": "gosi_2024#41",
+   "id": "gosi_2024#38",
    "source_file": "gosi_2024.js",
-   "index_in_file": 41,
+   "index_in_file": 38,
    "title": "매장 솔루션 상품(키오스크 등) 정액제요금수익의 역무 분류 (부가통신 vs 5G)",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -53496,9 +52125,9 @@
    "content_length": 116
   },
   {
-   "id": "gosi_2024#42",
+   "id": "gosi_2024#39",
    "source_file": "gosi_2024.js",
-   "index_in_file": 42,
+   "index_in_file": 39,
    "title": "부가통신역무로 분류된 매장 솔루션 상품 기능 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -53537,9 +52166,9 @@
    "content_length": 124
   },
   {
-   "id": "gosi_2024#43",
+   "id": "gosi_2024#40",
    "source_file": "gosi_2024.js",
-   "index_in_file": 43,
+   "index_in_file": 40,
    "title": "자사의 전기통신설비 이용이 포함된 매장 솔루션 상품을 제공하면서 발생한 역무 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -53577,9 +52206,9 @@
    "content_length": 140
   },
   {
-   "id": "gosi_2024#44",
+   "id": "gosi_2024#41",
    "source_file": "gosi_2024.js",
-   "index_in_file": 44,
+   "index_in_file": 41,
    "title": "전송설비 없이 단순 선로설비만을 임대한 수익 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -53621,9 +52250,9 @@
    "content_length": 75
   },
   {
-   "id": "gosi_2024#45",
+   "id": "gosi_2024#42",
    "source_file": "gosi_2024.js",
-   "index_in_file": 45,
+   "index_in_file": 42,
    "title": "IDC 센터 건물 설계를 위한 용역비 등 형태 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -53677,9 +52306,9 @@
    "content_length": 100
   },
   {
-   "id": "gosi_2024#46",
+   "id": "gosi_2024#43",
    "source_file": "gosi_2024.js",
-   "index_in_file": 46,
+   "index_in_file": 43,
    "title": "종료된 비면허 사물인터넷서비스 수익의 분류 (전기통신사업외 vs 비면허 IoT) — 재지적",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -53712,9 +52341,9 @@
    "content_length": 100
   },
   {
-   "id": "gosi_2024#47",
+   "id": "gosi_2024#44",
    "source_file": "gosi_2024.js",
-   "index_in_file": 47,
+   "index_in_file": 44,
    "title": "재무회계 상 건설 중인 자산 일부 누락으로 영업보고서 기말 취득가액 과소 계상",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -53734,9 +52363,9 @@
    "content_length": 69
   },
   {
-   "id": "gosi_2024#48",
+   "id": "gosi_2024#45",
    "source_file": "gosi_2024.js",
-   "index_in_file": 48,
+   "index_in_file": 45,
    "title": "재무회계 상 유형자산(토지) 일부 누락으로 영업보고서 기말 취득가액 과소 계상",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -53762,9 +52391,9 @@
    "content_length": 69
   },
   {
-   "id": "gosi_2024#49",
+   "id": "gosi_2024#46",
    "source_file": "gosi_2024.js",
-   "index_in_file": 49,
+   "index_in_file": 46,
    "title": "재무회계 상 유형자산(건물·구축물) 일부 누락으로 영업보고서 기말 취득가액 과소 계상",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -53795,9 +52424,9 @@
    "content_length": 79
   },
   {
-   "id": "gosi_2024#50",
+   "id": "gosi_2024#47",
    "source_file": "gosi_2024.js",
-   "index_in_file": 50,
+   "index_in_file": 47,
    "title": "재고자산 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -53819,9 +52448,9 @@
    "content_length": 60
   },
   {
-   "id": "gosi_2024#51",
+   "id": "gosi_2024#48",
    "source_file": "gosi_2024.js",
-   "index_in_file": 51,
+   "index_in_file": 48,
    "title": "유형자산 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -53842,9 +52471,9 @@
    "content_length": 56
   },
   {
-   "id": "gosi_2024#52",
+   "id": "gosi_2024#49",
    "source_file": "gosi_2024.js",
-   "index_in_file": 52,
+   "index_in_file": 49,
    "title": "재무회계에서 사용권자산으로 분류된 자산 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -53870,9 +52499,9 @@
    "content_length": 96
   },
   {
-   "id": "gosi_2024#53",
+   "id": "gosi_2024#50",
    "source_file": "gosi_2024.js",
-   "index_in_file": 53,
+   "index_in_file": 50,
    "title": "자사의 전기통신사업을 위해 전기통신망을 직접 구성하여 사용하는 여러 종류 형태 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -53903,9 +52532,9 @@
    "content_length": 201
   },
   {
-   "id": "gosi_2024#54",
+   "id": "gosi_2024#51",
    "source_file": "gosi_2024.js",
-   "index_in_file": 54,
+   "index_in_file": 51,
    "title": "자사의 전기통신사업을 위해 전기통신망을 직접 구성하여 사용 중인 트래픽 형태 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -53941,53 +52570,9 @@
    "content_length": 188
   },
   {
-   "id": "gosi_2024#55",
+   "id": "gosi_2024#52",
    "source_file": "gosi_2024.js",
-   "index_in_file": 55,
-   "title": "자사의 전기통신사업외의 사업 형태 분류 오류",
-   "category": "영업보고서 검증결과 지적사항",
-   "year": "2024",
-   "source_company": null,
-   "source_pdf": "[해설서]전기통신사업 회계분리기준 해설서_2026.04.pdf (지적사항 섹션)",
-   "tags": {
-    "asset": [
-     {
-      "term": "구축물.교환설비",
-      "code": "AST.STRUCT.SWITCH",
-      "count": 1
-     },
-     {
-      "term": "구축물.전송설비",
-      "code": "AST.STRUCT.TRANS",
-      "count": 1
-     }
-    ],
-    "function": [],
-    "service": [
-     {
-      "term": "전기통신사업외",
-      "code": "F010",
-      "count": 4
-     },
-     {
-      "term": "IPTV",
-      "code": "D010",
-      "count": 1
-     }
-    ],
-    "revenue": [],
-    "cost": []
-   },
-   "decision_types": [
-    "검증/지적"
-   ],
-   "conclusions": [],
-   "content_length": 198
-  },
-  {
-   "id": "gosi_2024#56",
-   "source_file": "gosi_2024.js",
-   "index_in_file": 56,
+   "index_in_file": 52,
    "title": "자사의 전기통신사업외의 사업(IPTV 등)을 위해 사용하는 정류기 형태 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -54024,9 +52609,9 @@
    "content_length": 102
   },
   {
-   "id": "gosi_2024#57",
+   "id": "gosi_2024#53",
    "source_file": "gosi_2024.js",
-   "index_in_file": 57,
+   "index_in_file": 53,
    "title": "자사의 전기통신사업외의 사업(IPTV)을 위해 사용하는 트래픽 미러링 용도 형태 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -54073,9 +52658,9 @@
    "content_length": 183
   },
   {
-   "id": "gosi_2024#58",
+   "id": "gosi_2024#54",
    "source_file": "gosi_2024.js",
-   "index_in_file": 58,
+   "index_in_file": 54,
    "title": "사용권자산의 감가상각비 계산 시, 감가상각비가 이중 계산되어 과대 계상되었음",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -54099,9 +52684,9 @@
    "content_length": 42
   },
   {
-   "id": "gosi_2024#59",
+   "id": "gosi_2024#55",
    "source_file": "gosi_2024.js",
-   "index_in_file": 59,
+   "index_in_file": 55,
    "title": "유형자산(건물·구축물) 감가상각비 산정 시 내용연수 적용 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -54138,9 +52723,9 @@
    "content_length": 58
   },
   {
-   "id": "gosi_2024#60",
+   "id": "gosi_2024#56",
    "source_file": "gosi_2024.js",
-   "index_in_file": 60,
+   "index_in_file": 56,
    "title": "자사의 전기통신사업을 위해 전기통신망을 직접 구성 및 사용 중인 광동축 형태 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -54176,9 +52761,9 @@
    "content_length": 211
   },
   {
-   "id": "gosi_2024#61",
+   "id": "gosi_2024#57",
    "source_file": "gosi_2024.js",
-   "index_in_file": 61,
+   "index_in_file": 57,
    "title": "자사의 전기통신사업외의 사업 형태 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -54225,49 +52810,9 @@
    "content_length": 208
   },
   {
-   "id": "gosi_2024#62",
+   "id": "gosi_2024#58",
    "source_file": "gosi_2024.js",
-   "index_in_file": 62,
-   "title": "이동통신가입자가 플랫폼 사업자 역무 분류 오류",
-   "category": "영업보고서 검증결과 지적사항",
-   "year": "2024",
-   "source_company": null,
-   "source_pdf": "[해설서]전기통신사업 회계분리기준 해설서_2026.04.pdf (지적사항 섹션)",
-   "tags": {
-    "asset": [],
-    "function": [],
-    "service": [
-     {
-      "term": "전기통신사업외",
-      "code": "F010",
-      "count": 2
-     },
-     {
-      "term": "부가통신",
-      "code": "E010",
-      "count": 2
-     }
-    ],
-    "revenue": [
-     {
-      "term": "요금수익",
-      "code": "REV.FEE",
-      "count": 1
-     }
-    ],
-    "cost": []
-   },
-   "decision_types": [
-    "배부",
-    "검증/지적"
-   ],
-   "conclusions": [],
-   "content_length": 140
-  },
-  {
-   "id": "gosi_2024#63",
-   "source_file": "gosi_2024.js",
-   "index_in_file": 63,
+   "index_in_file": 58,
    "title": "인터넷가입자접속서비스 등에서 발생한 계약 해지 등에 따른 임대 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -54304,9 +52849,9 @@
    "content_length": 89
   },
   {
-   "id": "gosi_2024#64",
+   "id": "gosi_2024#59",
    "source_file": "gosi_2024.js",
-   "index_in_file": 64,
+   "index_in_file": 59,
    "title": "InBound 국제로밍 서비스의 제공을 위해 자사의 에그 등을 가입하여 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -54338,9 +52883,9 @@
    "content_length": 108
   },
   {
-   "id": "gosi_2024#65",
+   "id": "gosi_2024#60",
    "source_file": "gosi_2024.js",
-   "index_in_file": 65,
+   "index_in_file": 60,
    "title": "이동통신서비스(3G, LTE, 5G 서비스)를 제공하 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -54376,9 +52921,9 @@
    "content_length": 154
   },
   {
-   "id": "gosi_2024#66",
+   "id": "gosi_2024#61",
    "source_file": "gosi_2024.js",
-   "index_in_file": 66,
+   "index_in_file": 61,
    "title": "전기통신사업외의 사업(IPTV) 등 관련 임대 단말해지위약금 및 설치비 역무 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -54420,9 +52965,9 @@
    "content_length": 78
   },
   {
-   "id": "gosi_2024#67",
+   "id": "gosi_2024#62",
    "source_file": "gosi_2024.js",
-   "index_in_file": 67,
+   "index_in_file": 62,
    "title": "이동통신서비스(3G, LTE, 5G 서비스)를 제공하 역무 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -54459,9 +53004,9 @@
    "content_length": 141
   },
   {
-   "id": "gosi_2024#68",
+   "id": "gosi_2024#63",
    "source_file": "gosi_2024.js",
-   "index_in_file": 68,
+   "index_in_file": 63,
    "title": "자사의 이동통신서비스 가입자에게 부가서비스를 제공하면서 수취한 수익 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -54487,9 +53032,9 @@
    "content_length": 92
   },
   {
-   "id": "gosi_2024#69",
+   "id": "gosi_2024#64",
    "source_file": "gosi_2024.js",
-   "index_in_file": 69,
+   "index_in_file": 64,
    "title": "이동통신가입자가 플랫폼 사업자 역무 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -54537,9 +53082,9 @@
    "content_length": 142
   },
   {
-   "id": "gosi_2024#70",
+   "id": "gosi_2024#65",
    "source_file": "gosi_2024.js",
-   "index_in_file": 70,
+   "index_in_file": 65,
    "title": "InBound 또는 OutBound 국제로밍 서비스의 제공을 위해 자사 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -54571,9 +53116,9 @@
    "content_length": 121
   },
   {
-   "id": "gosi_2024#71",
+   "id": "gosi_2024#66",
    "source_file": "gosi_2024.js",
-   "index_in_file": 71,
+   "index_in_file": 66,
    "title": "국내 ISP 사업자 간 인터넷망 상호접속에 따른 정산 비용 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -54599,9 +53144,9 @@
    "content_length": 78
   },
   {
-   "id": "gosi_2024#72",
+   "id": "gosi_2024#67",
    "source_file": "gosi_2024.js",
-   "index_in_file": 72,
+   "index_in_file": 67,
    "title": "소액결제서비스를 제공하면서 발생한 각종 수수료 등의 비용 역무 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -54658,9 +53203,9 @@
    "content_length": 96
   },
   {
-   "id": "gosi_2024#73",
+   "id": "gosi_2024#68",
    "source_file": "gosi_2024.js",
-   "index_in_file": 73,
+   "index_in_file": 68,
    "title": "전기통신설비를 이용하여 서비스를 제공하는 과정에서 부수적으로 발생한 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -54686,9 +53231,9 @@
    "content_length": 105
   },
   {
-   "id": "gosi_2024#74",
+   "id": "gosi_2024#69",
    "source_file": "gosi_2024.js",
-   "index_in_file": 74,
+   "index_in_file": 69,
    "title": "회선설비 임대계약과 별개로 발생한 회선 매니지드 서비스 수익 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -54714,9 +53259,9 @@
    "content_length": 77
   },
   {
-   "id": "gosi_2024#75",
+   "id": "gosi_2024#70",
    "source_file": "gosi_2024.js",
-   "index_in_file": 75,
+   "index_in_file": 70,
    "title": "소액결제 서비스를 제공하기 위하여 사용되는 IT 자산 역무 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -54768,9 +53313,9 @@
    "content_length": 86
   },
   {
-   "id": "gosi_2024#76",
+   "id": "gosi_2024#71",
    "source_file": "gosi_2024.js",
-   "index_in_file": 76,
+   "index_in_file": 71,
    "title": "외국정부 또 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -54802,53 +53347,9 @@
    "content_length": 103
   },
   {
-   "id": "gosi_2024#77",
+   "id": "gosi_2024#72",
    "source_file": "gosi_2024.js",
-   "index_in_file": 77,
-   "title": "소액결제서비스를 제공하면서 발생한 각종 수수료 등의 비용 역무 분류 오류",
-   "category": "영업보고서 검증결과 지적사항",
-   "year": "2024",
-   "source_company": null,
-   "source_pdf": "[해설서]전기통신사업 회계분리기준 해설서_2026.04.pdf (지적사항 섹션)",
-   "tags": {
-    "asset": [],
-    "function": [],
-    "service": [
-     {
-      "term": "부가통신",
-      "code": "E010",
-      "count": 2
-     },
-     {
-      "term": "이동전화_LTE",
-      "code": "B090",
-      "count": 1
-     },
-     {
-      "term": "이동전화_3G",
-      "code": "B080",
-      "count": 1
-     },
-     {
-      "term": "이동전화_5G",
-      "code": "B100",
-      "count": 1
-     }
-    ],
-    "revenue": [],
-    "cost": []
-   },
-   "decision_types": [
-    "배부",
-    "검증/지적"
-   ],
-   "conclusions": [],
-   "content_length": 73
-  },
-  {
-   "id": "gosi_2024#78",
-   "source_file": "gosi_2024.js",
-   "index_in_file": 78,
+   "index_in_file": 72,
    "title": "통신단말장치의 구입 지원비용을 지급받지 않 기능 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -54885,9 +53386,9 @@
    "content_length": 126
   },
   {
-   "id": "gosi_2024#79",
+   "id": "gosi_2024#73",
    "source_file": "gosi_2024.js",
-   "index_in_file": 79,
+   "index_in_file": 73,
    "title": "대손상각비 환입액은 대손상각비에서 차감하여야 하나, 일부 금액을 전파사용료에서 차감하였음",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -54911,9 +53412,9 @@
    "content_length": 49
   },
   {
-   "id": "gosi_2024#80",
+   "id": "gosi_2024#74",
    "source_file": "gosi_2024.js",
-   "index_in_file": 80,
+   "index_in_file": 74,
    "title": "이동통신단말장치를 구입한 가입자가 일정 기간 동안 분실ㆍ파손 등에 대해 역무 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -54950,9 +53451,9 @@
    "content_length": 156
   },
   {
-   "id": "gosi_2024#81",
+   "id": "gosi_2024#75",
    "source_file": "gosi_2024.js",
-   "index_in_file": 81,
+   "index_in_file": 75,
    "title": "현 황",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -54997,9 +53498,9 @@
    "content_length": 1147
   },
   {
-   "id": "gosi_2024#82",
+   "id": "gosi_2024#76",
    "source_file": "gosi_2024.js",
-   "index_in_file": 82,
+   "index_in_file": 76,
    "title": "주파수 이용 기간이 종료된 무형자산(주파수 이용권) 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -55031,9 +53532,9 @@
    "content_length": 90
   },
   {
-   "id": "gosi_2024#83",
+   "id": "gosi_2024#77",
    "source_file": "gosi_2024.js",
-   "index_in_file": 83,
+   "index_in_file": 77,
    "title": "선로포설설비(전주·관로·맨홀)의 형태·기능 분류 오류 (선로설비 vs 전송설비)",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -55074,9 +53575,9 @@
    "content_length": 159
   },
   {
-   "id": "gosi_2024#84",
+   "id": "gosi_2024#78",
    "source_file": "gosi_2024.js",
-   "index_in_file": 84,
+   "index_in_file": 78,
    "title": "자사의 전기통신사업을 위해 전기통신망을 직접 구성하여 광 선로를 구성하는 형태 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -55112,9 +53613,9 @@
    "content_length": 148
   },
   {
-   "id": "gosi_2024#85",
+   "id": "gosi_2024#79",
    "source_file": "gosi_2024.js",
-   "index_in_file": 85,
+   "index_in_file": 79,
    "title": "교환설비와 별도로 구분되는 과금 서버 형태 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -55145,9 +53646,9 @@
    "content_length": 95
   },
   {
-   "id": "gosi_2024#86",
+   "id": "gosi_2024#80",
    "source_file": "gosi_2024.js",
-   "index_in_file": 86,
+   "index_in_file": 80,
    "title": "전기통신망을 직접 보호하는 방화벽, 접근제어시스템 등 보안 설비 형태 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -55178,9 +53679,9 @@
    "content_length": 115
   },
   {
-   "id": "gosi_2024#87",
+   "id": "gosi_2024#81",
    "source_file": "gosi_2024.js",
-   "index_in_file": 87,
+   "index_in_file": 81,
    "title": "선로포설설비(전주·관로·맨홀) 감가상각비 내용연수 적용 오류 (15년 → 8년)",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -55217,9 +53718,9 @@
    "content_length": 63
   },
   {
-   "id": "gosi_2024#88",
+   "id": "gosi_2024#82",
    "source_file": "gosi_2024.js",
-   "index_in_file": 88,
+   "index_in_file": 82,
    "title": "전기통신망을 직접 구성하여 사용 중인 정보를 저장‧처리하는 서버 형태 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -55250,9 +53751,9 @@
    "content_length": 105
   },
   {
-   "id": "gosi_2024#89",
+   "id": "gosi_2024#83",
    "source_file": "gosi_2024.js",
-   "index_in_file": 89,
+   "index_in_file": 83,
    "title": "자사의 전기통신사업을 위해 전기통신망을 직접 구성하여 사용 중인 형태 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -55278,9 +53779,9 @@
    "content_length": 105
   },
   {
-   "id": "gosi_2024#90",
+   "id": "gosi_2024#84",
    "source_file": "gosi_2024.js",
-   "index_in_file": 90,
+   "index_in_file": 84,
    "title": "자사의 전기통신사업을 위해 전기통신망을 직접 구성 및 사용 중인 전송매체 형태 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -55306,9 +53807,9 @@
    "content_length": 153
   },
   {
-   "id": "gosi_2024#91",
+   "id": "gosi_2024#85",
    "source_file": "gosi_2024.js",
-   "index_in_file": 91,
+   "index_in_file": 85,
    "title": "부가통신역무를 제공하기 위한 전기통신설비 중 정보처리설비에서 발생한 형태 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -55352,9 +53853,9 @@
    "content_length": 124
   },
   {
-   "id": "gosi_2024#92",
+   "id": "gosi_2024#86",
    "source_file": "gosi_2024.js",
-   "index_in_file": 92,
+   "index_in_file": 86,
    "title": "자사의 전기통신사업을 위해 구성된 전기통신망을 직접 보호하 형태 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -55385,9 +53886,9 @@
    "content_length": 112
   },
   {
-   "id": "gosi_2024#93",
+   "id": "gosi_2024#87",
    "source_file": "gosi_2024.js",
-   "index_in_file": 93,
+   "index_in_file": 87,
    "title": "자사의 전기통신사업을 위해 전기통신망을 직접 구성하여 사용 중인 정보를 형태 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -55407,9 +53908,9 @@
    "content_length": 149
   },
   {
-   "id": "gosi_2024#94",
+   "id": "gosi_2024#88",
    "source_file": "gosi_2024.js",
-   "index_in_file": 94,
+   "index_in_file": 88,
    "title": "주 전원과 예비전원에 전원을 공급하는 장비(STS) 형태 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -55429,9 +53930,9 @@
    "content_length": 187
   },
   {
-   "id": "gosi_2024#95",
+   "id": "gosi_2024#89",
    "source_file": "gosi_2024.js",
-   "index_in_file": 95,
+   "index_in_file": 89,
    "title": "자사 고객 관리 등의 업무를 수행하는 고객센터(콜센터) 전용 자산 역무 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -55472,31 +53973,9 @@
    "content_length": 115
   },
   {
-   "id": "gosi_2024#96",
+   "id": "gosi_2024#90",
    "source_file": "gosi_2024.js",
-   "index_in_file": 96,
-   "title": "자사 고객 관리 등의 업무를 수행하는 고객센터(콜센터) 전용 자산 형태 분류 오류",
-   "category": "영업보고서 검증결과 지적사항",
-   "year": "2024",
-   "source_company": null,
-   "source_pdf": "[해설서]전기통신사업 회계분리기준 해설서_2026.04.pdf (지적사항 섹션)",
-   "tags": {
-    "asset": [],
-    "function": [],
-    "service": [],
-    "revenue": [],
-    "cost": []
-   },
-   "decision_types": [
-    "검증/지적"
-   ],
-   "conclusions": [],
-   "content_length": 141
-  },
-  {
-   "id": "gosi_2024#97",
-   "source_file": "gosi_2024.js",
-   "index_in_file": 97,
+   "index_in_file": 90,
    "title": "이동통신망을 기반으로 제공되는 M2M 서비스의 고객 형태 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -55522,9 +54001,9 @@
    "content_length": 148
   },
   {
-   "id": "gosi_2024#98",
+   "id": "gosi_2024#91",
    "source_file": "gosi_2024.js",
-   "index_in_file": 98,
+   "index_in_file": 91,
    "title": "채팅플러스 서비스 관련한 솔루션 사용대가 기능 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -55587,9 +54066,9 @@
    "content_length": 255
   },
   {
-   "id": "gosi_2024#99",
+   "id": "gosi_2024#92",
    "source_file": "gosi_2024.js",
-   "index_in_file": 99,
+   "index_in_file": 92,
    "title": "자사 고객 관리 등의 업무를 수행하는 고객센터(콜센터) 전용 자산 형태 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -55615,9 +54094,9 @@
    "content_length": 195
   },
   {
-   "id": "gosi_2024#100",
+   "id": "gosi_2024#93",
    "source_file": "gosi_2024.js",
-   "index_in_file": 100,
+   "index_in_file": 93,
    "title": "CDN서비스를 제공하기 위해 지불한 비용 기능 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -55655,9 +54134,9 @@
    "content_length": 248
   },
   {
-   "id": "gosi_2024#101",
+   "id": "gosi_2024#94",
    "source_file": "gosi_2024.js",
-   "index_in_file": 101,
+   "index_in_file": 94,
    "title": "채팅플러스 서비스 관련한 솔루션 사용대가 형태 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -55695,37 +54174,9 @@
    "content_length": 262
   },
   {
-   "id": "gosi_2024#102",
+   "id": "gosi_2024#95",
    "source_file": "gosi_2024.js",
-   "index_in_file": 102,
-   "title": "자사 고객 관리 등의 업무를 수행하는 고객센터(콜센터) 전용 자산 형태 분류 오류",
-   "category": "영업보고서 검증결과 지적사항",
-   "year": "2024",
-   "source_company": null,
-   "source_pdf": "[해설서]전기통신사업 회계분리기준 해설서_2026.04.pdf (지적사항 섹션)",
-   "tags": {
-    "asset": [
-     {
-      "term": "구축물.교환설비",
-      "code": "AST.STRUCT.SWITCH",
-      "count": 1
-     }
-    ],
-    "function": [],
-    "service": [],
-    "revenue": [],
-    "cost": []
-   },
-   "decision_types": [
-    "검증/지적"
-   ],
-   "conclusions": [],
-   "content_length": 155
-  },
-  {
-   "id": "gosi_2024#103",
-   "source_file": "gosi_2024.js",
-   "index_in_file": 103,
+   "index_in_file": 95,
    "title": "사용용도를 명확하게 구분하기 어려운 소프트웨어 라이선스 수수료 형태 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -55751,9 +54202,9 @@
    "content_length": 93
   },
   {
-   "id": "gosi_2024#104",
+   "id": "gosi_2024#96",
    "source_file": "gosi_2024.js",
-   "index_in_file": 104,
+   "index_in_file": 96,
    "title": "부가통신역무를 제공하기 위한 전기통신설비를 지원하기 위해 발생한 소프트웨어 형태 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -55803,9 +54254,9 @@
    "content_length": 136
   },
   {
-   "id": "gosi_2024#105",
+   "id": "gosi_2024#97",
    "source_file": "gosi_2024.js",
-   "index_in_file": 105,
+   "index_in_file": 97,
    "title": "부가통신역무를 제공하기 위한 고객센터 형태 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -55849,9 +54300,9 @@
    "content_length": 144
   },
   {
-   "id": "gosi_2024#106",
+   "id": "gosi_2024#98",
    "source_file": "gosi_2024.js",
-   "index_in_file": 106,
+   "index_in_file": 98,
    "title": "재무회계에서 인식한 고객센터의 인테리어 복구비용 형태 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -55872,9 +54323,9 @@
    "content_length": 100
   },
   {
-   "id": "gosi_2024#107",
+   "id": "gosi_2024#99",
    "source_file": "gosi_2024.js",
-   "index_in_file": 107,
+   "index_in_file": 99,
    "title": "고객 정보를 관리 및, 고객 상담을 지원하는 시스템 형태 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -55894,9 +54345,9 @@
    "content_length": 91
   },
   {
-   "id": "gosi_2024#108",
+   "id": "gosi_2024#100",
    "source_file": "gosi_2024.js",
-   "index_in_file": 108,
+   "index_in_file": 100,
    "title": "IDC 센터에서 사용되는 냉방기, 항온항습기 등 형태 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -55922,9 +54373,9 @@
    "content_length": 106
   },
   {
-   "id": "gosi_2024#109",
+   "id": "gosi_2024#101",
    "source_file": "gosi_2024.js",
-   "index_in_file": 109,
+   "index_in_file": 101,
    "title": "전기통신망을 직접 구성하여 사용 중인 정보를 저장ㆍ처리하는 서버와 형태 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -55956,9 +54407,9 @@
    "content_length": 150
   },
   {
-   "id": "gosi_2024#110",
+   "id": "gosi_2024#102",
    "source_file": "gosi_2024.js",
-   "index_in_file": 110,
+   "index_in_file": 102,
    "title": "영업부서에서 사용하는 PC 렌탈료 형태 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -56005,9 +54456,9 @@
    "content_length": 164
   },
   {
-   "id": "gosi_2024#111",
+   "id": "gosi_2024#103",
    "source_file": "gosi_2024.js",
-   "index_in_file": 111,
+   "index_in_file": 103,
    "title": "회사의 전반적인 관리 및 업무 지원 목적으로 취득한 항공기 형태 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -56039,9 +54490,9 @@
    "content_length": 94
   },
   {
-   "id": "gosi_2024#112",
+   "id": "gosi_2024#104",
    "source_file": "gosi_2024.js",
-   "index_in_file": 112,
+   "index_in_file": 104,
    "title": "고객 서비스 개선 등을 위해 지급한 소프트웨어 사용료 형태 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -56094,9 +54545,9 @@
    "content_length": 103
   },
   {
-   "id": "gosi_2024#113",
+   "id": "gosi_2024#105",
    "source_file": "gosi_2024.js",
-   "index_in_file": 113,
+   "index_in_file": 105,
    "title": "회사의 전반적인 관리 및 업무 지원 목적으로 취득한 항공기 내부 인테리어 형태 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -56128,9 +54579,9 @@
    "content_length": 104
   },
   {
-   "id": "gosi_2024#114",
+   "id": "gosi_2024#106",
    "source_file": "gosi_2024.js",
-   "index_in_file": 114,
+   "index_in_file": 106,
    "title": "5G 서비스를 제공하는 단말기의 광고선전을 위해 펀드에 지급하는 기능 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -56179,9 +54630,9 @@
    "content_length": 101
   },
   {
-   "id": "gosi_2024#115",
+   "id": "gosi_2024#107",
    "source_file": "gosi_2024.js",
-   "index_in_file": 115,
+   "index_in_file": 107,
    "title": "불특정 다수를 대상으로 하는 광고비용 기능 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -56228,9 +54679,9 @@
    "content_length": 65
   },
   {
-   "id": "gosi_2024#116",
+   "id": "gosi_2024#108",
    "source_file": "gosi_2024.js",
-   "index_in_file": 116,
+   "index_in_file": 108,
    "title": "자사의 전기통신사업을 위해 회사 전 부서의 업무를 지원하는 클라우드 시스템 형태 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -56250,9 +54701,9 @@
    "content_length": 140
   },
   {
-   "id": "gosi_2024#117",
+   "id": "gosi_2024#109",
    "source_file": "gosi_2024.js",
-   "index_in_file": 117,
+   "index_in_file": 109,
    "title": "자사의 전기통신사업을 위해 사용하 형태 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -56272,9 +54723,9 @@
    "content_length": 116
   },
   {
-   "id": "gosi_2024#118",
+   "id": "gosi_2024#110",
    "source_file": "gosi_2024.js",
-   "index_in_file": 118,
+   "index_in_file": 110,
    "title": "자사의 전기통신사업외의 사업을 위해 회사 전 부서의 업무를 지원하 형태 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -56300,9 +54751,9 @@
    "content_length": 145
   },
   {
-   "id": "gosi_2024#119",
+   "id": "gosi_2024#111",
    "source_file": "gosi_2024.js",
-   "index_in_file": 119,
+   "index_in_file": 111,
    "title": "자사의 전기통신사업외의 사업(IPTV 등)을 위해 사용하 형태 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -56333,9 +54784,9 @@
    "content_length": 128
   },
   {
-   "id": "gosi_2024#120",
+   "id": "gosi_2024#112",
    "source_file": "gosi_2024.js",
-   "index_in_file": 120,
+   "index_in_file": 112,
    "title": "이동통신서비스의 신규 가입자 가입절차 검증을 목적으로 협회에 지급하는 기능 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -56423,9 +54874,9 @@
    "content_length": 189
   },
   {
-   "id": "gosi_2024#121",
+   "id": "gosi_2024#113",
    "source_file": "gosi_2024.js",
-   "index_in_file": 121,
+   "index_in_file": 113,
    "title": "중계기 및 기타통신설비 설치 등을 위한 공간임차 비용으로 지불한 지하철 형태 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -56462,9 +54913,9 @@
    "content_length": 149
   },
   {
-   "id": "gosi_2024#122",
+   "id": "gosi_2024#114",
    "source_file": "gosi_2024.js",
-   "index_in_file": 122,
+   "index_in_file": 114,
    "title": "업무용 차량 임차에 따른 사용권자산 형태 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -56503,9 +54954,9 @@
    "content_length": 125
   },
   {
-   "id": "gosi_2024#123",
+   "id": "gosi_2024#115",
    "source_file": "gosi_2024.js",
-   "index_in_file": 123,
+   "index_in_file": 115,
    "title": "인사시스템 사용료 형태 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -56578,9 +55029,9 @@
    "content_length": 153
   },
   {
-   "id": "gosi_2024#124",
+   "id": "gosi_2024#116",
    "source_file": "gosi_2024.js",
-   "index_in_file": 124,
+   "index_in_file": 116,
    "title": "온실가스배출권 구입비 기능 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -56619,64 +55070,9 @@
    "content_length": 86
   },
   {
-   "id": "gosi_2024#125",
+   "id": "gosi_2024#117",
    "source_file": "gosi_2024.js",
-   "index_in_file": 125,
-   "title": "이동통신서비스의 신규 가입자 가입절차 검증을 목적으로 협회에 지급하는 기능 분류 오류",
-   "category": "영업보고서 검증결과 지적사항",
-   "year": "2024",
-   "source_company": null,
-   "source_pdf": "[해설서]전기통신사업 회계분리기준 해설서_2026.04.pdf (지적사항 섹션)",
-   "tags": {
-    "asset": [],
-    "function": [
-     {
-      "term": "일반관리기능",
-      "code": "A05",
-      "count": 2
-     }
-    ],
-    "service": [
-     {
-      "term": "전기통신사업외",
-      "code": "F010",
-      "count": 2
-     },
-     {
-      "term": "이동전화_LTE",
-      "code": "B090",
-      "count": 1
-     },
-     {
-      "term": "이동전화_3G",
-      "code": "B080",
-      "count": 1
-     },
-     {
-      "term": "이동전화_5G",
-      "code": "B100",
-      "count": 1
-     }
-    ],
-    "revenue": [],
-    "cost": [
-     {
-      "term": "일반관리비",
-      "code": "COST.G&A",
-      "count": 1
-     }
-    ]
-   },
-   "decision_types": [
-    "검증/지적"
-   ],
-   "conclusions": [],
-   "content_length": 135
-  },
-  {
-   "id": "gosi_2024#126",
-   "source_file": "gosi_2024.js",
-   "index_in_file": 126,
+   "index_in_file": 117,
    "title": "내부회계시스템 형태 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -56708,9 +55104,9 @@
    "content_length": 69
   },
   {
-   "id": "gosi_2024#127",
+   "id": "gosi_2024#118",
    "source_file": "gosi_2024.js",
-   "index_in_file": 127,
+   "index_in_file": 118,
    "title": "구매관리시스템 형태 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -56742,9 +55138,9 @@
    "content_length": 69
   },
   {
-   "id": "gosi_2024#128",
+   "id": "gosi_2024#119",
    "source_file": "gosi_2024.js",
-   "index_in_file": 128,
+   "index_in_file": 119,
    "title": "회사의 전반적인 관리 및 업무 지원 과정에서 발생한 경비(지급수수료) 기능 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -56776,9 +55172,9 @@
    "content_length": 87
   },
   {
-   "id": "gosi_2024#129",
+   "id": "gosi_2024#120",
    "source_file": "gosi_2024.js",
-   "index_in_file": 129,
+   "index_in_file": 120,
    "title": "고객센터 상면 임차비용 형태 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -56798,9 +55194,9 @@
    "content_length": 85
   },
   {
-   "id": "gosi_2024#130",
+   "id": "gosi_2024#121",
    "source_file": "gosi_2024.js",
-   "index_in_file": 130,
+   "index_in_file": 121,
    "title": "통신국사 수선유지비의 기능 분류 (일반지원자산등운영비용 vs 일반관리기능비용)",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -56830,9 +55226,9 @@
    "content_length": 90
   },
   {
-   "id": "gosi_2024#131",
+   "id": "gosi_2024#122",
    "source_file": "gosi_2024.js",
-   "index_in_file": 131,
+   "index_in_file": 122,
    "title": "중계기 등 무선국 기반시설을 구축하기 위한 상면 등의 임차비용 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -56852,9 +55248,9 @@
    "content_length": 68
   },
   {
-   "id": "gosi_2024#132",
+   "id": "gosi_2024#123",
    "source_file": "gosi_2024.js",
-   "index_in_file": 132,
+   "index_in_file": 123,
    "title": "이동통신서비스를 제공하기 위해 이동통신사업자간 무선국 기반시설을 구축하고 형태 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -56908,9 +55304,9 @@
    "content_length": 143
   },
   {
-   "id": "gosi_2024#133",
+   "id": "gosi_2024#124",
    "source_file": "gosi_2024.js",
-   "index_in_file": 133,
+   "index_in_file": 124,
    "title": "통신국사 임차비용 등 형태 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -56947,9 +55343,9 @@
    "content_length": 117
   },
   {
-   "id": "gosi_2024#134",
+   "id": "gosi_2024#125",
    "source_file": "gosi_2024.js",
-   "index_in_file": 134,
+   "index_in_file": 125,
    "title": "사옥 관련 유지보수비용(보안, 미화 등) 형태 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -56992,9 +55388,9 @@
    "content_length": 218
   },
   {
-   "id": "gosi_2024#135",
+   "id": "gosi_2024#126",
    "source_file": "gosi_2024.js",
-   "index_in_file": 135,
+   "index_in_file": 126,
    "title": "이동통신단말장치를 구매한 가입자가 일정 기간 동안 해당 단말을 이용하고 역무 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -57036,9 +55432,9 @@
    "content_length": 135
   },
   {
-   "id": "gosi_2024#136",
+   "id": "gosi_2024#127",
    "source_file": "gosi_2024.js",
-   "index_in_file": 136,
+   "index_in_file": 127,
    "title": "이동통신서비스(2G 서비스)를 제공하기 위해 취득한 교환설비 등 형태 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -57075,9 +55471,9 @@
    "content_length": 110
   },
   {
-   "id": "gosi_2024#137",
+   "id": "gosi_2024#128",
    "source_file": "gosi_2024.js",
-   "index_in_file": 137,
+   "index_in_file": 128,
    "title": "통신국사 수선유지비의 기능 분류 (일반지원자산등운영비용 vs 일반관리기능비용) — 재지적",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -57110,9 +55506,9 @@
    "content_length": 109
   },
   {
-   "id": "gosi_2024#138",
+   "id": "gosi_2024#129",
    "source_file": "gosi_2024.js",
-   "index_in_file": 138,
+   "index_in_file": 129,
    "title": "요금기저 산정 시 전기통신사업외 재고자산 연평균 장부가액 일부 누락으로 인한 투자보수 과소",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -57136,9 +55532,9 @@
    "content_length": 70
   },
   {
-   "id": "gosi_2024#139",
+   "id": "gosi_2024#130",
    "source_file": "gosi_2024.js",
-   "index_in_file": 139,
+   "index_in_file": 130,
    "title": "요금기저 산정 시 전기통신사업외 임차보증금을 이동통신서비스로 분류한 투자보수 오산정",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -57172,9 +55568,9 @@
    "content_length": 99
   },
   {
-   "id": "gosi_2024#140",
+   "id": "gosi_2024#131",
    "source_file": "gosi_2024.js",
-   "index_in_file": 140,
+   "index_in_file": 131,
    "title": "임원 책임배상 보험료의 기능·역무 배부 (업무투입비율 vs 일반지원자산공통)",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -57206,9 +55602,9 @@
    "content_length": 119
   },
   {
-   "id": "gosi_2024#141",
+   "id": "gosi_2024#132",
    "source_file": "gosi_2024.js",
-   "index_in_file": 141,
+   "index_in_file": 132,
    "title": "퇴직급여 차감항목의 기능·역무 배부 (전체 인원수 비율 vs 일반관리)",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -57251,9 +55647,9 @@
    "content_length": 123
   },
   {
-   "id": "gosi_2024#142",
+   "id": "gosi_2024#133",
    "source_file": "gosi_2024.js",
-   "index_in_file": 142,
+   "index_in_file": 133,
    "title": "사내근로복지기금의 기능·역무 배부 (전체 인원수 비율 vs 일반관리)",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -57296,9 +55692,9 @@
    "content_length": 117
   },
   {
-   "id": "gosi_2024#143",
+   "id": "gosi_2024#134",
    "source_file": "gosi_2024.js",
-   "index_in_file": 143,
+   "index_in_file": 134,
    "title": "퇴직급여의 기능·역무 배부 (전체 인원수 비율 vs 특정 부서)",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -57324,9 +55720,9 @@
    "content_length": 70
   },
   {
-   "id": "gosi_2024#144",
+   "id": "gosi_2024#135",
    "source_file": "gosi_2024.js",
-   "index_in_file": 144,
+   "index_in_file": 135,
    "title": "성과급의 기능·역무 배부 (전체 인원수 비율 vs 특정 부서)",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -57352,9 +55748,9 @@
    "content_length": 82
   },
   {
-   "id": "gosi_2024#145",
+   "id": "gosi_2024#136",
    "source_file": "gosi_2024.js",
-   "index_in_file": 145,
+   "index_in_file": 136,
    "title": "영업보고서 별지 4-1호 결합할인율 산정 미표기 (일반전화·시내·시외·인터넷 등)",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -57434,9 +55830,9 @@
    "content_length": 148
   },
   {
-   "id": "gosi_2024#146",
+   "id": "gosi_2024#137",
    "source_file": "gosi_2024.js",
-   "index_in_file": 146,
+   "index_in_file": 137,
    "title": "영업보고서 별지 4-1호 결합할인액 표기 오류 (양수 표기 → 음수 표기)",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -57462,9 +55858,9 @@
    "content_length": 84
   },
   {
-   "id": "gosi_2024#147",
+   "id": "gosi_2024#138",
    "source_file": "gosi_2024.js",
-   "index_in_file": 147,
+   "index_in_file": 138,
    "title": "영업보고서 별지 4-1호 결합할인율 산정 미표기 (인터넷가입자접속·인터넷전화·3G·LTE 등)",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -57519,9 +55915,9 @@
    "content_length": 125
   },
   {
-   "id": "gosi_2024#148",
+   "id": "gosi_2024#139",
    "source_file": "gosi_2024.js",
-   "index_in_file": 148,
+   "index_in_file": 139,
    "title": "이동통신망을 기반으로 제공되는 M2M 서비스를 제공하면서 수취한 수익 역무 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -57557,9 +55953,9 @@
    "content_length": 91
   },
   {
-   "id": "gosi_2024#149",
+   "id": "gosi_2024#140",
    "source_file": "gosi_2024.js",
-   "index_in_file": 149,
+   "index_in_file": 140,
    "title": "가입자 유치 비용을 여러 기간 수익에서 차감한 금액의 영업보고서 포함 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
@@ -57580,9 +55976,9 @@
    "content_length": 99
   },
   {
-   "id": "gosi_2024#150",
+   "id": "gosi_2024#141",
    "source_file": "gosi_2024.js",
-   "index_in_file": 150,
+   "index_in_file": 141,
    "title": "재무회계에서 무형자산(기타 무형자산)으로 분류된 자산 형태 분류 오류",
    "category": "영업보고서 검증결과 지적사항",
    "year": "2024",
