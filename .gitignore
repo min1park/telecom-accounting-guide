@@ -3,3 +3,6 @@ __pycache__/
 
 # 오프라인 번들 산출물 (build_offline.py로 매번 재생성)
 통신회계_가이드_offline_*.html
+
+# Ollama 태깅 산출물 (재생성 가능, 모델 비결정성)
+*_ollama태깅.csv
