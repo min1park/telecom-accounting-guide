@@ -162,6 +162,9 @@ NEW_OUT = (
     '        subclass: sc,\n'
     '        cnt: g.cnt, acq: g.acq,\n'
     '        acct: topN(g.accts)[0]||"", form: topN(g.forms)[0]||"", func: topN(g.funcs)[0]||"", svc: topN(g.svcs)[0]||"",\n'
+    '        acctName: map.acctName?String(g.sample[map.acctName]||""):"",\n'
+    '        formName: map.formName?String(g.sample[map.formName]||""):"",\n'
+    '        svcName:  map.svcName ?String(g.sample[map.svcName] ||""):"",\n'
     '        descTop:   topN(g.descs, 3),\n'
     '        vendorTop: topN(g.vendors, 3),\n'
     '        bmTop:     topN(g.bms, 2),\n'
@@ -1275,6 +1278,184 @@ if OLD_PARSE in new_html:
     print('(19) CSV 따옴표 파서 OK')
 else:
     print('!! (19) CSV 파서 마커 못 찾음')
+
+# ─────────── 20. Ollama 로컬 AI 판정 브릿지 ───────────
+# 판정 지식은 ollama_tag.py의 SYSTEM_KNOWLEDGE를 빌드 타임에 추출 (단일 소스)
+import re as _re
+_tag_src = io.open(os.path.join(ROOT, 'indexer', 'ollama_tag.py'), encoding='utf-8').read()
+_system = _re.search(r'SYSTEM_KNOWLEDGE = """(.*?)"""', _tag_src, _re.DOTALL).group(1)
+_system_js = json.dumps(_system, ensure_ascii=False)
+
+BRIDGE_JS = r'''
+/* ══════════════ Phase 4-3: Ollama 로컬 AI 판정 브릿지 ══════════════ */
+var OLLAMA_URL = "http://localhost:11434/api/generate";
+var AI_SYSTEM = __SYSTEM_JS__;
+var AI_RUNNING = false, AI_STOP = false;
+
+/* 결정론 룰 프리패스 — indexer/ollama_tag.py rule_pretag()와 동일 로직 (JS 포팅) */
+function aiRulePretag(g){
+  var acctName=g.acctName||g.acct||"", formName=g.formName||g.form||"";
+  var svcName=g.svcName||"", svcCode=g.svc||"";
+  var topDescs=(g.descTop||[]).join(" ");
+  if(/^S9/.test(svcCode) || svcName.indexOf("공통")>=0){
+    var extra=(acctName.indexOf("매출에누리")>=0||acctName.indexOf("매출할인")>=0)?" (매출에누리 — 원 수익 형태 준용 여부도 함께)":"";
+    return {tag:"배부확인",chk:"검토필요",reason:"공통역무("+svcCode+" "+svcName+") 계상 — 세대·역무별 배부 완결 확인 필요"+extra+" [룰]"};
+  }
+  if((acctName+topDescs).indexOf("로밍")>=0){
+    var low=(acctName+" "+topDescs).toLowerCase();
+    if(low.indexOf("아웃바운드")>=0||low.indexOf("outbound")>=0||low.indexOf("해외로밍")>=0)
+      return {tag:"로밍",chk:(formName.indexOf("기타요금")>=0?"적정":"검토필요"),reason:"OutBound 로밍은 기타요금수익 형태 (FY2020·2024) — 현재 "+formName+" [룰]"};
+    if(low.indexOf("인바운드")>=0||low.indexOf("inbound")>=0)
+      return {tag:"로밍",chk:(formName.indexOf("정액")>=0?"적정":"검토필요"),reason:"InBound 로밍은 정액요금수익 형태 (FY2021 지적) — 현재 "+formName+" [룰]"};
+    return {tag:"로밍",chk:"검토필요",reason:"로밍 — In/Outbound 방향별 형태 상이 (Out→기타요금, In→정액) 방향 확인 필요 [룰]"};
+  }
+  if(acctName.indexOf("매출에누리")>=0||acctName.indexOf("매출할인")>=0)
+    return {tag:"매출에누리",chk:"적정",reason:"원 수익의 차감 계정 — 원 수익과 동일 형태("+formName+") 준용은 적정 [룰]"};
+  if(topDescs.indexOf("조정전표")>=0)
+    return {tag:"조정전표",chk:"검토필요",reason:"결산 조정전표 — 원거래 형태 준용 여부 근거 전표 소명 필요 [룰]"};
+  if(topDescs.indexOf("낙전")>=0)
+    return {tag:"낙전",chk:(formName.indexOf("기타영업")>=0?"적정":"검토필요"),reason:"낙전수입은 기타영업수익 형태가 적정 (FY2013 자문단) — 현재 "+formName+" [룰]"};
+  if(topDescs.indexOf("임대폰")>=0||(topDescs.indexOf("임대")>=0&&formName.indexOf("장치")>=0))
+    return {tag:"장치임대",chk:(formName.indexOf("장치")>=0?"적정":"검토필요"),reason:"장치 임대 사용료는 장치비수익 형태가 적정 (FY2022 지적) — 현재 "+formName+" [룰]"};
+  return null;
+}
+
+async function aiJudgeAll(){
+  if(!LAST||!LAST.glResults||!LAST.glResults.length){ el("err").textContent="먼저 [검토 실행]을 하세요."; return; }
+  var btn=el("aijudge");
+  if(AI_RUNNING){ AI_STOP=true; btn.textContent="중단 중..."; return; }
+  var model=(el("aimodel").value||"qwen3:8b").trim();
+  AI_RUNNING=true; AI_STOP=false; btn.textContent="중단";
+  var groups=LAST.glResults, results=LAST.aiResults||{};
+  LAST.aiResults=results;
+  var info=el("aiinfo"), t0=Date.now(), ruleCnt=0, llmCnt=0, errCnt=0;
+  for(var i=0;i<groups.length;i++){
+    if(AI_STOP) break;
+    var g=groups[i];
+    if(results[g.subclass] && results[g.subclass].tag!=="오류"){ continue; } /* 재실행 시 기존 결과 유지 */
+    var pre=aiRulePretag(g);
+    if(pre){ results[g.subclass]=pre; ruleCnt++; }
+    else{
+      var prompt="계정명: "+(g.acctName||g.acct)+"\n형태명: "+(g.formName||g.form)+"\n역무: "+(g.svcName||"")+"("+g.svc+")\n행수: "+g.cnt+", 금액합계: "+fmt(Math.round(g.acq))+"원\n적요(대표): "+((g.descTop||[]).join(" / ")||"(없음)")+"\n거래처(대표): "+((g.vendorTop||[]).join(" / ")||"(없음)")+"\n이 그룹의 실질을 태깅하고 형태 분류 적정성을 판단하라.";
+      try{
+        var resp=await fetch(OLLAMA_URL,{method:"POST",headers:{"Content-Type":"application/json"},
+          body:JSON.stringify({model:model,prompt:prompt,system:AI_SYSTEM,stream:false,format:"json",think:false,
+                               options:{temperature:0.1,num_predict:300}})});
+        if(!resp.ok) throw new Error("HTTP "+resp.status);
+        var data=await resp.json();
+        var j=JSON.parse(data.response||"{}");
+        results[g.subclass]={tag:j.tag||"판단불가",chk:j.form_check||"판단불가",reason:(j.reason||"")+" [LLM]"};
+        llmCnt++;
+      }catch(ex){
+        errCnt++;
+        results[g.subclass]={tag:"오류",chk:"오류",reason:String(ex.message||ex)};
+        if(String(ex).indexOf("fetch")>=0||String(ex).indexOf("Network")>=0){
+          el("err").textContent="Ollama 연결 실패 — Ollama 실행 여부를 확인하세요. (트레이에 Ollama 아이콘이 없으면 시작 메뉴에서 Ollama 실행)";
+          break;
+        }
+      }
+    }
+    info.textContent="AI 판정 "+(i+1)+"/"+groups.length+" — 룰 "+ruleCnt+" · LLM "+llmCnt+(errCnt?" · 오류 "+errCnt:"")+" ("+Math.round((Date.now()-t0)/1000)+"초)";
+  }
+  AI_RUNNING=false; btn.textContent="AI 판정 실행 (로컬)";
+  renderAIResults();
+}
+
+function renderAIResults(){
+  if(!LAST||!LAST.aiResults) return;
+  var groups=LAST.glResults, results=LAST.aiResults;
+  var old=el("sec_R_AI"); if(old) old.remove();
+  var judged=groups.filter(function(g){return results[g.subclass];});
+  if(!judged.length) return;
+  /* 검토필요·오류 먼저, 금액순 */
+  judged.sort(function(a,b){
+    var ra=results[a.subclass], rb=results[b.subclass];
+    var pa=(ra.chk==="적정")?1:0, pb=(rb.chk==="적정")?1:0;
+    if(pa!==pb) return pa-pb;
+    return Math.abs(b.acq)-Math.abs(a.acq);
+  });
+  var nNeed=judged.filter(function(g){return results[g.subclass].chk!=="적정";}).length;
+  var sec=document.createElement("div"); sec.className="rulesec"; sec.id="sec_R_AI";
+  var html="<h3><span class='pill "+(nNeed?"MED":"INFO")+"'>"+(nNeed?"MED":"INFO")+"</span>R_AI. 로컬 AI 판정 — "+fmt(judged.length)+"그룹 (검토필요 "+fmt(nNeed)+")</h3>";
+  html+="<div class='basis'>결정론 룰([룰]: 공통역무·에누리·조정전표·낙전·임대·로밍 — 재현 가능) + 로컬 LLM([LLM]: qwen3 초안 판정 — 검증인 확인 필수). 데이터는 이 PC를 벗어나지 않습니다.</div>";
+  var lim=Math.min(judged.length,300);
+  html+="<div class='tblwrap'><table><thead><tr><th>판정</th><th>태그</th><th>계정·형태·역무</th><th>적요·거래처</th><th>건수</th><th>금액</th><th>근거</th></tr></thead><tbody>";
+  for(var i=0;i<lim;i++){
+    var g=judged[i], r=results[g.subclass];
+    var color=r.chk==="적정"?"#4F6E54":(r.chk==="오류"?"#8E3B39":"#A96A1E");
+    var codeCell="<b>"+esc(g.acctName||g.acct)+"</b><br><span style='font-size:10px;color:#556'>"+esc((g.formName||g.form)+" · "+(g.svcName||g.svc))+"</span>";
+    var descCell=esc((g.descTop||[]).slice(0,2).join(" / "))+(g.vendorTop&&g.vendorTop.length?"<br><span style='color:#889'>"+esc(g.vendorTop[0])+"</span>":"");
+    html+="<tr><td style='color:"+color+";font-weight:bold'>"+esc(r.chk)+"</td><td>"+esc(r.tag)+"</td>"+
+      "<td style='white-space:normal;max-width:170px'>"+codeCell+"</td>"+
+      "<td style='font-size:11px;white-space:normal;max-width:240px'>"+descCell+"</td>"+
+      "<td class='num'>"+fmt(g.cnt)+"</td><td class='num'>"+fmtEok(g.acq)+"</td>"+
+      "<td style='font-size:11px;white-space:normal;max-width:340px'>"+esc(r.reason)+"</td></tr>";
+  }
+  html+="</tbody></table></div>";
+  if(judged.length>lim) html+="<div class='stat'>※ 화면 300그룹 — 전체는 엑셀 다운로드</div>";
+  sec.innerHTML=html;
+  el("ruleout").insertBefore(sec, el("ruleout").firstChild);
+  sec.scrollIntoView({behavior:"smooth"});
+}
+'''
+
+BRIDGE_JS = BRIDGE_JS.replace('__SYSTEM_JS__', _system_js)
+
+marker20a = '/* 입력 핸들러 */'
+if marker20a in new_html:
+    new_html = new_html.replace(marker20a, BRIDGE_JS + '\n' + marker20a, 1)
+    print('(20a) 브릿지 JS 삽입 OK')
+else:
+    print('!! (20a) 입력 핸들러 마커 못 찾음')
+
+# 버튼 UI: aipk 버튼 뒤에 추가
+marker20b = '<button id="aipk" class="sec hide">AI 판정 패킷 생성</button>'
+if marker20b in new_html:
+    new_html = new_html.replace(marker20b,
+        marker20b + '\n    <button id="aijudge" class="sec hide">AI 판정 실행 (로컬)</button>'
+        '\n    <input id="aimodel" value="qwen3:8b" title="Ollama 모델명" '
+        'style="border:1px solid #CBD5E1;border-radius:4px;padding:6px 8px;font-size:12px;width:100px">'
+        '\n    <span id="aiinfo" class="stat"></span>', 1)
+    print('(20b) AI 버튼 UI 추가 OK')
+else:
+    print('!! (20b) aipk 버튼 마커 못 찾음')
+
+# execute 시 버튼 표시
+marker20c = '  el("aipk").classList.remove("hide");'
+if marker20c in new_html:
+    new_html = new_html.replace(marker20c, marker20c + '\n  el("aijudge").classList.remove("hide");', 1)
+    print('(20c) 버튼 표시 OK')
+else:
+    print('!! (20c) aipk 표시 마커 못 찾음')
+
+# 버튼 와이어링
+marker20d = 'el("aipk").onclick=buildAIPacket;'
+if marker20d in new_html:
+    new_html = new_html.replace(marker20d, marker20d + '\nel("aijudge").onclick=aiJudgeAll;', 1)
+    print('(20d) 버튼 와이어링 OK')
+else:
+    print('!! (20d) aipk onclick 마커 못 찾음')
+
+# 엑셀에 AI 판정 시트 추가
+AI_XLSX = (
+    '\n'
+    '  /* R_AI 로컬 AI 판정 시트 */\n'
+    '  if (LAST.aiResults && LAST.glResults){\n'
+    '    var aiRows = [["판정","태그","계정","계정명","형태","형태명","역무","서비스명","건수","금액","적요 상위","거래처 상위","근거"]];\n'
+    '    LAST.glResults.forEach(function(g){\n'
+    '      var r = LAST.aiResults[g.subclass]; if(!r) return;\n'
+    '      aiRows.push([r.chk, r.tag, g.acct, g.acctName||"", g.form, g.formName||"", g.svc, g.svcName||"",\n'
+    '        g.cnt, g.acq, (g.descTop||[]).join(" / "), (g.vendorTop||[]).join(" / "), r.reason]);\n'
+    '    });\n'
+    '    if(aiRows.length>1) XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(aiRows), "R_AI_로컬AI판정");\n'
+    '  }\n'
+)
+marker20e = '  /* R_UM 미분류 계정 시트 */'
+if marker20e in new_html:
+    new_html = new_html.replace(marker20e, AI_XLSX + '\n' + marker20e, 1)
+    print('(20e) 엑셀 AI 시트 OK')
+else:
+    print('!! (20e) 엑셀 마커 못 찾음')
 
 # ─────────── 저장 ───────────
 out_path = os.path.join(ROOT, '수익비용_자동검토_v1.html')
