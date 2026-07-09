@@ -106,6 +106,16 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
   <div id="err" class="warn"></div>
 </div>
 
+<div class="card" id="svcrefcard">
+  <h2>1-2. 서비스코드 참조표 (선택)</h2>
+  <div class="stat">엑셀에서 범위 복사(Ctrl+C) 후 붙여넣기 — 제공 시 공통 풀 판정(계층구분 기반)·배부 대상 표시·역무 적정성(svc_check) 판단이 정밀해집니다. 없으면 서비스명 기반으로 동작합니다.</div>
+  <label style="display:block;margin-top:10px;font-size:12px;color:#556"><b>① 서비스 마스터</b> (서비스코드 · 서비스명 · 계층구분 · 통신회계보고서코드 · 통신회계서비스명)</label>
+  <textarea id="svcmaster" style="height:70px" placeholder="기준년도&#9;서비스코드&#9;서비스명&#9;계층구분&#9;통신회계보고서코드&#9;통신회계서비스명"></textarea>
+  <label style="display:block;margin-top:8px;font-size:12px;color:#556"><b>② 공통 배부관계</b> (서비스코드(FROM) → 서비스코드(TO))</label>
+  <textarea id="svcalloc" style="height:70px" placeholder="기준년도&#9;서비스코드(FROM)&#9;서비스명(FROM)&#9;서비스코드(TO)&#9;서비스명(TO)"></textarea>
+  <div id="svcinfo" class="stat" style="color:#4F6E54;font-weight:bold"></div>
+</div>
+
 <div class="card hide" id="mapcard">
   <h2>2. 컬럼 매핑 확인</h2>
   <div class="stat">머리글을 자동 인식했습니다. 잘못 잡힌 항목은 직접 바꾼 뒤 [검토 실행]을 다시 누르세요. ((없음) = 해당 컬럼 미사용)</div>
@@ -68635,10 +68645,10 @@ function download(){
 
   /* R_AI 로컬 AI 판정 시트 */
   if (LAST.aiResults && LAST.glResults){
-    var aiRows = [["판정","태그","계정","계정명","형태","형태명","역무","서비스명","건수","금액","적요 상위","거래처 상위","근거"]];
+    var aiRows = [["형태판정","역무판정","태그","계정","계정명","형태","형태명","역무","서비스명","건수","금액","적요 상위","거래처 상위","근거"]];
     LAST.glResults.forEach(function(g){
       var r = LAST.aiResults[g.subclass]; if(!r) return;
-      aiRows.push([r.chk, r.tag, g.acct, g.acctName||"", g.form, g.formName||"", g.svc, g.svcName||"",
+      aiRows.push([r.chk, r.svc||"정보없음", r.tag, g.acct, g.acctName||"", g.form, g.formName||"", g.svc, g.svcName||"",
         g.cnt, g.acq, (g.descTop||[]).join(" / "), (g.vendorTop||[]).join(" / "), r.reason]);
     });
     if(aiRows.length>1) XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(aiRows), "R_AI_로컬AI판정");
@@ -68727,17 +68737,71 @@ function buildAIPacket(){
 
 /* ══════════════ Phase 4-3: Ollama 로컬 AI 판정 브릿지 ══════════════ */
 var OLLAMA_URL = "http://localhost:11434/api/generate";
-var AI_SYSTEM = "당신은 전기통신사업 회계분리기준(과기정통부 고시)·해설서에 정통한 회계법인 외부검증인이다.\n수익원장의 그룹(계정×형태×역무)을 보고 거래 실질을 태깅하고 형태 분류의 적정성 초안을 판단하라.\n\n## 확립된 판정 선례 (반드시 준수)\n- 낙전수입(쿠폰·선불 미사용 소멸)은 '기타영업수익' 형태가 적정 (FY2013 자문단 결정, FY2019 지적)\n- 임대폰·모뎀·AP 등 장치 임대 사용료와 그 위약금은 '장치비수익' 형태가 적정 (FY2022 지적)\n- 요금할인 해지위약금은 '기타요금수익' (FY2016·2019·2021 지적)\n- 사은품 반환금·연체료·연체가산금은 '기타영업수익' (FY2015·2016·2017·2020 지적)\n- MNO에게 받은 MVNO 판매활성화장려금은 '기타영업수익' 총액 인식 (FY2018·2019 지적)\n- OutBound 국제로밍·에그 활용 로밍 수익은 '기타요금수익' (FY2020·2024 지적/질의)\n- 요금수익 성격을 '기타영업수익'으로 분류하면 지적 대상 (FY2013·2018·2020 지적) — 단, 위 예외(낙전 등) 확인\n- 기본료의 형태는 약관 성격 기준: 종량제 요금제→기본료(종량제요금수익), 정액제→정액요금수익 (FY2019·2022 지적)\n- SMS/MMS 수익은 종량/초과_SMS/MMS 형태가 적정 (FY2019·2020 지적)\n- '조정전표' 적요는 결산 조정 — 원거래 형태를 따라야 하므로 근거 전표 소명 필요\n- 공통역무(S9xx: NSA공통·5G패킷공통 등)에 계상된 그룹은 형태 적정 여부와 별개로 태그를 '배부확인'으로 — 세대별 배부 완결 확인 필요 (FY2020 지적: 5G 관련을 공통 분류하여 지적)\n- 매출에누리·매출할인·수익조정 계정은 원 수익의 차감(음수 계정) — 원 수익과 동일한 형태로 분류하는 것이 적정 (에누리 계정명과 형태명이 달라 보여도 원 수익 형태를 따랐다면 '적정')\n- '도매제공' 태그는 MVNO 등 재판매사업자에게 망을 도매로 제공한 수익에 한정 — 솔루션·장비 판매는 '기타영업'\n- 계정명과 형태명이 표면상 달라 보여도 형태가 거래 실질에 부합하면 '적정' (계정은 재무회계 체계라 판단 대상 아님 — 형태·역무만 판단)\n\n## 출력 형식 (JSON만, 다른 텍스트 금지)\n{\"tag\": \"<실질태그>\", \"form_check\": \"적정|검토필요|판단불가\", \"reason\": \"<근거 한 문장>\"}\n\ntag는 반드시 아래 목록 중 하나만 사용 (형태명·계정명을 tag로 복사 금지):\n일반요금, 매출에누리, 낙전, 장치임대, 해지위약금, 사은품반환, 연체료, 판매활성화장려금, 로밍, 접속정산, 도매제공, 포인트결제, 조정전표, 임직원자가소비, 내부거래, 배부확인, 기타영업, 판단불가\n(예: 정액요금·종량제·SMS 등 통상의 요금수익은 모두 \"일반요금\")";
+var AI_SYSTEM = "당신은 전기통신사업 회계분리기준(과기정통부 고시)·해설서에 정통한 회계법인 외부검증인이다.\n수익원장의 그룹(계정×형태×역무)을 보고 거래 실질을 태깅하고 형태 분류의 적정성 초안을 판단하라.\n\n## 확립된 판정 선례 (반드시 준수)\n- 낙전수입(쿠폰·선불 미사용 소멸)은 '기타영업수익' 형태가 적정 (FY2013 자문단 결정, FY2019 지적)\n- 임대폰·모뎀·AP 등 장치 임대 사용료와 그 위약금은 '장치비수익' 형태가 적정 (FY2022 지적)\n- 요금할인 해지위약금은 '기타요금수익' (FY2016·2019·2021 지적)\n- 사은품 반환금·연체료·연체가산금은 '기타영업수익' (FY2015·2016·2017·2020 지적)\n- MNO에게 받은 MVNO 판매활성화장려금은 '기타영업수익' 총액 인식 (FY2018·2019 지적)\n- OutBound 국제로밍·에그 활용 로밍 수익은 '기타요금수익' (FY2020·2024 지적/질의)\n- 요금수익 성격을 '기타영업수익'으로 분류하면 지적 대상 (FY2013·2018·2020 지적) — 단, 위 예외(낙전 등) 확인\n- 기본료의 형태는 약관 성격 기준: 종량제 요금제→기본료(종량제요금수익), 정액제→정액요금수익 (FY2019·2022 지적)\n- SMS/MMS 수익은 종량/초과_SMS/MMS 형태가 적정 (FY2019·2020 지적)\n- '조정전표' 적요는 결산 조정 — 원거래 형태를 따라야 하므로 근거 전표 소명 필요\n- 공통역무(S9xx: NSA공통·5G패킷공통 등)에 계상된 그룹은 형태 적정 여부와 별개로 태그를 '배부확인'으로 — 세대별 배부 완결 확인 필요 (FY2020 지적: 5G 관련을 공통 분류하여 지적)\n- 매출에누리·매출할인·수익조정 계정은 원 수익의 차감(음수 계정) — 원 수익과 동일한 형태로 분류하는 것이 적정 (에누리 계정명과 형태명이 달라 보여도 원 수익 형태를 따랐다면 '적정')\n- '도매제공' 태그는 MVNO 등 재판매사업자에게 망을 도매로 제공한 수익에 한정 — 솔루션·장비 판매는 '기타영업'\n- 계정명과 형태명이 표면상 달라 보여도 형태가 거래 실질에 부합하면 '적정' (계정은 재무회계 체계라 판단 대상 아님 — 형태·역무만 판단)\n\n## 출력 형식 (JSON만, 다른 텍스트 금지)\n{\"tag\": \"<실질태그>\", \"form_check\": \"적정|검토필요|판단불가\", \"svc_check\": \"적정|검토필요|정보없음\", \"reason\": \"<근거 한 문장>\"}\n\nsvc_check(역무 적정성): 입력에 '서비스 계층' 정보가 있을 때만 판단 — 계정·적요의 실질과 역무 계열이 부합하면 적정, 어긋나면 검토필요 (예: 인터넷 수익 계정인데 역무가 이동통신 계열). 계층 정보가 없으면 \"정보없음\".\n\ntag는 반드시 아래 목록 중 하나만 사용 (형태명·계정명을 tag로 복사 금지):\n일반요금, 매출에누리, 낙전, 장치임대, 해지위약금, 사은품반환, 연체료, 판매활성화장려금, 로밍, 접속정산, 도매제공, 포인트결제, 조정전표, 임직원자가소비, 내부거래, 배부확인, 기타영업, 판단불가\n(예: 정액요금·종량제·SMS 등 통상의 요금수익은 모두 \"일반요금\")";
 var AI_RUNNING = false, AI_STOP = false;
+
+/* ── 서비스코드 참조표 (선택 입력) ──
+   SVC_MASTER: 코드 → {name, layer(계층구분: 0=개별, 1~=공통풀), stdCode, stdName}
+   SVC_ALLOC : 공통 풀 코드 → [{code,name}] 배부 대상 */
+var SVC_MASTER = {}, SVC_ALLOC = {};
+function parseSvcRef(){
+  SVC_MASTER = {}; SVC_ALLOC = {};
+  var t1 = el("svcmaster").value.trim(), t2 = el("svcalloc").value.trim();
+  if(t1){ var p = parseDelimited(t1); if(p){
+    var h = p.headers;
+    var iC = -1, iN = -1, iL = -1, iS = -1, iSN = -1;
+    h.forEach(function(x, i){
+      if(/서비스코드/.test(x) && !/FROM|TO/i.test(x) && iC < 0) iC = i;
+      if(/서비스명/.test(x) && !/FROM|TO|통신회계/i.test(x) && iN < 0) iN = i;
+      if(/계층/.test(x) && iL < 0) iL = i;
+      if(/보고서코드/.test(x) && iS < 0) iS = i;
+      if(/통신회계서비스명/.test(x) && iSN < 0) iSN = i;
+    });
+    if(iC >= 0){ p.rows.forEach(function(r){
+      var c = String(r[h[iC]]||"").trim(); if(!c) return;
+      SVC_MASTER[c] = {name: iN>=0?String(r[h[iN]]||"").trim():"",
+                       layer: iL>=0?(parseInt(String(r[h[iL]]||"0"),10)||0):0,
+                       stdCode: iS>=0?String(r[h[iS]]||"").trim():"",
+                       stdName: iSN>=0?String(r[h[iSN]]||"").trim():""};
+    }); }
+  }}
+  if(t2){ var p2 = parseDelimited(t2); if(p2){
+    var h2 = p2.headers;
+    var iF = -1, iT = -1, iTN = -1;
+    h2.forEach(function(x, i){
+      if(/FROM/i.test(x) && /코드/.test(x) && iF < 0) iF = i;
+      if(/TO/i.test(x) && /코드/.test(x) && iT < 0) iT = i;
+      if(/TO/i.test(x) && /명/.test(x) && iTN < 0) iTN = i;
+    });
+    if(iF >= 0 && iT >= 0){ p2.rows.forEach(function(r){
+      var f = String(r[h2[iF]]||"").trim(); if(!f) return;
+      (SVC_ALLOC[f] = SVC_ALLOC[f] || []).push({code: String(r[h2[iT]]||"").trim(),
+                                                name: iTN>=0?String(r[h2[iTN]]||"").trim():""});
+    }); }
+  }}
+  var nM = Object.keys(SVC_MASTER).length, nA = Object.keys(SVC_ALLOC).length;
+  el("svcinfo").textContent = (nM||nA) ? ("✓ 마스터 " + nM + "개 코드 · 배부관계 " + nA + "개 공통 풀 로드됨 — AI 판정에 반영됩니다") : "";
+}
 
 /* 결정론 룰 프리패스 — indexer/ollama_tag.py rule_pretag()와 동일 로직 (JS 포팅) */
 function aiRulePretag(g){
   var acctName=g.acctName||g.acct||"", formName=g.formName||g.form||"";
   var svcName=g.svcName||"", svcCode=g.svc||"";
   var topDescs=(g.descTop||[]).join(" ");
-  if(/^S9/.test(svcCode) || svcName.indexOf("공통")>=0){
+  var m = SVC_MASTER[svcCode];
+  /* 참조표 있으면 계층구분으로 공통 풀 확정 (이름 추측 대체) */
+  if(m && m.layer > 0){
+    var alloc = (SVC_ALLOC[svcCode]||[]).map(function(a){return a.name||a.code;}).join("·");
     var extra=(acctName.indexOf("매출에누리")>=0||acctName.indexOf("매출할인")>=0)?" (매출에누리 — 원 수익 형태 준용 여부도 함께)":"";
-    return {tag:"배부확인",chk:"검토필요",reason:"공통역무("+svcCode+" "+svcName+") 계상 — 세대·역무별 배부 완결 확인 필요"+extra+" [룰]"};
+    return {tag:"배부확인",chk:"검토필요",svc:"검토필요",
+            reason:"공통 풀("+svcCode+" "+svcName+", 계층"+m.layer+") — 배부 대상: "+(alloc||"배부관계 미등록")+" — 기말 배부 완결 확인"+extra+" [룰]"};
+  }
+  if(m && m.name.indexOf("더미")>=0){
+    return {tag:"판단불가",chk:"검토필요",svc:"검토필요",reason:"더미 서비스코드("+svcCode+") — 서비스 매핑 정비 필요 [룰]"};
+  }
+  if(!m && (/^S9/.test(svcCode) || svcName.indexOf("공통")>=0)){
+    var extra2=(acctName.indexOf("매출에누리")>=0||acctName.indexOf("매출할인")>=0)?" (매출에누리 — 원 수익 형태 준용 여부도 함께)":"";
+    return {tag:"배부확인",chk:"검토필요",svc:"검토필요",reason:"공통역무("+svcCode+" "+svcName+") 계상 — 세대·역무별 배부 완결 확인 필요"+extra2+" [룰]"};
   }
   if((acctName+topDescs).indexOf("로밍")>=0){
     var low=(acctName+" "+topDescs).toLowerCase();
@@ -68774,7 +68838,12 @@ async function aiJudgeAll(){
     var pre=aiRulePretag(g);
     if(pre){ results[g.subclass]=pre; ruleCnt++; }
     else{
-      var prompt="계정명: "+(g.acctName||g.acct)+"\n형태명: "+(g.formName||g.form)+"\n역무: "+(g.svcName||"")+"("+g.svc+")\n행수: "+g.cnt+", 금액합계: "+fmt(Math.round(g.acq))+"원\n적요(대표): "+((g.descTop||[]).join(" / ")||"(없음)")+"\n거래처(대표): "+((g.vendorTop||[]).join(" / ")||"(없음)")+"\n이 그룹의 실질을 태깅하고 형태 분류 적정성을 판단하라.";
+      var svcCtx="";
+      var sm=SVC_MASTER[g.svc];
+      if(sm){ svcCtx="\n서비스 계층: "+(sm.layer>0
+          ? ("공통 풀(계층"+sm.layer+"), 배부 대상: "+((SVC_ALLOC[g.svc]||[]).map(function(a){return a.name||a.code;}).join("·")||"미등록"))
+          : ("개별 서비스, 통신회계 표준 "+sm.stdCode+" "+sm.stdName)); }
+      var prompt="계정명: "+(g.acctName||g.acct)+"\n형태명: "+(g.formName||g.form)+"\n역무: "+(g.svcName||"")+"("+g.svc+")"+svcCtx+"\n행수: "+g.cnt+", 금액합계: "+fmt(Math.round(g.acq))+"원\n적요(대표): "+((g.descTop||[]).join(" / ")||"(없음)")+"\n거래처(대표): "+((g.vendorTop||[]).join(" / ")||"(없음)")+"\n이 그룹의 실질을 태깅하고 형태 분류 적정성"+(svcCtx?"과 역무 적정성":"")+"을 판단하라.";
       try{
         var resp=await fetch(OLLAMA_URL,{method:"POST",headers:{"Content-Type":"application/json"},
           body:JSON.stringify({model:model,prompt:prompt,system:AI_SYSTEM,stream:false,format:"json",think:false,
@@ -68782,7 +68851,7 @@ async function aiJudgeAll(){
         if(!resp.ok) throw new Error("HTTP "+resp.status);
         var data=await resp.json();
         var j=JSON.parse(data.response||"{}");
-        results[g.subclass]={tag:j.tag||"판단불가",chk:j.form_check||"판단불가",reason:(j.reason||"")+" [LLM]"};
+        results[g.subclass]={tag:j.tag||"판단불가",chk:j.form_check||"판단불가",svc:(svcCtx?(j.svc_check||"정보없음"):"정보없음"),reason:(j.reason||"")+" [LLM]"};
         llmCnt++;
       }catch(ex){
         errCnt++;
@@ -68808,26 +68877,29 @@ function renderAIResults(){
   /* 검토필요·오류 먼저, 금액순 */
   judged.sort(function(a,b){
     var ra=results[a.subclass], rb=results[b.subclass];
-    var pa=(ra.chk==="적정")?1:0, pb=(rb.chk==="적정")?1:0;
+    var pa=(ra.chk==="적정"&&ra.svc!=="검토필요")?1:0, pb=(rb.chk==="적정"&&rb.svc!=="검토필요")?1:0;
     if(pa!==pb) return pa-pb;
     return Math.abs(b.acq)-Math.abs(a.acq);
   });
-  var nNeed=judged.filter(function(g){return results[g.subclass].chk!=="적정";}).length;
+  var nNeed=judged.filter(function(g){var r=results[g.subclass]; return r.chk!=="적정"||r.svc==="검토필요";}).length;
   var sec=document.createElement("div"); sec.className="rulesec"; sec.id="sec_R_AI";
   var html="<h3><span class='pill "+(nNeed?"MED":"INFO")+"'>"+(nNeed?"MED":"INFO")+"</span>R_AI. 로컬 AI 판정 — "+fmt(judged.length)+"그룹 (검토필요 "+fmt(nNeed)+")</h3>";
-  html+="<div class='basis'>결정론 룰([룰]: 공통역무·에누리·조정전표·낙전·임대·로밍 — 재현 가능) + 로컬 LLM([LLM]: qwen3 초안 판정 — 검증인 확인 필수). 데이터는 이 PC를 벗어나지 않습니다.</div>";
+  html+="<div class='basis'>결정론 룰([룰]: 공통역무·에누리·조정전표·낙전·임대·로밍 — 재현 가능) + 로컬 LLM([LLM]: qwen3 초안 판정 — 검증인 확인 필수). 서비스코드 참조표 제공 시 공통 풀 판정·배부대상·역무 적정성이 정밀해집니다. 데이터는 이 PC를 벗어나지 않습니다.</div>";
   var lim=Math.min(judged.length,300);
-  html+="<div class='tblwrap'><table><thead><tr><th>판정</th><th>태그</th><th>계정·형태·역무</th><th>적요·거래처</th><th>건수</th><th>금액</th><th>근거</th></tr></thead><tbody>";
+  html+="<div class='tblwrap'><table><thead><tr><th>형태판정</th><th>역무판정</th><th>태그</th><th>계정·형태·역무</th><th>적요·거래처</th><th>건수</th><th>금액</th><th>근거</th></tr></thead><tbody>";
   for(var i=0;i<lim;i++){
     var g=judged[i], r=results[g.subclass];
     var color=r.chk==="적정"?"#4F6E54":(r.chk==="오류"?"#8E3B39":"#A96A1E");
+    var svcTxt=r.svc&&r.svc!=="정보없음"?r.svc:"-";
+    var svcColor=svcTxt==="적정"?"#4F6E54":(svcTxt==="검토필요"?"#A96A1E":"#99A");
     var codeCell="<b>"+esc(g.acctName||g.acct)+"</b><br><span style='font-size:10px;color:#556'>"+esc((g.formName||g.form)+" · "+(g.svcName||g.svc))+"</span>";
     var descCell=esc((g.descTop||[]).slice(0,2).join(" / "))+(g.vendorTop&&g.vendorTop.length?"<br><span style='color:#889'>"+esc(g.vendorTop[0])+"</span>":"");
-    html+="<tr><td style='color:"+color+";font-weight:bold'>"+esc(r.chk)+"</td><td>"+esc(r.tag)+"</td>"+
+    html+="<tr><td style='color:"+color+";font-weight:bold'>"+esc(r.chk)+"</td>"+
+      "<td style='color:"+svcColor+";font-weight:bold'>"+esc(svcTxt)+"</td><td>"+esc(r.tag)+"</td>"+
       "<td style='white-space:normal;max-width:170px'>"+codeCell+"</td>"+
-      "<td style='font-size:11px;white-space:normal;max-width:240px'>"+descCell+"</td>"+
+      "<td style='font-size:11px;white-space:normal;max-width:220px'>"+descCell+"</td>"+
       "<td class='num'>"+fmt(g.cnt)+"</td><td class='num'>"+fmtEok(g.acq)+"</td>"+
-      "<td style='font-size:11px;white-space:normal;max-width:340px'>"+esc(r.reason)+"</td></tr>";
+      "<td style='font-size:11px;white-space:normal;max-width:320px'>"+esc(r.reason)+"</td></tr>";
   }
   html+="</tbody></table></div>";
   if(judged.length>lim) html+="<div class='stat'>※ 화면 300그룹 — 전체는 엑셀 다운로드</div>";
@@ -68891,6 +68963,8 @@ el("run").onclick=function(){
 el("dl").onclick=download;
 el("aipk").onclick=buildAIPacket;
 el("aijudge").onclick=aiJudgeAll;
+el("svcmaster").addEventListener("input", parseSvcRef);
+el("svcalloc").addEventListener("input", parseSvcRef);
 el("cfg").value=JSON.stringify(CFG,null,2);
 el("applycfg").onclick=function(){
   try{ CFG=JSON.parse(el("cfg").value); el("err").textContent=""; if(DATA) execute(); }

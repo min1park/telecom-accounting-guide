@@ -1292,14 +1292,68 @@ var OLLAMA_URL = "http://localhost:11434/api/generate";
 var AI_SYSTEM = __SYSTEM_JS__;
 var AI_RUNNING = false, AI_STOP = false;
 
+/* ── 서비스코드 참조표 (선택 입력) ──
+   SVC_MASTER: 코드 → {name, layer(계층구분: 0=개별, 1~=공통풀), stdCode, stdName}
+   SVC_ALLOC : 공통 풀 코드 → [{code,name}] 배부 대상 */
+var SVC_MASTER = {}, SVC_ALLOC = {};
+function parseSvcRef(){
+  SVC_MASTER = {}; SVC_ALLOC = {};
+  var t1 = el("svcmaster").value.trim(), t2 = el("svcalloc").value.trim();
+  if(t1){ var p = parseDelimited(t1); if(p){
+    var h = p.headers;
+    var iC = -1, iN = -1, iL = -1, iS = -1, iSN = -1;
+    h.forEach(function(x, i){
+      if(/서비스코드/.test(x) && !/FROM|TO/i.test(x) && iC < 0) iC = i;
+      if(/서비스명/.test(x) && !/FROM|TO|통신회계/i.test(x) && iN < 0) iN = i;
+      if(/계층/.test(x) && iL < 0) iL = i;
+      if(/보고서코드/.test(x) && iS < 0) iS = i;
+      if(/통신회계서비스명/.test(x) && iSN < 0) iSN = i;
+    });
+    if(iC >= 0){ p.rows.forEach(function(r){
+      var c = String(r[h[iC]]||"").trim(); if(!c) return;
+      SVC_MASTER[c] = {name: iN>=0?String(r[h[iN]]||"").trim():"",
+                       layer: iL>=0?(parseInt(String(r[h[iL]]||"0"),10)||0):0,
+                       stdCode: iS>=0?String(r[h[iS]]||"").trim():"",
+                       stdName: iSN>=0?String(r[h[iSN]]||"").trim():""};
+    }); }
+  }}
+  if(t2){ var p2 = parseDelimited(t2); if(p2){
+    var h2 = p2.headers;
+    var iF = -1, iT = -1, iTN = -1;
+    h2.forEach(function(x, i){
+      if(/FROM/i.test(x) && /코드/.test(x) && iF < 0) iF = i;
+      if(/TO/i.test(x) && /코드/.test(x) && iT < 0) iT = i;
+      if(/TO/i.test(x) && /명/.test(x) && iTN < 0) iTN = i;
+    });
+    if(iF >= 0 && iT >= 0){ p2.rows.forEach(function(r){
+      var f = String(r[h2[iF]]||"").trim(); if(!f) return;
+      (SVC_ALLOC[f] = SVC_ALLOC[f] || []).push({code: String(r[h2[iT]]||"").trim(),
+                                                name: iTN>=0?String(r[h2[iTN]]||"").trim():""});
+    }); }
+  }}
+  var nM = Object.keys(SVC_MASTER).length, nA = Object.keys(SVC_ALLOC).length;
+  el("svcinfo").textContent = (nM||nA) ? ("✓ 마스터 " + nM + "개 코드 · 배부관계 " + nA + "개 공통 풀 로드됨 — AI 판정에 반영됩니다") : "";
+}
+
 /* 결정론 룰 프리패스 — indexer/ollama_tag.py rule_pretag()와 동일 로직 (JS 포팅) */
 function aiRulePretag(g){
   var acctName=g.acctName||g.acct||"", formName=g.formName||g.form||"";
   var svcName=g.svcName||"", svcCode=g.svc||"";
   var topDescs=(g.descTop||[]).join(" ");
-  if(/^S9/.test(svcCode) || svcName.indexOf("공통")>=0){
+  var m = SVC_MASTER[svcCode];
+  /* 참조표 있으면 계층구분으로 공통 풀 확정 (이름 추측 대체) */
+  if(m && m.layer > 0){
+    var alloc = (SVC_ALLOC[svcCode]||[]).map(function(a){return a.name||a.code;}).join("·");
     var extra=(acctName.indexOf("매출에누리")>=0||acctName.indexOf("매출할인")>=0)?" (매출에누리 — 원 수익 형태 준용 여부도 함께)":"";
-    return {tag:"배부확인",chk:"검토필요",reason:"공통역무("+svcCode+" "+svcName+") 계상 — 세대·역무별 배부 완결 확인 필요"+extra+" [룰]"};
+    return {tag:"배부확인",chk:"검토필요",svc:"검토필요",
+            reason:"공통 풀("+svcCode+" "+svcName+", 계층"+m.layer+") — 배부 대상: "+(alloc||"배부관계 미등록")+" — 기말 배부 완결 확인"+extra+" [룰]"};
+  }
+  if(m && m.name.indexOf("더미")>=0){
+    return {tag:"판단불가",chk:"검토필요",svc:"검토필요",reason:"더미 서비스코드("+svcCode+") — 서비스 매핑 정비 필요 [룰]"};
+  }
+  if(!m && (/^S9/.test(svcCode) || svcName.indexOf("공통")>=0)){
+    var extra2=(acctName.indexOf("매출에누리")>=0||acctName.indexOf("매출할인")>=0)?" (매출에누리 — 원 수익 형태 준용 여부도 함께)":"";
+    return {tag:"배부확인",chk:"검토필요",svc:"검토필요",reason:"공통역무("+svcCode+" "+svcName+") 계상 — 세대·역무별 배부 완결 확인 필요"+extra2+" [룰]"};
   }
   if((acctName+topDescs).indexOf("로밍")>=0){
     var low=(acctName+" "+topDescs).toLowerCase();
@@ -1336,7 +1390,12 @@ async function aiJudgeAll(){
     var pre=aiRulePretag(g);
     if(pre){ results[g.subclass]=pre; ruleCnt++; }
     else{
-      var prompt="계정명: "+(g.acctName||g.acct)+"\n형태명: "+(g.formName||g.form)+"\n역무: "+(g.svcName||"")+"("+g.svc+")\n행수: "+g.cnt+", 금액합계: "+fmt(Math.round(g.acq))+"원\n적요(대표): "+((g.descTop||[]).join(" / ")||"(없음)")+"\n거래처(대표): "+((g.vendorTop||[]).join(" / ")||"(없음)")+"\n이 그룹의 실질을 태깅하고 형태 분류 적정성을 판단하라.";
+      var svcCtx="";
+      var sm=SVC_MASTER[g.svc];
+      if(sm){ svcCtx="\n서비스 계층: "+(sm.layer>0
+          ? ("공통 풀(계층"+sm.layer+"), 배부 대상: "+((SVC_ALLOC[g.svc]||[]).map(function(a){return a.name||a.code;}).join("·")||"미등록"))
+          : ("개별 서비스, 통신회계 표준 "+sm.stdCode+" "+sm.stdName)); }
+      var prompt="계정명: "+(g.acctName||g.acct)+"\n형태명: "+(g.formName||g.form)+"\n역무: "+(g.svcName||"")+"("+g.svc+")"+svcCtx+"\n행수: "+g.cnt+", 금액합계: "+fmt(Math.round(g.acq))+"원\n적요(대표): "+((g.descTop||[]).join(" / ")||"(없음)")+"\n거래처(대표): "+((g.vendorTop||[]).join(" / ")||"(없음)")+"\n이 그룹의 실질을 태깅하고 형태 분류 적정성"+(svcCtx?"과 역무 적정성":"")+"을 판단하라.";
       try{
         var resp=await fetch(OLLAMA_URL,{method:"POST",headers:{"Content-Type":"application/json"},
           body:JSON.stringify({model:model,prompt:prompt,system:AI_SYSTEM,stream:false,format:"json",think:false,
@@ -1344,7 +1403,7 @@ async function aiJudgeAll(){
         if(!resp.ok) throw new Error("HTTP "+resp.status);
         var data=await resp.json();
         var j=JSON.parse(data.response||"{}");
-        results[g.subclass]={tag:j.tag||"판단불가",chk:j.form_check||"판단불가",reason:(j.reason||"")+" [LLM]"};
+        results[g.subclass]={tag:j.tag||"판단불가",chk:j.form_check||"판단불가",svc:(svcCtx?(j.svc_check||"정보없음"):"정보없음"),reason:(j.reason||"")+" [LLM]"};
         llmCnt++;
       }catch(ex){
         errCnt++;
@@ -1370,26 +1429,29 @@ function renderAIResults(){
   /* 검토필요·오류 먼저, 금액순 */
   judged.sort(function(a,b){
     var ra=results[a.subclass], rb=results[b.subclass];
-    var pa=(ra.chk==="적정")?1:0, pb=(rb.chk==="적정")?1:0;
+    var pa=(ra.chk==="적정"&&ra.svc!=="검토필요")?1:0, pb=(rb.chk==="적정"&&rb.svc!=="검토필요")?1:0;
     if(pa!==pb) return pa-pb;
     return Math.abs(b.acq)-Math.abs(a.acq);
   });
-  var nNeed=judged.filter(function(g){return results[g.subclass].chk!=="적정";}).length;
+  var nNeed=judged.filter(function(g){var r=results[g.subclass]; return r.chk!=="적정"||r.svc==="검토필요";}).length;
   var sec=document.createElement("div"); sec.className="rulesec"; sec.id="sec_R_AI";
   var html="<h3><span class='pill "+(nNeed?"MED":"INFO")+"'>"+(nNeed?"MED":"INFO")+"</span>R_AI. 로컬 AI 판정 — "+fmt(judged.length)+"그룹 (검토필요 "+fmt(nNeed)+")</h3>";
-  html+="<div class='basis'>결정론 룰([룰]: 공통역무·에누리·조정전표·낙전·임대·로밍 — 재현 가능) + 로컬 LLM([LLM]: qwen3 초안 판정 — 검증인 확인 필수). 데이터는 이 PC를 벗어나지 않습니다.</div>";
+  html+="<div class='basis'>결정론 룰([룰]: 공통역무·에누리·조정전표·낙전·임대·로밍 — 재현 가능) + 로컬 LLM([LLM]: qwen3 초안 판정 — 검증인 확인 필수). 서비스코드 참조표 제공 시 공통 풀 판정·배부대상·역무 적정성이 정밀해집니다. 데이터는 이 PC를 벗어나지 않습니다.</div>";
   var lim=Math.min(judged.length,300);
-  html+="<div class='tblwrap'><table><thead><tr><th>판정</th><th>태그</th><th>계정·형태·역무</th><th>적요·거래처</th><th>건수</th><th>금액</th><th>근거</th></tr></thead><tbody>";
+  html+="<div class='tblwrap'><table><thead><tr><th>형태판정</th><th>역무판정</th><th>태그</th><th>계정·형태·역무</th><th>적요·거래처</th><th>건수</th><th>금액</th><th>근거</th></tr></thead><tbody>";
   for(var i=0;i<lim;i++){
     var g=judged[i], r=results[g.subclass];
     var color=r.chk==="적정"?"#4F6E54":(r.chk==="오류"?"#8E3B39":"#A96A1E");
+    var svcTxt=r.svc&&r.svc!=="정보없음"?r.svc:"-";
+    var svcColor=svcTxt==="적정"?"#4F6E54":(svcTxt==="검토필요"?"#A96A1E":"#99A");
     var codeCell="<b>"+esc(g.acctName||g.acct)+"</b><br><span style='font-size:10px;color:#556'>"+esc((g.formName||g.form)+" · "+(g.svcName||g.svc))+"</span>";
     var descCell=esc((g.descTop||[]).slice(0,2).join(" / "))+(g.vendorTop&&g.vendorTop.length?"<br><span style='color:#889'>"+esc(g.vendorTop[0])+"</span>":"");
-    html+="<tr><td style='color:"+color+";font-weight:bold'>"+esc(r.chk)+"</td><td>"+esc(r.tag)+"</td>"+
+    html+="<tr><td style='color:"+color+";font-weight:bold'>"+esc(r.chk)+"</td>"+
+      "<td style='color:"+svcColor+";font-weight:bold'>"+esc(svcTxt)+"</td><td>"+esc(r.tag)+"</td>"+
       "<td style='white-space:normal;max-width:170px'>"+codeCell+"</td>"+
-      "<td style='font-size:11px;white-space:normal;max-width:240px'>"+descCell+"</td>"+
+      "<td style='font-size:11px;white-space:normal;max-width:220px'>"+descCell+"</td>"+
       "<td class='num'>"+fmt(g.cnt)+"</td><td class='num'>"+fmtEok(g.acq)+"</td>"+
-      "<td style='font-size:11px;white-space:normal;max-width:340px'>"+esc(r.reason)+"</td></tr>";
+      "<td style='font-size:11px;white-space:normal;max-width:320px'>"+esc(r.reason)+"</td></tr>";
   }
   html+="</tbody></table></div>";
   if(judged.length>lim) html+="<div class='stat'>※ 화면 300그룹 — 전체는 엑셀 다운로드</div>";
@@ -1428,23 +1490,45 @@ if marker20c in new_html:
 else:
     print('!! (20c) aipk 표시 마커 못 찾음')
 
-# 버튼 와이어링
+# 버튼 와이어링 + 참조표 리스너
 marker20d = 'el("aipk").onclick=buildAIPacket;'
 if marker20d in new_html:
-    new_html = new_html.replace(marker20d, marker20d + '\nel("aijudge").onclick=aiJudgeAll;', 1)
+    new_html = new_html.replace(marker20d,
+        marker20d + '\nel("aijudge").onclick=aiJudgeAll;'
+        '\nel("svcmaster").addEventListener("input", parseSvcRef);'
+        '\nel("svcalloc").addEventListener("input", parseSvcRef);', 1)
     print('(20d) 버튼 와이어링 OK')
 else:
     print('!! (20d) aipk onclick 마커 못 찾음')
+
+# ─────────── 21. 서비스코드 참조표 입력 카드 ───────────
+SVC_CARD = (
+    '<div class="card" id="svcrefcard">\n'
+    '  <h2>1-2. 서비스코드 참조표 (선택)</h2>\n'
+    '  <div class="stat">엑셀에서 범위 복사(Ctrl+C) 후 붙여넣기 — 제공 시 공통 풀 판정(계층구분 기반)·배부 대상 표시·역무 적정성(svc_check) 판단이 정밀해집니다. 없으면 서비스명 기반으로 동작합니다.</div>\n'
+    '  <label style="display:block;margin-top:10px;font-size:12px;color:#556"><b>① 서비스 마스터</b> (서비스코드 · 서비스명 · 계층구분 · 통신회계보고서코드 · 통신회계서비스명)</label>\n'
+    '  <textarea id="svcmaster" style="height:70px" placeholder="기준년도&#9;서비스코드&#9;서비스명&#9;계층구분&#9;통신회계보고서코드&#9;통신회계서비스명"></textarea>\n'
+    '  <label style="display:block;margin-top:8px;font-size:12px;color:#556"><b>② 공통 배부관계</b> (서비스코드(FROM) → 서비스코드(TO))</label>\n'
+    '  <textarea id="svcalloc" style="height:70px" placeholder="기준년도&#9;서비스코드(FROM)&#9;서비스명(FROM)&#9;서비스코드(TO)&#9;서비스명(TO)"></textarea>\n'
+    '  <div id="svcinfo" class="stat" style="color:#4F6E54;font-weight:bold"></div>\n'
+    '</div>\n\n'
+)
+marker21 = '<div class="card hide" id="mapcard">'
+if marker21 in new_html:
+    new_html = new_html.replace(marker21, SVC_CARD + marker21, 1)
+    print('(21) 참조표 카드 OK')
+else:
+    print('!! (21) mapcard 마커 못 찾음')
 
 # 엑셀에 AI 판정 시트 추가
 AI_XLSX = (
     '\n'
     '  /* R_AI 로컬 AI 판정 시트 */\n'
     '  if (LAST.aiResults && LAST.glResults){\n'
-    '    var aiRows = [["판정","태그","계정","계정명","형태","형태명","역무","서비스명","건수","금액","적요 상위","거래처 상위","근거"]];\n'
+    '    var aiRows = [["형태판정","역무판정","태그","계정","계정명","형태","형태명","역무","서비스명","건수","금액","적요 상위","거래처 상위","근거"]];\n'
     '    LAST.glResults.forEach(function(g){\n'
     '      var r = LAST.aiResults[g.subclass]; if(!r) return;\n'
-    '      aiRows.push([r.chk, r.tag, g.acct, g.acctName||"", g.form, g.formName||"", g.svc, g.svcName||"",\n'
+    '      aiRows.push([r.chk, r.svc||"정보없음", r.tag, g.acct, g.acctName||"", g.form, g.formName||"", g.svc, g.svcName||"",\n'
     '        g.cnt, g.acq, (g.descTop||[]).join(" / "), (g.vendorTop||[]).join(" / "), r.reason]);\n'
     '    });\n'
     '    if(aiRows.length>1) XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(aiRows), "R_AI_로컬AI판정");\n'
