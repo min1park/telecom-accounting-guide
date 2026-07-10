@@ -508,6 +508,56 @@
             border-radius: 2px;
         }
         .detail-item .content .c-part:first-child { margin-top: 0; }
+
+        /* AI 질의 */
+        .qa-open-btn {
+            width: 100%;
+            margin-top: 8px;
+            padding: 7px 10px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--primary);
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all .15s;
+        }
+        .qa-open-btn:hover { background: var(--surface-alt); border-color: var(--primary); }
+        .qa-panel textarea {
+            width: 100%;
+            height: 64px;
+            padding: 10px;
+            font-size: 0.9rem;
+            font-family: inherit;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            resize: vertical;
+        }
+        .qa-panel .qa-ask {
+            margin-top: 8px;
+            padding: 8px 22px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #fff;
+            background: var(--primary);
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .qa-panel .qa-ask:disabled { opacity: .5; cursor: wait; }
+        .qa-answer {
+            margin-top: 14px;
+            padding: 12px 14px;
+            background: var(--surface-alt);
+            border-left: 3px solid var(--primary);
+            border-radius: 0 6px 6px 0;
+            white-space: pre-wrap;
+            line-height: 1.75;
+            font-size: 0.9rem;
+        }
+        .qa-refs { margin-top: 10px; font-size: 0.75rem; color: var(--text-muted); line-height: 1.7; }
+        .qa-note { margin-top: 6px; font-size: 0.7rem; color: #b85c00; }
         .detail-item .content strong.c-key {
             display: block;
             font-weight: 700;
@@ -654,6 +704,7 @@
                 <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
                 <input type="text" id="search-box" placeholder="키워드로 검색 (2글자 이상)">
             </div>
+            <button id="qa-open" class="qa-open-btn">&#129302; AI에게 질문 (로컬 Ollama)</button>
         </div>
         <ul id="category-list" class="sidebar-nav"></ul>
         <div class="sidebar-footer">
@@ -1042,9 +1093,119 @@
             return '';
         }
 
+        // ═══ AI 질의 (로컬 Ollama + 전체 본문 검색) ═══
+        // 판정 지식은 indexer/ollama_tag.py SYSTEM_KNOWLEDGE와 동일 취지 (갱신 시 함께 수정)
+        const QA_SYSTEM = `당신은 전기통신사업 회계분리기준(과기정통부 고시)·해설서·회계전문위원회 결정에 정통한 회계법인 외부검증인이다.
+사용자의 질문에 한국어로 간결하고 정확하게 답하라.
+
+## 확립된 핵심 지식 (최우선 근거)
+- 낙전수입(쿠폰·선불 미사용 소멸)은 '기타영업수익' 형태가 적정 (FY2013 자문단 결정, FY2019 지적)
+- 임대폰·모뎀·AP 등 장치 임대 사용료와 그 위약금은 '장치비수익' 형태가 적정 (FY2022·2023·2024 지적)
+- 요금할인 해지위약금은 '기타요금수익' (FY2016·2019·2021 지적)
+- 사은품 반환금·연체료·연체가산금은 '기타영업수익' (FY2015~2020 지적)
+- MNO에게 받은 MVNO 판매활성화장려금은 '기타영업수익' 총액 인식 (FY2018·2019 지적)
+- OutBound 국제로밍·에그 활용 로밍 수익은 '기타요금수익' (FY2020·2024), InBound 로밍은 '정액요금수익' (FY2021)
+- 기본료의 형태는 약관 성격 기준: 종량제→기본료(종량제요금수익), 정액제→정액요금수익 (FY2019·2022 지적)
+- SMS/MMS 수익은 종량/초과_SMS/MMS 형태가 적정 (FY2019·2020 지적)
+- 매출에누리·매출할인은 원 수익의 차감 — 원 수익과 동일 형태 준용이 적정
+- K-IFRS1115호 수익 이연 등 발생주의 조정 전표는 표준계정코드(P9010 등) 분류로 통신회계에서 제외 (FY2019 표준계정 매뉴얼)
+- 공통역무 풀: 원장 계상은 허용되나 ① 개별 역무로 특정 가능한 수익을 공통에 두면 지적(FY2020) ② 기말 미배부 잔존 시 지적 ③ 공통이 정당하면 매출액 비율 등 합리적 배부기준을 지침서에 명시·배부 (FY2013 자문단). 최종 영업보고서에 공통(서비스공통미배부)이 남으면 안 됨.
+
+## 답변 규칙
+- 위 핵심 지식과 '관련 조항' 발췌를 근거로 답하고, 연도를 인용하라 (예: FY2020 지적사항).
+- 관련 조항이 질문과 무관해 보이면 억지로 인용하지 말고 핵심 지식·일반 원칙으로만 답하라.
+- 확실하지 않으면 단정하지 말고 확인이 필요하다고 답하라.
+- 답변은 10문장 이내.`;
+
+        function qaSearch(q, K = 5) {
+            const tokens = q.split(/[\s,.?!·()\[\]"']+/).filter(t => t.length >= 2);
+            const scored = [];
+            for (const item of fullTableData) {
+                const content = typeof item.content === 'string' ? item.content : JSON.stringify(item.content || '');
+                let score = 0;
+                for (const t of tokens) {
+                    if (item.title && item.title.includes(t)) score += 5;
+                    if (content.includes(t)) score += 2;
+                }
+                if (score > 0) scored.push({ item, score, content });
+            }
+            scored.sort((a, b) => b.score - a.score);
+            // 저신뢰 차단 — 무관 조항 억지 인용 방지
+            return scored.slice(0, K).filter(s => s.score >= 9);
+        }
+
+        function qaExcerpt(content, tokens) {
+            const concl = content.split('\n').filter(l => l.includes('☞')).slice(0, 2).join(' ');
+            let ctx = '';
+            for (const t of tokens) {
+                const i = content.indexOf(t);
+                if (i >= 0) { ctx = content.slice(Math.max(0, i - 60), i + 160).replace(/\s+/g, ' '); break; }
+            }
+            return ((ctx ? ctx + ' … ' : '') + (concl || '')).slice(0, 280);
+        }
+
+        function renderQAPanel() {
+            contentTitleEl.textContent = 'AI에게 질문';
+            contentSubtitleEl.textContent = '가이드라인 전체(본문 포함)를 검색해 로컬 AI가 근거와 함께 답합니다 — 질문은 이 PC를 벗어나지 않습니다';
+            contentDisplayEl.innerHTML = `
+                <div class="detail-item qa-panel">
+                    <textarea id="qa-input" placeholder="예) 낙전수입의 형태 분류는? / 공통역무가 기말에 남아 있으면 안 되나요? / 임대폰 사용료는 어떤 형태로 분류하나요? (Ctrl+Enter 실행)"></textarea>
+                    <button class="qa-ask" id="qa-ask">질문하기</button>
+                    <div id="qa-out"></div>
+                </div>`;
+            const btn = document.getElementById('qa-ask');
+            const input = document.getElementById('qa-input');
+            btn.addEventListener('click', askOllama);
+            input.addEventListener('keydown', e => { if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) askOllama(); });
+            input.focus();
+        }
+
+        async function askOllama() {
+            const q = document.getElementById('qa-input').value.trim();
+            const out = document.getElementById('qa-out');
+            const btn = document.getElementById('qa-ask');
+            if (!q) { out.innerHTML = '<div class="qa-note">질문을 입력하세요.</div>'; return; }
+            btn.disabled = true; btn.textContent = '답변 생성 중...';
+            out.innerHTML = '<div class="qa-refs">지식베이스 검색 중...</div>';
+            try {
+                const tokens = q.split(/[\s,.?!·()\[\]"']+/).filter(t => t.length >= 2);
+                const refs = qaSearch(q, 5);
+                const refTxt = refs.map((m, i) =>
+                    `${i + 1}) [${m.item.category} ${m.item.year}] ${m.item.title.slice(0, 60)}\n${qaExcerpt(m.content, tokens)}`
+                ).join('\n\n');
+                const prompt = `질문: ${q}\n\n관련 조항(지식베이스 검색 결과):\n${refTxt || '(신뢰도 있는 매칭 없음 — 핵심 지식과 일반 원칙으로만 답하고, 조항을 지어내지 말 것)'}\n\n위 근거를 바탕으로 답하라.`;
+                out.innerHTML = '<div class="qa-refs">로컬 AI 답변 생성 중... (수십 초)</div>';
+                const resp = await fetch('http://localhost:11434/api/generate', {
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ model: 'qwen3:8b', prompt, system: QA_SYSTEM, stream: false, think: false,
+                                           options: { temperature: 0.2, num_predict: 600 } })
+                });
+                if (!resp.ok) throw new Error('HTTP ' + resp.status);
+                const data = await resp.json();
+                let html = `<div class="qa-answer">${escapeHtmlQA(data.response || '(응답 없음)')}</div>`;
+                if (refs.length) {
+                    html += `<div class="qa-refs"><b>참고한 조항</b> (클릭해 원문 검색):<br>` + refs.map(m =>
+                        `· <a href="#" onclick="document.getElementById('search-box').value='${escapeHtmlQA(m.item.title.slice(0, 20))}';document.getElementById('search-box').dispatchEvent(new Event('input'));return false;">[${escapeHtmlQA(m.item.category)} ${escapeHtmlQA(String(m.item.year))}] ${escapeHtmlQA(m.item.title.slice(0, 55))}</a> <span style="color:#aab">(${escapeHtmlQA(getSourceLabel(m.item))})</span>`
+                    ).join('<br>') + `</div>`;
+                }
+                html += `<div class="qa-note">※ 로컬 8B 모델의 초안 답변입니다 — 중요한 판단은 원문 조항·검증인 확인을 거치세요.</div>`;
+                out.innerHTML = html;
+            } catch (ex) {
+                out.innerHTML = `<div class="qa-note">Ollama 연결 실패: ${escapeHtmlQA(ex.message || String(ex))}<br>
+                    ① 이 PC에서 Ollama가 실행 중인지 확인하세요 (시작 메뉴 → Ollama)<br>
+                    ② GitHub Pages(https)에서는 브라우저가 로컬 연결을 차단할 수 있습니다 — 이 경우 오프라인 번들 파일 또는 로컬로 연 페이지에서 사용하세요.</div>`;
+            }
+            btn.disabled = false; btn.textContent = '질문하기';
+        }
+
+        function escapeHtmlQA(s) {
+            return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/'/g, '&#39;');
+        }
+
         // 페이지 로딩 시작
         document.addEventListener('DOMContentLoaded', () => {
             loadAllDataFiles(initialize);
+            document.getElementById('qa-open').addEventListener('click', renderQAPanel);
         });
     </script>
 </body>
