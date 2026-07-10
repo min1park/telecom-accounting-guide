@@ -127,6 +127,8 @@ def get_source_pdf(category, year, source_company):
         return '[자문단] 파일결합본.pdf 또는 [질의회신] FY%s%s (출처 미상)' % (y, co_lbl)
     if '해설서' in category:
         return '[해설서]전기통신사업 회계분리기준 해설서_2026.04.pdf'
+    if '고시' in category:
+        return '[고시]전기통신사업 회계분리기준(과학기술정보통신부고시)(제2025-23호).pdf'
     return ''
 
 # ────────────── 메인 인덱싱 ──────────────
@@ -174,6 +176,7 @@ for fname in data_files:
             "tags": tags,
             "decision_types": classify_decision(text),
             "conclusions": extract_conclusion(content),
+            "excerpt": re.sub(r'\s+', ' ', content)[:300],
             "content_length": len(content),
         }
         index.append(idx_entry)

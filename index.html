@@ -737,6 +737,7 @@
             "회계전문위원회 회의 결과": { key: "acmt", years: [2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012], icon: "&#128101;", color: "#8b5cf6" },
             "회계처리 일원화 방안": { key: "acc", years: [2022, 2021, 2020, 2019, 2018, 2017, 2016, 2014], icon: "&#128203;", color: "#f59e0b" },
             "영업보고서 작성 주의사항": { key: "guide", years: [2019], icon: "&#9888;", color: "#10b981" },
+            "회계분리기준 고시(조문)": { key: "rule", years: [2025], icon: "&#9878;", color: "#64748b" },
             "참고자료": { key: "ref", years: [null], icon: "&#128206;", color: "#06b6d4" }
         };
 
@@ -1090,6 +1091,11 @@
                 return '[해설서]전기통신사업 회계분리기준 해설서_2026.04.pdf';
             }
 
+            // 고시 조문 원문
+            if (cat.includes('고시')) {
+                return '[고시]전기통신사업 회계분리기준(과학기술정보통신부고시)(제2025-23호).pdf';
+            }
+
             return '';
         }
 
@@ -1119,12 +1125,16 @@
 
         function qaSearch(q, K = 5) {
             const tokens = q.split(/[\s,.?!·()\[\]"']+/).filter(t => t.length >= 2);
+            // 조문 번호 패턴 (조사 무관 매칭: "제9조는" → "제9조")
+            const arts = q.match(/제\d+조(?:의\d+)?/g);
+            if (arts) tokens.push(...arts);
             const scored = [];
             for (const item of fullTableData) {
                 const content = typeof item.content === 'string' ? item.content : JSON.stringify(item.content || '');
                 let score = 0;
                 for (const t of tokens) {
-                    if (item.title && item.title.includes(t)) score += 5;
+                    // 조문 번호는 제목 일치 시 고가중 (저신뢰 컷을 확실히 넘김)
+                    if (item.title && item.title.includes(t)) score += (arts && arts.includes(t)) ? 15 : 5;
                     if (content.includes(t)) score += 2;
                 }
                 if (score > 0) scored.push({ item, score, content });
@@ -1147,10 +1157,17 @@
         function renderQAPanel() {
             contentTitleEl.textContent = 'AI에게 질문';
             contentSubtitleEl.textContent = '가이드라인 전체(본문 포함)를 검색해 로컬 AI가 근거와 함께 답합니다 — 질문은 이 PC를 벗어나지 않습니다';
+            const savedModel = localStorage.getItem('qa-model') || 'qwen3:8b';
             contentDisplayEl.innerHTML = `
                 <div class="detail-item qa-panel">
-                    <textarea id="qa-input" placeholder="예) 낙전수입의 형태 분류는? / 공통역무가 기말에 남아 있으면 안 되나요? / 임대폰 사용료는 어떤 형태로 분류하나요? (Ctrl+Enter 실행)"></textarea>
-                    <button class="qa-ask" id="qa-ask">질문하기</button>
+                    <textarea id="qa-input" placeholder="예) 낙전수입의 형태 분류는? / 공통역무가 기말에 남아 있으면 안 되나요? / 고시 제9조 내용은? (Ctrl+Enter 실행)"></textarea>
+                    <div style="display:flex;gap:10px;align-items:center;margin-top:8px">
+                        <button class="qa-ask" id="qa-ask" style="margin-top:0">질문하기</button>
+                        <label style="font-size:0.75rem;color:var(--text-muted)">모델:
+                            <input id="qa-model" value="${savedModel}" style="width:95px;padding:5px 7px;font-size:0.78rem;border:1px solid var(--border);border-radius:5px">
+                        </label>
+                        <span style="font-size:0.7rem;color:var(--text-muted)">qwen3:8b(빠름) / qwen3:14b(정확)</span>
+                    </div>
                     <div id="qa-out"></div>
                 </div>`;
             const btn = document.getElementById('qa-ask');
@@ -1175,9 +1192,11 @@
                 ).join('\n\n');
                 const prompt = `질문: ${q}\n\n관련 조항(지식베이스 검색 결과):\n${refTxt || '(신뢰도 있는 매칭 없음 — 핵심 지식과 일반 원칙으로만 답하고, 조항을 지어내지 말 것)'}\n\n위 근거를 바탕으로 답하라.`;
                 out.innerHTML = '<div class="qa-refs">로컬 AI 답변 생성 중... (수십 초)</div>';
+                const model = (document.getElementById('qa-model').value || 'qwen3:8b').trim();
+                localStorage.setItem('qa-model', model);
                 const resp = await fetch('http://localhost:11434/api/generate', {
                     method: 'POST', headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ model: 'qwen3:8b', prompt, system: QA_SYSTEM, stream: false, think: false,
+                    body: JSON.stringify({ model, prompt, system: QA_SYSTEM, stream: false, think: false,
                                            options: { temperature: 0.2, num_predict: 600 } })
                 });
                 if (!resp.ok) throw new Error('HTTP ' + resp.status);

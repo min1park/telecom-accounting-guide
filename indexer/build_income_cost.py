@@ -1422,7 +1422,7 @@ async function aiJudgeAll(){
       var ragCtx="";
       if(g.matches&&g.matches.length){
         var refs=g.matches.slice(0,3).map(function(mm,ri){
-          var e2=mm.entry, concl=(e2.conclusions&&e2.conclusions[0])?(" "+e2.conclusions[0].substring(0,90)):"";
+          var e2=mm.entry, concl=(e2.conclusions&&e2.conclusions[0])?(" "+e2.conclusions[0].substring(0,90)):(e2.excerpt?(" "+e2.excerpt.substring(0,90)):"");
           return (ri+1)+") ["+e2.category.substring(0,10)+" "+e2.year+"] "+e2.title.substring(0,45)+concl;
         }).join("\n");
         ragCtx="\n관련 가이드라인 조항(참고):\n"+refs;
@@ -1490,13 +1490,17 @@ function searchGuidelinesByText(text, K){
   var tags = textToTags(text);
   /* 질문 토큰(2자 이상) — 제목 직접 매칭 보너스 */
   var tokens = text.split(/[\s,.?!·()\[\]"']+/).filter(function(t){return t.length >= 2;});
+  /* 조문 번호 패턴 — 조사 무관 매칭 ("제9조는" → "제9조") */
+  var _arts = text.match(/제\d+조(?:의\d+)?/g);
+  if(_arts){ for(var _ai2=0;_ai2<_arts.length;_ai2++) tokens.push(_arts[_ai2]); }
   var out = [];
   for(var i=0;i<GL_INDEX.entries.length;i++){
     var e = GL_INDEX.entries[i];
     var s = scoreEntry(tags, e);
     var score = s.score;
     for(var ti=0;ti<tokens.length;ti++){
-      if(e.title.indexOf(tokens[ti]) >= 0) score += 4;
+      if(e.title.indexOf(tokens[ti]) >= 0)
+        score += (_arts && _arts.indexOf(tokens[ti]) >= 0) ? 15 : 4;
     }
     if(score > 0) out.push({entry:e, score:score});
   }
@@ -1514,7 +1518,7 @@ async function askAI(){
     var refs = searchGuidelinesByText(q, 5).filter(function(m){ return m.score >= 8; });
     var refTxt = refs.map(function(m,i){
       var e2 = m.entry;
-      var concl = (e2.conclusions && e2.conclusions[0]) ? ("\n" + e2.conclusions[0].substring(0,150)) : "";
+      var concl = (e2.conclusions && e2.conclusions[0]) ? ("\n" + e2.conclusions[0].substring(0,150)) : (e2.excerpt?("\n"+e2.excerpt.substring(0,150)):"");
       return (i+1) + ") [" + e2.category + " " + e2.year + "] " + e2.title.substring(0,60) + concl;
     }).join("\n");
     var prompt = "질문: " + q + "\n\n관련 조항(지식베이스 검색 결과):\n" + (refTxt || "(신뢰도 있는 매칭 없음 — 핵심 지식과 일반 원칙으로만 답하고, 조항을 지어내지 말 것)") + "\n\n위 근거를 바탕으로 답하라.";
@@ -1586,7 +1590,7 @@ function buildJoseoRows(){
     /* 근거: R_GL 매칭 선례 top-3 자동 인용 */
     var basis=(g.matches||[]).slice(0,3).map(function(m,i){
       var e2=m.entry;
-      var concl=(e2.conclusions&&e2.conclusions[0])?("\n"+e2.conclusions[0].substring(0,120)):"";
+      var concl=(e2.conclusions&&e2.conclusions[0])?("\n"+e2.conclusions[0].substring(0,120)):(e2.excerpt?("\n"+e2.excerpt.substring(0,120)):"");
       return (i+1)+". ["+e2.category+" "+e2.year+"] "+e2.title.substring(0,60)+concl+"\n(출처: "+(e2.source_pdf||"")+")";
     }).join("\n\n") || "(관련 선례 매칭 없음 — 규정 직접 근거)";
     rows.push([gi+1, title, "- [위반내용] "+viol+"\n\n- [검토의견] "+opin, reg, basis,
