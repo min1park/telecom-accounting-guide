@@ -57,7 +57,7 @@ NEW_FIELDS = (
     '  {key:"svcName",label:"서비스명",      req:false, find:function(h){return /서비스명|역무명/.test(h);}},\n'
     '  {key:"desc",  label:"적요",            req:false, find:function(h){return /적요|내역|설명|비고|Description|memo/i.test(h);}},\n'
     '  {key:"bm",    label:"BM",              req:false, find:function(h){return /^BM|BM코드|사업단위|상품/i.test(h);}},\n'
-    '  {key:"cc",    label:"코스트센터(CC)",  req:false, find:function(h){return /코스트|Cost.*Center|^CC|부서|부문/i.test(h);}},\n'
+    '  {key:"cc",    label:"코스트센터명(CC)", req:false, find:function(h){return /(코스트|Cost.?Center|부서|부문).*명/i.test(h) || /^CC명/i.test(h);}},\n'
     '  {key:"vendor",label:"거래처",          req:false, find:function(h){return /거래처|Vendor|Supplier|Customer|공급자|매입처|매출처/i.test(h);}},\n'
     '  {key:"cnt",   label:"건수",            req:false, find:function(h){return /개수|건수/.test(h);}},\n'
     '  {key:"amt",   label:"금액",            req:true,  find:function(h){return /금액|Amount|합계/.test(h) && !/취득|장부|상각/.test(h);}}\n'
@@ -164,6 +164,7 @@ NEW_OUT = (
     '        acct: topN(g.accts)[0]||"", form: topN(g.forms)[0]||"", func: topN(g.funcs)[0]||"", svc: topN(g.svcs)[0]||"",\n'
     '        acctName: map.acctName?String(g.sample[map.acctName]||""):"",\n'
     '        formName: map.formName?String(g.sample[map.formName]||""):"",\n'
+    '        funcName: map.funcName?String(g.sample[map.funcName]||""):"",\n'
     '        svcName:  map.svcName ?String(g.sample[map.svcName] ||""):"",\n'
     '        descTop:   topN(g.descs, 3),\n'
     '        vendorTop: topN(g.vendors, 3),\n'
@@ -1427,7 +1428,8 @@ async function aiJudgeAll(){
         }).join("\n");
         ragCtx="\n관련 가이드라인 조항(참고):\n"+refs;
       }
-      var prompt="계정명: "+(g.acctName||g.acct)+"\n형태명: "+(g.formName||g.form)+"\n역무: "+(g.svcName||"")+"("+g.svc+")"+svcCtx+"\n행수: "+g.cnt+", 금액합계: "+fmt(Math.round(g.acq))+"원\n적요(대표): "+((g.descTop||[]).join(" / ")||"(없음)")+"\n거래처(대표): "+((g.vendorTop||[]).join(" / ")||"(없음)")+ragCtx+"\n이 그룹의 실질을 태깅하고 형태 분류 적정성"+(svcCtx?"과 역무 적정성":"")+"을 판단하라.";
+      var funcLine=(g.funcName||"")?("\n기능명: "+g.funcName+((g.ccTop&&g.ccTop[0])?(" / 코스트센터: "+g.ccTop[0]):"")):"";
+      var prompt="계정명: "+(g.acctName||g.acct)+"\n형태명: "+(g.formName||g.form)+funcLine+"\n역무: "+(g.svcName||"")+"("+g.svc+")"+svcCtx+"\n행수: "+g.cnt+", 금액합계: "+fmt(Math.round(g.acq))+"원\n적요(대표): "+((g.descTop||[]).join(" / ")||"(없음)")+"\n거래처(대표): "+((g.vendorTop||[]).join(" / ")||"(없음)")+ragCtx+"\n이 그룹의 실질을 태깅하고 형태 분류 적정성"+(svcCtx?"과 역무 적정성":"")+(funcLine?"과 기능 적정성":"")+"을 판단하라.";
       try{
         var resp=await fetch(OLLAMA_URL,{method:"POST",headers:{"Content-Type":"application/json"},
           body:JSON.stringify({model:model,prompt:prompt,system:AI_SYSTEM,stream:false,format:"json",think:false,
@@ -1435,7 +1437,7 @@ async function aiJudgeAll(){
         if(!resp.ok) throw new Error("HTTP "+resp.status);
         var data=await resp.json();
         var j=JSON.parse(data.response||"{}");
-        results[g.subclass]={tag:j.tag||"판단불가",chk:j.form_check||"판단불가",svc:(svcCtx?(j.svc_check||"정보없음"):"정보없음"),reason:(j.reason||"")+" [LLM]"};
+        results[g.subclass]={tag:j.tag||"판단불가",chk:j.form_check||"판단불가",func:(funcLine?(j.func_check||"정보없음"):"정보없음"),svc:(svcCtx?(j.svc_check||"정보없음"):"정보없음"),reason:(j.reason||"")+" [LLM]"};
         llmCnt++;
       }catch(ex){
         errCnt++;
@@ -1451,11 +1453,30 @@ async function aiJudgeAll(){
     if(_r && _r.tag!=="오류"){
       var _sc=svcConsistencyCheck(g);
       if(_sc){ _r.svc="검토필요"; _r.reason=(_r.reason||"")+" / "+_sc; }
+      var _fc=ccFuncCheck(g);
+      if(_fc){ _r.func="검토필요"; _r.reason=(_r.reason||"")+" / "+_fc; }
     }
     info.textContent="AI 판정 "+(i+1)+"/"+groups.length+" — 룰 "+ruleCnt+" · LLM "+llmCnt+(errCnt?" · 오류 "+errCnt:"")+" ("+Math.round((Date.now()-t0)/1000)+"초)";
   }
   AI_RUNNING=false; btn.textContent="AI 판정 실행 (로컬)";
   renderAIResults();
+}
+
+/* 코스트센터↔기능 계열 정합 (결정론) — 비용 원장의 핵심 축 */
+function ccFuncCheck(g){
+  var fn=g.funcName||""; if(!fn) return null;
+  var cc=(g.ccTop&&g.ccTop[0])||""; if(!cc) return null;
+  if(/결산조정|본사공통|조정/.test(cc)) return null; /* 결산조정 CC는 실부서 아님 */
+  var fam=null, famName="";
+  if(/마케팅|영업|판매|유통|대리점/.test(cc)){ fam=/판매|영업|광고|판촉|마케팅/; famName="판매영업"; }
+  else if(/회계|재무|인사|총무|법무|경영|기획|감사|IR/.test(cc)){ fam=/일반관리|지원/; famName="일반관리"; }
+  else if(/Infra|인프라|네트워크|NW|기지국|전송|선로|교환|운용|장비|Access/i.test(cc)){ fam=/설비|운영|사용료|네트워크|NW|선로|전송|교환/i; famName="설비운영"; }
+  else if(/고객센터|고객서비스|CS팀|콜센터|상담/.test(cc)){ fam=/고객/; famName="고객서비스"; }
+  else if(/연구|개발|R&D/i.test(cc)){ fam=/연구|개발/; famName="연구개발"; }
+  if(!fam) return null;
+  if(!fam.test(fn))
+    return "코스트센터("+cc+")의 주된 업무는 "+famName+" 계열이나 기능은 '"+fn+"' — 기능 분류 확인 필요 (고시 제17·18조) [룰]";
+  return null;
 }
 
 /* ══════════════ AI 질의 (로컬 Ollama + 지식베이스 RAG) ══════════════ */
@@ -1548,6 +1569,7 @@ async function askAI(){
 var REG = {
   IFRS15: "전기통신사업 회계정리 및 보고에 관한 규정 제4조제1항제3호\n제4조(전기통신사업회계의 원칙) ① 전기통신사업의 회계정리는 다음 각 호의 원칙을 따라야 한다.\n3. 이 영에서 회계정리에 관하여 정하는 사항 외에는 일반적으로 공정·타당하다고 인정되는 회계기준에 따를 것\n\n▽ 참고\nFY2019_표준계정_사업자메뉴얼 4. IFRS15호조정전표(통신회계 제외)\nK-IFRS1115호 조정전표를 분리 표시해야 함",
   FORM: "전기통신사업 회계분리기준(과학기술정보통신부고시) 제9조(영업수익 및 영업비용의 형태별분류)\n영업수익 및 영업비용은 이용약관 등 거래의 성격에 따라 형태별로 분류하여야 함",
+  FUNC: "전기통신사업 회계분리기준(과학기술정보통신부고시) 제17조(전기통신영업비용의 기능별 분류)·제18조(비용 및 자산의 기능별 분류기준)\n비용은 발생 원인이 되는 기능별로 분류하여야 함",
   SVC: "전기통신사업 회계분리기준(과학기술정보통신부고시) 제22조(비용 및 자산의 역무별 회계분리 기준)\n수익·비용은 발생 원인이 되는 역무별로 회계분리하여야 함",
   ALLOC: "전기통신사업 회계분리기준(과학기술정보통신부고시) 제19조(공통자산 및 공통운영비의 배부)·제22조(비용 및 자산의 역무별 회계분리 기준)\n공통으로 발생한 수익·비용은 합리적인 배부기준에 따라 역무별로 배부하여야 함",
 };
@@ -1557,7 +1579,7 @@ function getJoseoTargets(){
   if(!LAST||!LAST.aiResults||!LAST.glResults) return [];
   return LAST.glResults.filter(function(g){
     var r=LAST.aiResults[g.subclass];
-    return r && (r.chk==="검토필요"||r.svc==="검토필요");
+    return r && (r.chk==="검토필요"||r.svc==="검토필요"||r.func==="검토필요");
   }).sort(function(a,b){return Math.abs(b.acq)-Math.abs(a.acq);});
 }
 
@@ -1581,11 +1603,13 @@ function buildJoseoRows(){
       opin="공통 풀 잔액은 등록된 배부관계에 따라 개별 역무로 배부·소거되어야 하며, 미배부 잔액은 역무별 손익을 왜곡하므로 배부 완결 증빙을 확인하여야 합니다.";
       reg=REG.ALLOC;
     } else {
-      var isForm=(r.chk==="검토필요"), isSvc=(r.svc==="검토필요");
-      title="("+(isForm?"형태분류":"역무분류")+") "+r.tag+" 관련 분류 적정성\n\n"+loc;
+      var isForm=(r.chk==="검토필요"), isSvc=(r.svc==="검토필요"), isFunc=(r.func==="검토필요");
+      var axes=[]; if(isForm)axes.push("형태분류"); if(isFunc)axes.push("기능분류"); if(isSvc)axes.push("역무분류");
+      title="("+(axes.join("·")||"분류")+") "+r.tag+" 관련 분류 적정성\n\n"+loc;
       viol=r.reason.replace(/\s*\[(룰|LLM)\]\s*/g,"");
-      opin="상기 항목의 거래 실질을 확인하여 "+(isForm?"형태분류":"")+(isForm&&isSvc?" 및 ":"")+(isSvc?"역무분류":"")+"의 적정성을 소명하거나 재분류하여야 합니다.";
-      reg=(isForm?REG.FORM:"")+(isForm&&isSvc?"\n\n":"")+(isSvc?REG.SVC:"");
+      opin="상기 항목의 거래 실질을 확인하여 "+(axes.join(" 및 ")||"분류")+"의 적정성을 소명하거나 재분류하여야 합니다.";
+      var regs=[]; if(isForm)regs.push(REG.FORM); if(isFunc)regs.push(REG.FUNC); if(isSvc)regs.push(REG.SVC);
+      reg=regs.join("\n\n");
     }
     /* 근거: R_GL 매칭 선례 top-3 자동 인용 */
     var basis=(g.matches||[]).slice(0,3).map(function(m,i){
@@ -1607,16 +1631,16 @@ function buildNeedRawRows(){
   var idx={};
   targets.forEach(function(g,i){
     var r=LAST.aiResults[g.subclass];
-    idx[g.subclass]={no:i+1, tag:r.tag, chk:r.chk, svc:r.svc||"-"};
+    idx[g.subclass]={no:i+1, tag:r.tag, chk:r.chk, func:r.func||"-", svc:r.svc||"-"};
   });
   var MAX=50000, total=0, dropped=0;
-  var rows=[["조서No","태그","형태판정","역무판정"].concat(DATA.headers)];
+  var rows=[["조서No","태그","형태판정","기능판정","역무판정"].concat(DATA.headers)];
   DATA.rows.forEach(function(r){
     /* guidelineMatchBySubclass와 동일한 그룹키 재계산 */
     var key=(get(r,"acct")||"?")+"|"+(get(r,"form")||"?")+"|"+(get(r,"func")||"?")+"|"+(get(r,"svc")||"?");
     var t=idx[key]; if(!t) return;
     if(total>=MAX){ dropped++; return; }
-    rows.push([t.no, t.tag, t.chk, t.svc].concat(DATA.headers.map(function(h){
+    rows.push([t.no, t.tag, t.chk, t.func, t.svc].concat(DATA.headers.map(function(h){
       var v=r[h]; return /금액|가액|상각|개수|건수/.test(h)? num(v) : v;
     })));
     total++;
@@ -1634,24 +1658,27 @@ function renderAIResults(){
   /* 검토필요·오류 먼저, 금액순 */
   judged.sort(function(a,b){
     var ra=results[a.subclass], rb=results[b.subclass];
-    var pa=(ra.chk==="적정"&&ra.svc!=="검토필요")?1:0, pb=(rb.chk==="적정"&&rb.svc!=="검토필요")?1:0;
+    var pa=(ra.chk==="적정"&&ra.svc!=="검토필요"&&ra.func!=="검토필요")?1:0, pb=(rb.chk==="적정"&&rb.svc!=="검토필요"&&rb.func!=="검토필요")?1:0;
     if(pa!==pb) return pa-pb;
     return Math.abs(b.acq)-Math.abs(a.acq);
   });
-  var nNeed=judged.filter(function(g){var r=results[g.subclass]; return r.chk!=="적정"||r.svc==="검토필요";}).length;
+  var nNeed=judged.filter(function(g){var r=results[g.subclass]; return r.chk!=="적정"||r.svc==="검토필요"||r.func==="검토필요";}).length;
   var sec=document.createElement("div"); sec.className="rulesec"; sec.id="sec_R_AI";
   var html="<h3><span class='pill "+(nNeed?"MED":"INFO")+"'>"+(nNeed?"MED":"INFO")+"</span>R_AI. 로컬 AI 판정 — "+fmt(judged.length)+"그룹 (검토필요 "+fmt(nNeed)+")</h3>";
   html+="<div class='basis'>결정론 룰([룰]: 공통역무·에누리·조정전표·낙전·임대·로밍 — 재현 가능) + 로컬 LLM([LLM]: qwen3 초안 판정 — 검증인 확인 필수). 서비스코드 참조표 제공 시 공통 풀 판정·배부대상·역무 적정성이 정밀해집니다. 데이터는 이 PC를 벗어나지 않습니다.</div>";
   var lim=Math.min(judged.length,300);
-  html+="<div class='tblwrap'><table><thead><tr><th>형태판정</th><th>역무판정</th><th>태그</th><th>계정·형태·역무</th><th>적요·거래처</th><th>건수</th><th>금액</th><th>근거</th></tr></thead><tbody>";
+  html+="<div class='tblwrap'><table><thead><tr><th>형태판정</th><th>기능판정</th><th>역무판정</th><th>태그</th><th>계정·형태·역무</th><th>적요·거래처</th><th>건수</th><th>금액</th><th>근거</th></tr></thead><tbody>";
   for(var i=0;i<lim;i++){
     var g=judged[i], r=results[g.subclass];
     var color=r.chk==="적정"?"#4F6E54":(r.chk==="오류"?"#8E3B39":"#A96A1E");
     var svcTxt=r.svc&&r.svc!=="정보없음"?r.svc:"-";
     var svcColor=svcTxt==="적정"?"#4F6E54":(svcTxt==="검토필요"?"#A96A1E":"#99A");
+    var fnTxt=r.func&&r.func!=="정보없음"?r.func:"-";
+    var fnColor=fnTxt==="적정"?"#4F6E54":(fnTxt==="검토필요"?"#A96A1E":"#99A");
     var codeCell="<b>"+esc(g.acctName||g.acct)+"</b><br><span style='font-size:10px;color:#556'>"+esc((g.formName||g.form)+" · "+(g.svcName||g.svc))+"</span>";
     var descCell=esc((g.descTop||[]).slice(0,2).join(" / "))+(g.vendorTop&&g.vendorTop.length?"<br><span style='color:#889'>"+esc(g.vendorTop[0])+"</span>":"");
     html+="<tr><td style='color:"+color+";font-weight:bold'>"+esc(r.chk)+"</td>"+
+      "<td style='color:"+fnColor+";font-weight:bold'>"+esc(fnTxt)+"</td>"+
       "<td style='color:"+svcColor+";font-weight:bold'>"+esc(svcTxt)+"</td><td>"+esc(r.tag)+"</td>"+
       "<td style='white-space:normal;max-width:170px'>"+codeCell+"</td>"+
       "<td style='font-size:11px;white-space:normal;max-width:220px'>"+descCell+"</td>"+
@@ -1755,10 +1782,10 @@ AI_XLSX = (
     '\n'
     '  /* R_AI 로컬 AI 판정 시트 */\n'
     '  if (LAST.aiResults && LAST.glResults){\n'
-    '    var aiRows = [["형태판정","역무판정","태그","계정","계정명","형태","형태명","역무","서비스명","건수","금액","적요 상위","거래처 상위","근거"]];\n'
+    '    var aiRows = [["형태판정","기능판정","역무판정","태그","계정","계정명","형태","형태명","기능명","역무","서비스명","건수","금액","적요 상위","거래처 상위","근거"]];\n'
     '    LAST.glResults.forEach(function(g){\n'
     '      var r = LAST.aiResults[g.subclass]; if(!r) return;\n'
-    '      aiRows.push([r.chk, r.svc||"정보없음", r.tag, g.acct, g.acctName||"", g.form, g.formName||"", g.svc, g.svcName||"",\n'
+    '      aiRows.push([r.chk, r.func||"정보없음", r.svc||"정보없음", r.tag, g.acct, g.acctName||"", g.form, g.formName||"", g.funcName||"", g.svc, g.svcName||"",\n'
     '        g.cnt, g.acq, (g.descTop||[]).join(" / "), (g.vendorTop||[]).join(" / "), r.reason]);\n'
     '    });\n'
     '    if(aiRows.length>1) XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(aiRows), "R_AI_로컬AI판정");\n'
