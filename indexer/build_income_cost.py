@@ -1369,8 +1369,31 @@ function aiRulePretag(g){
     return {tag:"조정전표",chk:"검토필요",reason:"결산 조정전표 — 원거래 형태 준용 여부 근거 전표 소명 필요 [룰]"};
   if(topDescs.indexOf("낙전")>=0)
     return {tag:"낙전",chk:(formName.indexOf("기타영업")>=0?"적정":"검토필요"),reason:"낙전수입은 기타영업수익 형태가 적정 (FY2013 자문단) — 현재 "+formName+" [룰]"};
+  var both=acctName+" "+topDescs;
+  if(both.indexOf("위약금")>=0){
+    if(/단말|모뎀|AP|셋탑|장비|공유기/.test(both))
+      return {tag:"해지위약금",chk:(formName.indexOf("장치")>=0?"적정":"검토필요"),reason:"단말·장치 관련 위약금은 장치비수익 (FY2023·2024 지적) — 현재 "+formName+" [룰]"};
+    return {tag:"해지위약금",chk:(formName.indexOf("기타요금")>=0?"적정":"검토필요"),reason:"요금할인 해지위약금은 기타요금수익 (FY2016·2019·2021 지적) — 현재 "+formName+" [룰]"};
+  }
+  if(both.indexOf("연체")>=0)
+    return {tag:"연체료",chk:(formName.indexOf("기타영업")>=0?"적정":"검토필요"),reason:"연체료·연체가산금은 기타영업수익 (FY2015·2016·2020 지적) — 현재 "+formName+" [룰]"};
   if(topDescs.indexOf("임대폰")>=0||(topDescs.indexOf("임대")>=0&&formName.indexOf("장치")>=0))
     return {tag:"장치임대",chk:(formName.indexOf("장치")>=0?"적정":"검토필요"),reason:"장치 임대 사용료는 장치비수익 형태가 적정 (FY2022 지적) — 현재 "+formName+" [룰]"};
+  return null;
+}
+
+/* 계정↔역무 계열 정합 (참조표 제공 시, 결정론) — LLM svc_check 오판 보완 */
+function svcConsistencyCheck(g){
+  var m=SVC_MASTER[g.svc]; if(!m||m.layer>0||!m.stdName) return null;
+  var an=g.acctName||"";
+  var fam=null, famName="";
+  if(/인터넷|초고속|IPTV|백본/.test(an)){ fam=/인터넷/; famName="인터넷 계열"; }
+  else if(/시내|시외|유선전화/.test(an)){ fam=/전화/; famName="전화 계열"; }
+  else if(/이동전화|무선전화/.test(an)){ fam=/이동통신/; famName="이동통신 계열"; }
+  else if(/회선설비|전용회선/.test(an)){ fam=/회선|전용/; famName="회선설비 계열"; }
+  if(!fam) return null;
+  if(!fam.test(m.stdName))
+    return "계정("+an+")은 "+famName+" 실질이나 역무 표준분류는 '"+m.stdName+"' — 역무 재확인 필요 [룰]";
   return null;
 }
 
@@ -1395,11 +1418,20 @@ async function aiJudgeAll(){
       if(sm){ svcCtx="\n서비스 계층: "+(sm.layer>0
           ? ("공통 풀(계층"+sm.layer+"), 배부 대상: "+((SVC_ALLOC[g.svc]||[]).map(function(a){return a.name||a.code;}).join("·")||"미등록"))
           : ("개별 서비스, 통신회계 표준 "+sm.stdCode+" "+sm.stdName)); }
-      var prompt="계정명: "+(g.acctName||g.acct)+"\n형태명: "+(g.formName||g.form)+"\n역무: "+(g.svcName||"")+"("+g.svc+")"+svcCtx+"\n행수: "+g.cnt+", 금액합계: "+fmt(Math.round(g.acq))+"원\n적요(대표): "+((g.descTop||[]).join(" / ")||"(없음)")+"\n거래처(대표): "+((g.vendorTop||[]).join(" / ")||"(없음)")+"\n이 그룹의 실질을 태깅하고 형태 분류 적정성"+(svcCtx?"과 역무 적정성":"")+"을 판단하라.";
+      /* RAG: R_GL이 이미 찾아둔 관련 가이드라인 조항 top-3의 제목·결론 주입 */
+      var ragCtx="";
+      if(g.matches&&g.matches.length){
+        var refs=g.matches.slice(0,3).map(function(mm,ri){
+          var e2=mm.entry, concl=(e2.conclusions&&e2.conclusions[0])?(" "+e2.conclusions[0].substring(0,90)):"";
+          return (ri+1)+") ["+e2.category.substring(0,10)+" "+e2.year+"] "+e2.title.substring(0,45)+concl;
+        }).join("\n");
+        ragCtx="\n관련 가이드라인 조항(참고):\n"+refs;
+      }
+      var prompt="계정명: "+(g.acctName||g.acct)+"\n형태명: "+(g.formName||g.form)+"\n역무: "+(g.svcName||"")+"("+g.svc+")"+svcCtx+"\n행수: "+g.cnt+", 금액합계: "+fmt(Math.round(g.acq))+"원\n적요(대표): "+((g.descTop||[]).join(" / ")||"(없음)")+"\n거래처(대표): "+((g.vendorTop||[]).join(" / ")||"(없음)")+ragCtx+"\n이 그룹의 실질을 태깅하고 형태 분류 적정성"+(svcCtx?"과 역무 적정성":"")+"을 판단하라.";
       try{
         var resp=await fetch(OLLAMA_URL,{method:"POST",headers:{"Content-Type":"application/json"},
           body:JSON.stringify({model:model,prompt:prompt,system:AI_SYSTEM,stream:false,format:"json",think:false,
-                               options:{temperature:0.1,num_predict:300}})});
+                               options:{temperature:0.1,num_predict:220}})});
         if(!resp.ok) throw new Error("HTTP "+resp.status);
         var data=await resp.json();
         var j=JSON.parse(data.response||"{}");
@@ -1413,6 +1445,12 @@ async function aiJudgeAll(){
           break;
         }
       }
+    }
+    /* 결정론 역무 정합 오버레이 — LLM svc_check 오판을 룰이 정정 */
+    var _r=results[g.subclass];
+    if(_r && _r.tag!=="오류"){
+      var _sc=svcConsistencyCheck(g);
+      if(_sc){ _r.svc="검토필요"; _r.reason=(_r.reason||"")+" / "+_sc; }
     }
     info.textContent="AI 판정 "+(i+1)+"/"+groups.length+" — 룰 "+ruleCnt+" · LLM "+llmCnt+(errCnt?" · 오류 "+errCnt:"")+" ("+Math.round((Date.now()-t0)/1000)+"초)";
   }
