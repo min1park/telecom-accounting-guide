@@ -1458,6 +1458,88 @@ async function aiJudgeAll(){
   renderAIResults();
 }
 
+/* ══════════════ AI 질의 (로컬 Ollama + 지식베이스 RAG) ══════════════ */
+var QA_SYSTEM = "당신은 전기통신사업 회계분리기준(과기정통부 고시)·해설서·회계전문위원회 결정에 정통한 회계법인 외부검증인이다.\n"
+  + "사용자의 질문에 한국어로 간결하고 정확하게 답하라.\n\n"
+  + "## 확립된 핵심 지식 (최우선 근거)\n" + __QA_KNOWLEDGE__ + "\n"
+  + "- 공통역무 풀: 원장 단계 계상은 허용되나 ① 개별 역무로 특정 가능한 수익을 공통에 두면 지적(FY2020 지적: 5G 멤버십 비용을 전체 공통 분류) ② 기말까지 미배부 잔존 시 역무별 손익 왜곡으로 지적 ③ 공통이 정당하면 매출액 비율 등 합리적 배부기준을 회계분리지침서에 명시하고 배부하여야 함(FY2013 자문단). 최종 영업보고서에는 공통(서비스공통미배부)이 남으면 안 됨.\n\n"
+  + "## 답변 규칙\n"
+  + "- 위 핵심 지식과 '관련 조항' 발췌를 근거로 답하고, 연도를 인용하라 (예: FY2020 지적사항).\n"
+  + "- 관련 조항이 질문과 무관해 보이면 억지로 인용하지 말고 핵심 지식·일반 원칙으로만 답하라.\n"
+  + "- 확실하지 않으면 단정하지 말고 확인이 필요하다고 답하라.\n"
+  + "- 답변은 10문장 이내.";
+
+function textToTags(text){
+  var tags = {asset:{}, function:{}, service:{}, revenue:{}, cost:{}};
+  ["asset","function","service","revenue","cost"].forEach(function(cat){
+    var dict = STD_TERMS[cat] || {};
+    Object.keys(dict).forEach(function(std){
+      if(std.charAt(0) === "_") return;
+      var entry = dict[std];
+      var aliases = entry.aliases || [];
+      for(var i=0;i<aliases.length;i++){
+        if(aliases[i] && text.indexOf(aliases[i]) >= 0){ tags[cat][entry.code] = std; break; }
+      }
+    });
+  });
+  return tags;
+}
+
+function searchGuidelinesByText(text, K){
+  K = K || 5;
+  var tags = textToTags(text);
+  /* 질문 토큰(2자 이상) — 제목 직접 매칭 보너스 */
+  var tokens = text.split(/[\s,.?!·()\[\]"']+/).filter(function(t){return t.length >= 2;});
+  var out = [];
+  for(var i=0;i<GL_INDEX.entries.length;i++){
+    var e = GL_INDEX.entries[i];
+    var s = scoreEntry(tags, e);
+    var score = s.score;
+    for(var ti=0;ti<tokens.length;ti++){
+      if(e.title.indexOf(tokens[ti]) >= 0) score += 4;
+    }
+    if(score > 0) out.push({entry:e, score:score});
+  }
+  out.sort(function(a,b){return b.score - a.score;});
+  return out.slice(0, K);
+}
+
+async function askAI(){
+  var q = el("aiq").value.trim();
+  if(!q){ el("aiqout").textContent = "질문을 입력하세요."; return; }
+  var btn = el("aiqbtn"); btn.disabled = true; btn.textContent = "답변 생성 중...";
+  el("aiqout").innerHTML = "<span style='color:#889'>지식베이스 검색 중...</span>";
+  try{
+    /* 저신뢰 검색 결과 차단 — 무관 조항의 억지 인용 방지 (태그+제목 결합 점수 8 미만 제외) */
+    var refs = searchGuidelinesByText(q, 5).filter(function(m){ return m.score >= 8; });
+    var refTxt = refs.map(function(m,i){
+      var e2 = m.entry;
+      var concl = (e2.conclusions && e2.conclusions[0]) ? ("\n" + e2.conclusions[0].substring(0,150)) : "";
+      return (i+1) + ") [" + e2.category + " " + e2.year + "] " + e2.title.substring(0,60) + concl;
+    }).join("\n");
+    var prompt = "질문: " + q + "\n\n관련 조항(지식베이스 검색 결과):\n" + (refTxt || "(신뢰도 있는 매칭 없음 — 핵심 지식과 일반 원칙으로만 답하고, 조항을 지어내지 말 것)") + "\n\n위 근거를 바탕으로 답하라.";
+    el("aiqout").innerHTML = "<span style='color:#889'>로컬 AI 답변 생성 중... (수십 초)</span>";
+    var model = (el("aimodel") ? el("aimodel").value : "qwen3:8b").trim() || "qwen3:8b";
+    var resp = await fetch(OLLAMA_URL, {method:"POST", headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({model:model, prompt:prompt, system:QA_SYSTEM, stream:false, think:false,
+                            options:{temperature:0.2, num_predict:600}})});
+    if(!resp.ok) throw new Error("HTTP " + resp.status);
+    var data = await resp.json();
+    var ansHtml = "<div style='padding:10px 12px;background:#F5F8FA;border-left:3px solid var(--navy);border-radius:0 4px 4px 0;white-space:pre-wrap;line-height:1.7'>" + esc(data.response || "(응답 없음)") + "</div>";
+    if(refs.length){
+      ansHtml += "<div style='margin-top:8px;font-size:11px;color:#667'><b>참고한 조항:</b><br>" + refs.map(function(m){
+        var e2 = m.entry;
+        return "· [" + esc(e2.category) + " " + esc(e2.year) + "] " + esc(e2.title.substring(0,60)) + " <span style='color:#99A'>(" + esc(e2.source_pdf || "") + ")</span>";
+      }).join("<br>") + "</div>";
+    }
+    ansHtml += "<div style='margin-top:6px;font-size:10px;color:#A96A1E'>※ 로컬 8B 모델의 초안 답변입니다 — 중요한 판단은 원문 조항·검증인 확인을 거치세요.</div>";
+    el("aiqout").innerHTML = ansHtml;
+  }catch(ex){
+    el("aiqout").innerHTML = "<span style='color:#C0504D'>오류: " + esc(ex.message||String(ex)) + " — Ollama 실행 여부를 확인하세요.</span>";
+  }
+  btn.disabled = false; btn.textContent = "질문하기";
+}
+
 /* ══════════════ 조서(지적사항 초안) 생성 — 검토필요 그룹만 ══════════════ */
 var REG = {
   IFRS15: "전기통신사업 회계정리 및 보고에 관한 규정 제4조제1항제3호\n제4조(전기통신사업회계의 원칙) ① 전기통신사업의 회계정리는 다음 각 호의 원칙을 따라야 한다.\n3. 이 영에서 회계정리에 관하여 정하는 사항 외에는 일반적으로 공정·타당하다고 인정되는 회계기준에 따를 것\n\n▽ 참고\nFY2019_표준계정_사업자메뉴얼 4. IFRS15호조정전표(통신회계 제외)\nK-IFRS1115호 조정전표를 분리 표시해야 함",
@@ -1582,6 +1664,11 @@ function renderAIResults(){
 
 BRIDGE_JS = BRIDGE_JS.replace('__SYSTEM_JS__', _system_js)
 
+# QA용 핵심 지식: SYSTEM_KNOWLEDGE에서 '확립된 판정 선례' 섹션만 추출 (단일 소스)
+_m2 = _re.search(r'## 확립된 판정 선례.*?\n(.*?)\n## 출력 형식', _system, _re.DOTALL)
+_qa_knowledge = _m2.group(1).strip() if _m2 else ''
+BRIDGE_JS = BRIDGE_JS.replace('__QA_KNOWLEDGE__', json.dumps(_qa_knowledge, ensure_ascii=False))
+
 marker20a = '/* 입력 핸들러 */'
 if marker20a in new_html:
     new_html = new_html.replace(marker20a, BRIDGE_JS + '\n' + marker20a, 1)
@@ -1609,16 +1696,36 @@ if marker20c in new_html:
 else:
     print('!! (20c) aipk 표시 마커 못 찾음')
 
-# 버튼 와이어링 + 참조표 리스너
+# 버튼 와이어링 + 참조표 리스너 + AI 질의
 marker20d = 'el("aipk").onclick=buildAIPacket;'
 if marker20d in new_html:
     new_html = new_html.replace(marker20d,
         marker20d + '\nel("aijudge").onclick=aiJudgeAll;'
         '\nel("svcmaster").addEventListener("input", parseSvcRef);'
-        '\nel("svcalloc").addEventListener("input", parseSvcRef);', 1)
+        '\nel("svcalloc").addEventListener("input", parseSvcRef);'
+        '\nel("aiqbtn").onclick=askAI;'
+        '\nel("aiq").addEventListener("keydown", function(e){ if(e.key==="Enter"&&(e.ctrlKey||e.metaKey)) askAI(); });', 1)
     print('(20d) 버튼 와이어링 OK')
 else:
     print('!! (20d) aipk onclick 마커 못 찾음')
+
+# ─────────── 23. AI 질의 카드 ───────────
+QA_CARD = (
+    '<div class="card" id="aiqcard">\n'
+    '  <h2>AI 질의 (로컬 Ollama + 가이드라인 지식베이스)</h2>\n'
+    '  <div class="stat">통신회계 관련 질문을 입력하면 내장 지식베이스(1,815개 조항·선례)에서 관련 조항을 검색해 근거와 함께 로컬 AI가 답합니다. '
+    '원장 업로드와 무관하게 언제든 사용 가능하며, 질문 내용도 이 PC를 벗어나지 않습니다. (Ctrl+Enter로 실행)</div>\n'
+    '  <textarea id="aiq" style="height:60px" placeholder="예) 수익에 역무공통이 남아 있으면 안 되나요? / 낙전수입의 형태 분류는? / MVNO 판매활성화 장려금은 어떻게 처리하나요?"></textarea>\n'
+    '  <div style="margin-top:8px"><button id="aiqbtn" class="sec">질문하기</button></div>\n'
+    '  <div id="aiqout" style="margin-top:10px;font-size:13px"></div>\n'
+    '</div>\n\n'
+)
+marker23 = '<div class="card">\n  <h2>검토 룰 · 근거 설정</h2>'
+if marker23 in new_html:
+    new_html = new_html.replace(marker23, QA_CARD + marker23, 1)
+    print('(23) AI 질의 카드 OK')
+else:
+    print('!! (23) 질의 카드 마커 못 찾음')
 
 # ─────────── 21. 서비스코드 참조표 입력 카드 ───────────
 SVC_CARD = (
