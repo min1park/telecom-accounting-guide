@@ -1466,15 +1466,20 @@ var REG = {
   ALLOC: "전기통신사업 회계분리기준(과학기술정보통신부고시) 제19조(공통자산 및 공통운영비의 배부)·제22조(비용 및 자산의 역무별 회계분리 기준)\n공통으로 발생한 수익·비용은 합리적인 배부기준에 따라 역무별로 배부하여야 함",
 };
 
-function buildJoseoRows(){
+/* 조서 대상(검토필요) 그룹 — 조서·RAW 시트가 같은 번호 체계 공유 */
+function getJoseoTargets(){
   if(!LAST||!LAST.aiResults||!LAST.glResults) return [];
-  var rows=[["최종 지적사항","위반내용 및 의견","위반규정","근거","비고(판정출처)"]];
-  var judged=LAST.glResults.filter(function(g){
+  return LAST.glResults.filter(function(g){
     var r=LAST.aiResults[g.subclass];
     return r && (r.chk==="검토필요"||r.svc==="검토필요");
   }).sort(function(a,b){return Math.abs(b.acq)-Math.abs(a.acq);});
+}
 
-  judged.forEach(function(g){
+function buildJoseoRows(){
+  var judged=getJoseoTargets();
+  if(!judged.length) return [];
+  var rows=[["No","최종 지적사항","위반내용 및 의견","위반규정","근거","비고(판정출처)"]];
+  judged.forEach(function(g, gi){
     var r=LAST.aiResults[g.subclass];
     var loc=(g.acctName||g.acct)+" × "+(g.formName||g.form)+" × "+(g.svcName||g.svc)
             +" ("+fmt(g.cnt)+"행, "+fmtEok(g.acq)+")";
@@ -1502,9 +1507,35 @@ function buildJoseoRows(){
       var concl=(e2.conclusions&&e2.conclusions[0])?("\n"+e2.conclusions[0].substring(0,120)):"";
       return (i+1)+". ["+e2.category+" "+e2.year+"] "+e2.title.substring(0,60)+concl+"\n(출처: "+(e2.source_pdf||"")+")";
     }).join("\n\n") || "(관련 선례 매칭 없음 — 규정 직접 근거)";
-    rows.push([title, "- [위반내용] "+viol+"\n\n- [검토의견] "+opin, reg, basis,
+    rows.push([gi+1, title, "- [위반내용] "+viol+"\n\n- [검토의견] "+opin, reg, basis,
                (r.reason.indexOf("[룰]")>=0?"룰(결정론)":"LLM 초안")+" / 태그: "+r.tag]);
   });
+  return rows;
+}
+
+/* 검토대상 RAW 추출 — 검토필요 그룹에 속한 원장 행 전부 (조서 No로 연결) */
+function buildNeedRawRows(){
+  var targets=getJoseoTargets();
+  if(!targets.length||!DATA) return [];
+  var get=function(r,k){ return MAP[k]? String(r[MAP[k]]==null?"":r[MAP[k]]).trim() : ""; };
+  var idx={};
+  targets.forEach(function(g,i){
+    var r=LAST.aiResults[g.subclass];
+    idx[g.subclass]={no:i+1, tag:r.tag, chk:r.chk, svc:r.svc||"-"};
+  });
+  var MAX=50000, total=0, dropped=0;
+  var rows=[["조서No","태그","형태판정","역무판정"].concat(DATA.headers)];
+  DATA.rows.forEach(function(r){
+    /* guidelineMatchBySubclass와 동일한 그룹키 재계산 */
+    var key=(get(r,"acct")||"?")+"|"+(get(r,"form")||"?")+"|"+(get(r,"func")||"?")+"|"+(get(r,"svc")||"?");
+    var t=idx[key]; if(!t) return;
+    if(total>=MAX){ dropped++; return; }
+    rows.push([t.no, t.tag, t.chk, t.svc].concat(DATA.headers.map(function(h){
+      var v=r[h]; return /금액|가액|상각|개수|건수/.test(h)? num(v) : v;
+    })));
+    total++;
+  });
+  if(dropped>0) rows.push(["※","RAW "+fmt(MAX)+"행 초과 — "+fmt(dropped)+"행 생략 (원장에서 조서No 조합으로 필터 요망)","","",""]);
   return rows;
 }
 
@@ -1620,12 +1651,17 @@ AI_XLSX = (
     '        g.cnt, g.acq, (g.descTop||[]).join(" / "), (g.vendorTop||[]).join(" / "), r.reason]);\n'
     '    });\n'
     '    if(aiRows.length>1) XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(aiRows), "R_AI_로컬AI판정");\n'
-    '    /* 조서(지적사항 초안) 시트 — 검토필요만, 5컬럼 조서 형식 */\n'
+    '    /* 조서(지적사항 초안) 시트 — 검토필요만, No + 5컬럼 조서 형식 */\n'
     '    var joseo = buildJoseoRows();\n'
     '    if(joseo.length>1){\n'
     '      var wsJ = XLSX.utils.aoa_to_sheet(joseo);\n'
-    '      wsJ["!cols"] = [{wch:45},{wch:55},{wch:55},{wch:60},{wch:18}];\n'
+    '      wsJ["!cols"] = [{wch:5},{wch:45},{wch:55},{wch:55},{wch:60},{wch:18}];\n'
     '      XLSX.utils.book_append_sheet(wb, wsJ, "조서초안_검토필요");\n'
+    '      /* 검토대상 RAW — 조서 No로 연결된 원장 행 전체 */\n'
+    '      var rawRows = buildNeedRawRows();\n'
+    '      if(rawRows.length>1){\n'
+    '        XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(rawRows), "검토대상_RAW");\n'
+    '      }\n'
     '    }\n'
     '  }\n'
 )
