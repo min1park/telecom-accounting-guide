@@ -68652,6 +68652,13 @@ function download(){
         g.cnt, g.acq, (g.descTop||[]).join(" / "), (g.vendorTop||[]).join(" / "), r.reason]);
     });
     if(aiRows.length>1) XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(aiRows), "R_AI_로컬AI판정");
+    /* 조서(지적사항 초안) 시트 — 검토필요만, 5컬럼 조서 형식 */
+    var joseo = buildJoseoRows();
+    if(joseo.length>1){
+      var wsJ = XLSX.utils.aoa_to_sheet(joseo);
+      wsJ["!cols"] = [{wch:45},{wch:55},{wch:55},{wch:60},{wch:18}];
+      XLSX.utils.book_append_sheet(wb, wsJ, "조서초안_검토필요");
+    }
   }
 
   /* R_UM 미분류 계정 시트 */
@@ -68904,6 +68911,56 @@ async function aiJudgeAll(){
   }
   AI_RUNNING=false; btn.textContent="AI 판정 실행 (로컬)";
   renderAIResults();
+}
+
+/* ══════════════ 조서(지적사항 초안) 생성 — 검토필요 그룹만 ══════════════ */
+var REG = {
+  IFRS15: "전기통신사업 회계정리 및 보고에 관한 규정 제4조제1항제3호\n제4조(전기통신사업회계의 원칙) ① 전기통신사업의 회계정리는 다음 각 호의 원칙을 따라야 한다.\n3. 이 영에서 회계정리에 관하여 정하는 사항 외에는 일반적으로 공정·타당하다고 인정되는 회계기준에 따를 것\n\n▽ 참고\nFY2019_표준계정_사업자메뉴얼 4. IFRS15호조정전표(통신회계 제외)\nK-IFRS1115호 조정전표를 분리 표시해야 함",
+  FORM: "전기통신사업 회계분리기준(과학기술정보통신부고시) 제9조(영업수익 및 영업비용의 형태별분류)\n영업수익 및 영업비용은 이용약관 등 거래의 성격에 따라 형태별로 분류하여야 함",
+  SVC: "전기통신사업 회계분리기준(과학기술정보통신부고시) 제22조(비용 및 자산의 역무별 회계분리 기준)\n수익·비용은 발생 원인이 되는 역무별로 회계분리하여야 함",
+  ALLOC: "전기통신사업 회계분리기준(과학기술정보통신부고시) 제19조(공통자산 및 공통운영비의 배부)·제22조(비용 및 자산의 역무별 회계분리 기준)\n공통으로 발생한 수익·비용은 합리적인 배부기준에 따라 역무별로 배부하여야 함",
+};
+
+function buildJoseoRows(){
+  if(!LAST||!LAST.aiResults||!LAST.glResults) return [];
+  var rows=[["최종 지적사항","위반내용 및 의견","위반규정","근거","비고(판정출처)"]];
+  var judged=LAST.glResults.filter(function(g){
+    var r=LAST.aiResults[g.subclass];
+    return r && (r.chk==="검토필요"||r.svc==="검토필요");
+  }).sort(function(a,b){return Math.abs(b.acq)-Math.abs(a.acq);});
+
+  judged.forEach(function(g){
+    var r=LAST.aiResults[g.subclass];
+    var loc=(g.acctName||g.acct)+" × "+(g.formName||g.form)+" × "+(g.svcName||g.svc)
+            +" ("+fmt(g.cnt)+"행, "+fmtEok(g.acq)+")";
+    var title="", viol="", opin="", reg="";
+    if(r.tag==="조정전표"){
+      title="(기타) 결산 조정전표의 통신회계 반영 적정성\n\n"+loc+"\n결산 조정전표가 영업보고서에 반영되어 있으나, K-IFRS1115호에 따른 수익 이연 등 발생주의 조정 전표는 통신회계에서 제외하여야 함";
+      viol="결산 조정전표의 원거래 형태 준용 여부 및 K-IFRS1115호 조정(통신회계 제외 대상) 해당 여부가 확인되지 아니함";
+      opin="조정전표의 성격을 확인하여, K-IFRS1115호에 따른 수익 이연 등 발생주의 조정 전표는 표준계정코드(P9010 등) 분류를 통해 통신회계에서 제외하고, 그 외 조정은 원거래의 형태를 준용하여 분류하여야 합니다.";
+      reg=REG.IFRS15;
+    } else if(r.tag==="배부확인"){
+      title="(역무분류) 공통역무 풀 수익의 기말 배부 완결성\n\n"+loc+"\n공통역무 풀에 수익이 계상되어 있어 역무별 배부 완결 여부의 확인이 필요함";
+      viol="공통역무 풀 계상 수익의 기말 역무별 배부·소거 여부가 확인되지 아니함"+((r.reason.indexOf("배부 대상")>=0)?(" ("+r.reason.split("—")[1].trim().split("[")[0].trim()+")"):"");
+      opin="공통 풀 잔액은 등록된 배부관계에 따라 개별 역무로 배부·소거되어야 하며, 미배부 잔액은 역무별 손익을 왜곡하므로 배부 완결 증빙을 확인하여야 합니다.";
+      reg=REG.ALLOC;
+    } else {
+      var isForm=(r.chk==="검토필요"), isSvc=(r.svc==="검토필요");
+      title="("+(isForm?"형태분류":"역무분류")+") "+r.tag+" 관련 분류 적정성\n\n"+loc;
+      viol=r.reason.replace(/\s*\[(룰|LLM)\]\s*/g,"");
+      opin="상기 항목의 거래 실질을 확인하여 "+(isForm?"형태분류":"")+(isForm&&isSvc?" 및 ":"")+(isSvc?"역무분류":"")+"의 적정성을 소명하거나 재분류하여야 합니다.";
+      reg=(isForm?REG.FORM:"")+(isForm&&isSvc?"\n\n":"")+(isSvc?REG.SVC:"");
+    }
+    /* 근거: R_GL 매칭 선례 top-3 자동 인용 */
+    var basis=(g.matches||[]).slice(0,3).map(function(m,i){
+      var e2=m.entry;
+      var concl=(e2.conclusions&&e2.conclusions[0])?("\n"+e2.conclusions[0].substring(0,120)):"";
+      return (i+1)+". ["+e2.category+" "+e2.year+"] "+e2.title.substring(0,60)+concl+"\n(출처: "+(e2.source_pdf||"")+")";
+    }).join("\n\n") || "(관련 선례 매칭 없음 — 규정 직접 근거)";
+    rows.push([title, "- [위반내용] "+viol+"\n\n- [검토의견] "+opin, reg, basis,
+               (r.reason.indexOf("[룰]")>=0?"룰(결정론)":"LLM 초안")+" / 태그: "+r.tag]);
+  });
+  return rows;
 }
 
 function renderAIResults(){
