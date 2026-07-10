@@ -1157,7 +1157,7 @@
         function renderQAPanel() {
             contentTitleEl.textContent = 'AI에게 질문';
             contentSubtitleEl.textContent = '가이드라인 전체(본문 포함)를 검색해 로컬 AI가 근거와 함께 답합니다 — 질문은 이 PC를 벗어나지 않습니다';
-            const savedModel = localStorage.getItem('qa-model') || 'qwen3:8b';
+            const savedModel = localStorage.getItem('qa-model') || 'qwen3:14b';
             contentDisplayEl.innerHTML = `
                 <div class="detail-item qa-panel">
                     <textarea id="qa-input" placeholder="예) 낙전수입의 형태 분류는? / 공통역무가 기말에 남아 있으면 안 되나요? / 고시 제9조 내용은? (Ctrl+Enter 실행)"></textarea>
@@ -1192,7 +1192,7 @@
                 ).join('\n\n');
                 const prompt = `질문: ${q}\n\n관련 조항(지식베이스 검색 결과):\n${refTxt || '(신뢰도 있는 매칭 없음 — 핵심 지식과 일반 원칙으로만 답하고, 조항을 지어내지 말 것)'}\n\n위 근거를 바탕으로 답하라.`;
                 out.innerHTML = '<div class="qa-refs">로컬 AI 답변 생성 중... (수십 초)</div>';
-                const model = (document.getElementById('qa-model').value || 'qwen3:8b').trim();
+                const model = (document.getElementById('qa-model').value || 'qwen3:14b').trim();
                 localStorage.setItem('qa-model', model);
                 const resp = await fetch('http://localhost:11434/api/generate', {
                     method: 'POST', headers: { 'Content-Type': 'application/json' },
