@@ -488,6 +488,27 @@
             display: block;
             margin-bottom: 3px;
         }
+        /* 고시 조문 위계 들여쓰기: 조 > 항(①) > 호(1.) > 목(가.) > 세목(1)) */
+        .detail-item .content .g-jo {
+            display: block;
+            font-weight: 700;
+            margin: 6px 0 4px;
+            color: var(--text);
+        }
+        .detail-item .content .g-hang,
+        .detail-item .content .g-ho,
+        .detail-item .content .g-mok,
+        .detail-item .content .g-semok,
+        .detail-item .content .g-body {
+            display: block;
+            margin-bottom: 4px;
+            line-height: 1.72;
+        }
+        .detail-item .content .g-body  { margin-left: 0.4em; }
+        .detail-item .content .g-hang  { margin-left: 0.4em;  padding-left: 1.5em; text-indent: -1.5em; }
+        .detail-item .content .g-ho    { margin-left: 1.9em;  padding-left: 1.6em; text-indent: -1.6em; }
+        .detail-item .content .g-mok   { margin-left: 3.4em;  padding-left: 1.6em; text-indent: -1.6em; }
+        .detail-item .content .g-semok { margin-left: 4.9em;  padding-left: 1.8em; text-indent: -1.8em; }
         .detail-item .content .c-result {
             display: block;
             margin: 5px 0;
@@ -946,7 +967,25 @@
             } catch (e) { return text; }
         }
 
-        function renderContent(text, keyword) {
+        // 고시 조문 전용 렌더러 — 법령 위계(조>항①>호1.>목가.>세목1))로 들여쓰기
+        function renderGosi(text, keyword) {
+            return String(text).split('\n').map(function(raw) {
+                const line = raw.trim();
+                if (!line) return '';
+                const h = highlight(line, keyword);
+                // 조 제목(제N조(…))은 카드 제목(h3)과 중복이므로 본문에서는 생략
+                if (/^제\d+조(?:의\d+)?\s*\(/.test(line)) return '';
+                if (/^[①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳㉑㉒㉓㉔㉕]/.test(line)) return `<span class="g-hang">${h}</span>`;
+                if (/^\d{1,2}\.\s/.test(line)) return `<span class="g-ho">${h}</span>`;
+                if (/^[가나다라마바사아자차카타파하]\.\s?/.test(line)) return `<span class="g-mok">${h}</span>`;
+                if (/^(\(?\d{1,2}\))\s?/.test(line)) return `<span class="g-semok">${h}</span>`;
+                if (/^[※]/.test(line)) return `<span class="c-note">${h}</span>`;
+                return `<span class="g-body">${h}</span>`;
+            }).join('');
+        }
+
+        function renderContent(text, keyword, category) {
+            if (category && category.includes('고시')) return renderGosi(text, keyword);
             return String(text).split('\n').map(function(raw) {
                 const line = raw.trim();
                 if (!line) return '';
@@ -972,7 +1011,7 @@
         function createDetailItemHtml(item, keyword = '') {
             let contentHtml = '';
             if (typeof item.content === 'string') {
-                contentHtml = renderContent(item.content, keyword);
+                contentHtml = renderContent(item.content, keyword, item.category);
             } else if (item.content) {
                 const KEY_LABELS = {
                     background: '현 황',
