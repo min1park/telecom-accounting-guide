@@ -195,7 +195,8 @@ for fname in data_files:
             "category": e.get('category', ''),
             "year": str(e.get('year', '')),
             "source_company": e.get('source_company'),
-            "source_pdf": get_source_pdf(e.get('category', ''), e.get('year', ''), e.get('source_company', '')),
+            # entry에 전수 감사로 확정한 source_pdf가 있으면 그것을 사용, 없으면 그룹 매핑 폴백
+            "source_pdf": e.get('source_pdf') or get_source_pdf(e.get('category', ''), e.get('year', ''), e.get('source_company', '')),
             "tags": tags,
             "decision_types": classify_decision(text),
             "conclusions": extract_conclusion(content),

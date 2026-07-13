@@ -7,7 +7,10 @@ window.registerData([
         "content": "회계 관리 경영 위탁서비스를 제공하면서 발생되는 비용은 전체 사업 공통으로 분류하여야 하는데, 전기통신사업 외의 사업으로 분류하였음",
         "source_company": null,
         "source_category": null,
-        "related_tags": ["#해당서비스 분류"]
+        "related_tags": [
+            "#해당서비스 분류"
+        ],
+        "source_pdf": "[해설서]2026_회계분리기준_해설서(2026.4.).pdf 수록 — FY2012 검증결과 지적사항"
     },
     {
         "id": "GOSI-2012-002",
@@ -17,7 +20,11 @@ window.registerData([
         "content": "열린 주소창 검색서비스 관련 수수료는 부가통신 역무로 분류하여야 하는데, 전기통신사업 공통으로 분류하였음\n※ 열린 주소창 검색서비스:국내 제작 웹브라우저 주소 표시줄에 검색어를 입력하면 바로 주소창으로 연결되는 서비스",
         "source_company": null,
         "source_category": null,
-        "related_tags": ["#주소창검색서비스", "#인터넷검색서비스 사업"]
+        "related_tags": [
+            "#주소창검색서비스",
+            "#인터넷검색서비스 사업"
+        ],
+        "source_pdf": "[해설서]2026_회계분리기준_해설서(2026.4.).pdf 수록 — FY2012 검증결과 지적사항"
     },
     {
         "id": "GOSI-2012-003",
@@ -27,7 +34,10 @@ window.registerData([
         "content": "2G 서비스 철거 시 발생한 철거비용은 2G 서비스로 분류하여야 하는데, 무선 공통 또는 이동통신 공통서비스 비용으로 분류하였음",
         "source_company": null,
         "source_category": null,
-        "related_tags": ["#종료서비스"]
+        "related_tags": [
+            "#종료서비스"
+        ],
+        "source_pdf": "[해설서]2026_회계분리기준_해설서(2026.4.).pdf 수록 — FY2012 검증결과 지적사항"
     },
     {
         "id": "GOSI-2012-004",
@@ -37,7 +47,10 @@ window.registerData([
         "content": "인․수 공안에 설치되어 있는 전원설비는 전원설비로 분류하여야 하는데, 선로 설비로 분류하였음\n※ 인·수공 : 관로 및 케이블의 점검 등을 위하여 지하에 설치되는 구조물",
         "source_company": null,
         "source_category": null,
-        "related_tags": ["#전원설비"]
+        "related_tags": [
+            "#전원설비"
+        ],
+        "source_pdf": "[해설서]2026_회계분리기준_해설서(2026.4.).pdf 수록 — FY2012 검증결과 지적사항"
     },
     {
         "id": "GOSI-2012-005",
@@ -47,7 +60,13 @@ window.registerData([
         "content": "요금회수대행수수료는 회사의 회계분리 지침서에 따라 기타 영업수익으로 분류하여야 하나, 접속료 수익으로 분류하였음",
         "source_company": null,
         "source_category": null,
-        "related_tags": ["#회수대행수수료수익", "#기타영업수익", "#회수대행수수료비용", "#청구수납비용"]
+        "related_tags": [
+            "#회수대행수수료수익",
+            "#기타영업수익",
+            "#회수대행수수료비용",
+            "#청구수납비용"
+        ],
+        "source_pdf": "[해설서]2026_회계분리기준_해설서(2026.4.).pdf 수록 — FY2012 검증결과 지적사항"
     },
     {
         "id": "GOSI-2012-006",
@@ -57,7 +76,10 @@ window.registerData([
         "content": "기간통신사업자의 전기통신망을 사용한 대가는 접속료로 분류하여야 하는데, 설비사용료로 분류하였음",
         "source_company": null,
         "source_category": null,
-        "related_tags": ["#접속료"]
+        "related_tags": [
+            "#접속료"
+        ],
+        "source_pdf": "[해설서]2026_회계분리기준_해설서(2026.4.).pdf 수록 — FY2012 검증결과 지적사항"
     },
     {
         "id": "GOSI-2012-007",
@@ -67,7 +89,10 @@ window.registerData([
         "content": "기간통신사업자의 인터넷전용회선서비스의 인터넷 백본 접속료는 접속료(접속통신료)로 분류하여야 하는데, 설비 사용료로 분류하였음",
         "source_company": null,
         "source_category": null,
-        "related_tags": ["#접속"]
+        "related_tags": [
+            "#접속"
+        ],
+        "source_pdf": "[해설서]2026_회계분리기준_해설서(2026.4.).pdf 수록 — FY2012 검증결과 지적사항"
     },
     {
         "id": "GOSI-2012-008",
@@ -77,7 +102,10 @@ window.registerData([
         "content": "전화망 이용대가는 접속통화료로 분류하여야 하는데, 판매영업기능비용 또는 일반관리비용으로 분류하였음",
         "source_company": null,
         "source_category": null,
-        "related_tags": ["#접속"]
+        "related_tags": [
+            "#접속"
+        ],
+        "source_pdf": "[해설서]2026_회계분리기준_해설서(2026.4.).pdf 수록 — FY2012 검증결과 지적사항"
     },
     {
         "id": "GOSI-2012-009",
@@ -87,7 +115,10 @@ window.registerData([
         "content": "재판매 서비스의 설치비, 장치 임대료 수익은 장치비수익으로 분류하여야 하는데, 정액요금 수익으로 분류하였음",
         "source_company": null,
         "source_category": null,
-        "related_tags": ["#장치비수익"]
+        "related_tags": [
+            "#장치비수익"
+        ],
+        "source_pdf": "[해설서]2026_회계분리기준_해설서(2026.4.).pdf 수록 — FY2012 검증결과 지적사항"
     },
     {
         "id": "GOSI-2012-010",
@@ -97,7 +128,11 @@ window.registerData([
         "content": "인터넷 서비스를 위하여 임대한 선로설비에 대한 대가는 설비사용료로 분류하여야 하는데, 접속료 또는 전력수도료로 분류하였음",
         "source_company": null,
         "source_category": null,
-        "related_tags": ["#설비사용료", "#선로설비사용료"]
+        "related_tags": [
+            "#설비사용료",
+            "#선로설비사용료"
+        ],
+        "source_pdf": "[해설서]2026_회계분리기준_해설서(2026.4.).pdf 수록 — FY2012 검증결과 지적사항"
     },
     {
         "id": "GOSI-2012-011",
@@ -107,7 +142,10 @@ window.registerData([
         "content": "요금수익에 대한 연체가산금은 기타 영업수익으로 분류",
         "source_company": null,
         "source_category": null,
-        "related_tags": ["#기타영업수익", "#연체가산금"]
+        "related_tags": [
+            "#기타영업수익",
+            "#연체가산금"
+        ]
     },
     {
         "id": "GOSI-2012-012",
@@ -117,7 +155,12 @@ window.registerData([
         "content": "인터넷 모뎀, AGW 등의 인터넷 장비의 임대 및 판매에 따른 수익은 장치비 수익으로 분류하여야 하는데, 통화료 수익으로 분류하였음\n※ AGW(Access Gateway) : 인터넷과 같은 패킷망에 대한 엑세스노드인 PBX나 FLC처럼 통합형 가입자 접속장치들을 수용하여 연결할 수 있는 게이트웨이",
         "source_company": null,
         "source_category": null,
-        "related_tags": ["# 모뎀", "#AGW", "#장치비수익"]
+        "related_tags": [
+            "# 모뎀",
+            "#AGW",
+            "#장치비수익"
+        ],
+        "source_pdf": "[해설서]2026_회계분리기준_해설서(2026.4.).pdf 수록 — FY2012 검증결과 지적사항"
     },
     {
         "id": "GOSI-2012-013",
@@ -127,7 +170,12 @@ window.registerData([
         "content": "건물 부속 케이블 트레이는 선로 관련 자산이므로 선로 기능설비로 분류하여야 하는데, 전송기능설비 등으로 분류하였음\n※ 케이블 트레이 : 케이블을 보호하기 위하여 케이블 위에 씌우는 함",
         "source_company": null,
         "source_category": null,
-        "related_tags": ["#옥외함체", "#광단자함", "#렉"]
+        "related_tags": [
+            "#옥외함체",
+            "#광단자함",
+            "#렉"
+        ],
+        "source_pdf": "[해설서]2026_회계분리기준_해설서(2026.4.).pdf 수록 — FY2012 검증결과 지적사항"
     },
     {
         "id": "GOSI-2012-014",
@@ -137,7 +185,16 @@ window.registerData([
         "content": "인터넷 전화 빌링 시스템 소프트웨어는 고객서비스 지원 기능 자산으로 분류하여야 하나, 선로기능설비로 분류하였음",
         "source_company": null,
         "source_category": null,
-        "related_tags": ["#과금설비", "#정보처리설비", "#빌링시스템", "#과금", "#빌링", "#소프트웨어", "#무형자산_고객서비스지원기능자산"]
+        "related_tags": [
+            "#과금설비",
+            "#정보처리설비",
+            "#빌링시스템",
+            "#과금",
+            "#빌링",
+            "#소프트웨어",
+            "#무형자산_고객서비스지원기능자산"
+        ],
+        "source_pdf": "[해설서]2026_회계분리기준_해설서(2026.4.).pdf 수록 — FY2012 검증결과 지적사항"
     },
     {
         "id": "GOSI-2012-015",
@@ -147,7 +204,11 @@ window.registerData([
         "content": "WCDMA 전송장비인 RNC부대 설비는 전송기능설비로 분류하여야 하나, 선로기능설비로 분류하였음\n※ WCDMA(Wideband Code Multiple Access) : 광대역 부호분할다중접속은 3세대 이동통신 기술표준의 하나로 확산대역기술을 이용한 휴대전화에 쓰이는 표준기술\n※ RNC(Radio Network Controller) : 무선접속망(RAN)의 구성요소 중 무선망 제어",
         "source_company": null,
         "source_category": null,
-        "related_tags": ["#RNC", "#전송설비"]
+        "related_tags": [
+            "#RNC",
+            "#전송설비"
+        ],
+        "source_pdf": "[해설서]2026_회계분리기준_해설서(2026.4.).pdf 수록 — FY2012 검증결과 지적사항"
     },
     {
         "id": "GOSI-2012-016",
@@ -157,7 +218,10 @@ window.registerData([
         "content": "WCDMA 전송장비인 RCSI는 전송기능설비로 분류하여야 하나, 선로기능설비로 분류하였음\n※ RCSI(RNCCommon & Supplementary Interface) : RNC의 서브랙으로 RNC들 간의 통신 및 분배 기능을 담당하는 장치",
         "source_company": null,
         "source_category": null,
-        "related_tags": ["#RCSI. # 전송설비"]
+        "related_tags": [
+            "#RCSI. # 전송설비"
+        ],
+        "source_pdf": "[해설서]2026_회계분리기준_해설서(2026.4.).pdf 수록 — FY2012 검증결과 지적사항"
     },
     {
         "id": "GOSI-2012-017",
@@ -167,7 +231,11 @@ window.registerData([
         "content": "ERP 유지보수 비용은 일반 지원자산 등 운영비용_일반관리지원기능자산 운영비용으로 분류하여야 하는데, 정보처리 운영비용 등으로 분류하였음\n※ ERP(Enterrise Resource Planning) : 생산, 구매, 재고, 주문, 공급자와의 거래, 고객서비스 제공 등, 주요 프로세스 관리를 돕는 여러 모듈로 구성된 통합 애플리케이션 소프트웨어",
         "source_company": null,
         "source_category": null,
-        "related_tags": ["#ERP 운영비용", "#일반지원자산등운영비용_일반관리지원기능자산 운영비용"]
+        "related_tags": [
+            "#ERP 운영비용",
+            "#일반지원자산등운영비용_일반관리지원기능자산 운영비용"
+        ],
+        "source_pdf": "[해설서]2026_회계분리기준_해설서(2026.4.).pdf 수록 — FY2012 검증결과 지적사항 (부분 대조 — 일부 문구 상이)"
     },
     {
         "id": "GOSI-2012-018",
@@ -177,7 +245,13 @@ window.registerData([
         "content": "요금회수대행수수료는 고객서비스 기능 비용(청구 수납비용)으로 분류하여야 하는데, 판매 영업기능 비용 또는 일반 관리비용으로 분류하였음",
         "source_company": null,
         "source_category": null,
-        "related_tags": ["#회수대행수수료수익", "#기타영업수익", "#회수대행수수료비용", "#청구수납비용"]
+        "related_tags": [
+            "#회수대행수수료수익",
+            "#기타영업수익",
+            "#회수대행수수료비용",
+            "#청구수납비용"
+        ],
+        "source_pdf": "[해설서]2026_회계분리기준_해설서(2026.4.).pdf 수록 — FY2012 검증결과 지적사항"
     },
     {
         "id": "GOSI-2012-019",
@@ -187,7 +261,10 @@ window.registerData([
         "content": "전송설비에서 발생되는 전력비용은 전송운영비용으로 분류하여야 하는데, 선로운영비용으로 분류하였음",
         "source_company": null,
         "source_category": null,
-        "related_tags": ["#전력료"]
+        "related_tags": [
+            "#전력료"
+        ],
+        "source_pdf": "[해설서]2026_회계분리기준_해설서(2026.4.).pdf 수록 — FY2012 검증결과 지적사항"
     },
     {
         "id": "GOSI-2012-020",
@@ -197,7 +274,11 @@ window.registerData([
         "content": "보안장비 유지보수료는 정보처리운영비용으로 분류하여야 하는데, 선로운영비용으로 분류하였음",
         "source_company": null,
         "source_category": null,
-        "related_tags": ["#보안", "#정보처리운영비용"]
+        "related_tags": [
+            "#보안",
+            "#정보처리운영비용"
+        ],
+        "source_pdf": "[해설서]2026_회계분리기준_해설서(2026.4.).pdf 수록 — FY2012 검증결과 지적사항"
     },
     {
         "id": "GOSI-2012-021",
@@ -207,7 +288,12 @@ window.registerData([
         "content": "기지국내 전송기능설비의 운영유지를 위하여 발생한 항온·항습기 유지보수비은 전기통신 설비 지원기능자산운영비용으로 분류하여야 하는데, 전기통신 공통 설비 운영비용으로 분류하였음",
         "source_company": null,
         "source_category": null,
-        "related_tags": ["#기지국", "# 전송설비", "#일반지원자산등지원기능비용_전기통신설비지원기능자산 운영비용"]
+        "related_tags": [
+            "#기지국",
+            "# 전송설비",
+            "#일반지원자산등지원기능비용_전기통신설비지원기능자산 운영비용"
+        ],
+        "source_pdf": "[가이드라인]2017.12_영업보고서_작성_참고자료.pdf 수록 — FY2012 검증결과 지적사항"
     },
     {
         "id": "GOSI-2012-022",
@@ -217,7 +303,12 @@ window.registerData([
         "content": "통신상품에 대한 직접적인 광고비용은 판매 영업기능 비용(광고 선전비)으로 분류하여야 하는데, 기업이미지 광고 기능 비용으로 분류하였음",
         "source_company": null,
         "source_category": null,
-        "related_tags": ["#기업이미지광고기능비용", "#광고", "#광고선전비"]
+        "related_tags": [
+            "#기업이미지광고기능비용",
+            "#광고",
+            "#광고선전비"
+        ],
+        "source_pdf": "[해설서]2026_회계분리기준_해설서(2026.4.).pdf 수록 — FY2012 검증결과 지적사항"
     },
     {
         "id": "GOSI-2012-023",
@@ -227,7 +318,11 @@ window.registerData([
         "content": "유․무선전화 계약 시 가입자가 지급하여야 할인지세를 회사가 대납하는 경우 관련 비용은 유․무선 공통(광고선전비외 판촉비)으로 분류하여야 하는데, 전체사업공통(일반관리기능비용)으로 분류하였음",
         "source_company": null,
         "source_category": null,
-        "related_tags": ["#가입자유치", "#광고선전비외판촉비"]
+        "related_tags": [
+            "#가입자유치",
+            "#광고선전비외판촉비"
+        ],
+        "source_pdf": "[해설서]2026_회계분리기준_해설서(2026.4.).pdf 수록 — FY2012 검증결과 지적사항"
     },
     {
         "id": "GOSI-2012-024",
@@ -237,17 +332,27 @@ window.registerData([
         "content": "일반지원자산 공통운영비용은 역무 배부시 토지 등의 기능별 면적비율을 적용하여 배부하여야 하는데, 면적 비율 집계를 잘못 계산하여 배부하였음",
         "source_company": null,
         "source_category": null,
-        "related_tags": ["#배부기준", "#일반지원자산운영비용_토건구", "#면적비율"]
+        "related_tags": [
+            "#배부기준",
+            "#일반지원자산운영비용_토건구",
+            "#면적비율"
+        ],
+        "source_pdf": "[가이드라인]2017.12_영업보고서_작성_참고자료.pdf 수록 — FY2012 검증결과 지적사항"
     },
     {
         "id": "GOSI-2012-025",
         "category": "영업보고서 검증결과 지적사항",
         "year": "2012",
         "title": "TV 영상압축 기술 개발비 분류 오류",
-        "content": "TV 영상압축 기술 개발비는 IPTV 관련 자산이므로 전기통신사업 외의 사업으로 분류하여я 하는데, 전기통신사업공통으로 분류하였음",
+        "content": "TV 영상압축 기술 개발비는 IPTV 관련 자산이므로 전기통신사업 외의 사업으로 분류하여야 하는데, 전기통신사업공통으로 분류하였음",
         "source_company": null,
         "source_category": null,
-        "related_tags": ["#해당서비스 분류", "#IPTV설비", "# TV영상압축기술"]
+        "related_tags": [
+            "#해당서비스 분류",
+            "#IPTV설비",
+            "# TV영상압축기술"
+        ],
+        "source_pdf": "[해설서]2026_회계분리기준_해설서(2026.4.).pdf 수록 — FY2012 검증결과 지적사항"
     },
     {
         "id": "GOSI-2012-026",
@@ -257,7 +362,11 @@ window.registerData([
         "content": "장비위탁 운영수익은 전기통신사업 외의 사업으로 분류하여야 하는데, 무선 서비스 공통으로 분류하였음",
         "source_company": null,
         "source_category": null,
-        "related_tags": ["#전기통신사업 외의 사업", "#장비위탁"]
+        "related_tags": [
+            "#전기통신사업 외의 사업",
+            "#장비위탁"
+        ],
+        "source_pdf": "[해설서]2026_회계분리기준_해설서(2026.4.).pdf 수록 — FY2012 검증결과 지적사항"
     },
     {
         "id": "GOSI-2012-027",
@@ -267,7 +376,11 @@ window.registerData([
         "content": "단순판매 목적으로 구입한 장비의 매출원가는 전기통신사업 외의 사업으로 분류하여야 하는데, 국제회선 설비임대서비스로 분류하였음",
         "source_company": null,
         "source_category": null,
-        "related_tags": ["#단순 판매", "#판매대리"]
+        "related_tags": [
+            "#단순 판매",
+            "#판매대리"
+        ],
+        "source_pdf": "[해설서]2026_회계분리기준_해설서(2026.4.).pdf 수록 — FY2012 검증결과 지적사항"
     },
     {
         "id": "GOSI-2012-028",
@@ -277,7 +390,12 @@ window.registerData([
         "content": "가입자관리 공통비용은 역무 배부시 역무별 가입자수(연평균)를 적용하여야 하는데, 기말 가입자수를 적용하여 배부하였음",
         "source_company": null,
         "source_category": null,
-        "related_tags": ["#역무별 배부기준", "#가입자관리공통비용", "#역무별 가입자수"]
+        "related_tags": [
+            "#역무별 배부기준",
+            "#가입자관리공통비용",
+            "#역무별 가입자수"
+        ],
+        "source_pdf": "[해설서]2026_회계분리기준_해설서(2026.4.).pdf 수록 — FY2012 검증결과 지적사항"
     },
     {
         "id": "GOSI-2012-029",
@@ -287,7 +405,11 @@ window.registerData([
         "content": "보편 역무 손실분담금을 역무별로 배부하면서 자가소비사업용수익을 고려하지 않고 역무간 분담 매출액을 산정하였음",
         "source_company": null,
         "source_category": null,
-        "related_tags": ["#역무별 배부기준", "#보편역무손실분담금"]
+        "related_tags": [
+            "#역무별 배부기준",
+            "#보편역무손실분담금"
+        ],
+        "source_pdf": "[가이드라인]2017.12_영업보고서_작성_참고자료.pdf 수록 — FY2012 검증결과 지적사항"
     },
     {
         "id": "GOSI-2012-030",
@@ -297,7 +419,12 @@ window.registerData([
         "content": "단말기능공통 설비의 역무 배부는 역무별 직접 분류된 단말기능설비의 장부가액으로 배부하여야 하는데, 요금 수익비율을 적용하여 배부하였음",
         "source_company": null,
         "source_category": null,
-        "related_tags": ["#배부기준", "#단말기능공통설비", "#직접분류된 단말기능설비 장부가액"]
+        "related_tags": [
+            "#배부기준",
+            "#단말기능공통설비",
+            "#직접분류된 단말기능설비 장부가액"
+        ],
+        "source_pdf": "[해설서]2026_회계분리기준_해설서(2026.4.).pdf 수록 — FY2012 검증결과 지적사항"
     },
     {
         "id": "GOSI-2012-031",
@@ -307,6 +434,9 @@ window.registerData([
         "content": "적정운전자본 산정시 현금흐름이 없는 퇴직급여만 차감하여야 하는데, 실제 현금으로 지급한 퇴직급여까지 차감하여 투자보수가 과소 계상되었음",
         "source_company": null,
         "source_category": null,
-        "related_tags": ["#투자보수"]
+        "related_tags": [
+            "#투자보수"
+        ],
+        "source_pdf": "[해설서]2026_회계분리기준_해설서(2026.4.).pdf 수록 — FY2012 검증결과 지적사항"
     }
 ]);

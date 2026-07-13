@@ -1073,6 +1073,8 @@
             return base ? `${base} 수록 — FY${y} ${section}` : null;
         }
         function getSourceLabel(item) {
+            // 전수 감사(본문 대조)로 entry별 확정된 출처가 있으면 최우선 사용
+            if (item.source_pdf) return item.source_pdf;
             const cat = item.category || '';
             const y = item.year ? String(item.year) : '';
             const co = item.source_company || '';
