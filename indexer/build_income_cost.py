@@ -1633,19 +1633,16 @@ function buildNeedRawRows(){
     var r=LAST.aiResults[g.subclass];
     idx[g.subclass]={no:i+1, tag:r.tag, chk:r.chk, func:r.func||"-", svc:r.svc||"-"};
   });
-  var MAX=50000, total=0, dropped=0;
+  /* 생략 없음 — 검토필요 그룹의 원장 행 전부 추출 (엑셀 시트 한도 초과 시 쓰기 단계에서 분할) */
   var rows=[["조서No","태그","형태판정","기능판정","역무판정"].concat(DATA.headers)];
   DATA.rows.forEach(function(r){
     /* guidelineMatchBySubclass와 동일한 그룹키 재계산 */
     var key=(get(r,"acct")||"?")+"|"+(get(r,"form")||"?")+"|"+(get(r,"func")||"?")+"|"+(get(r,"svc")||"?");
     var t=idx[key]; if(!t) return;
-    if(total>=MAX){ dropped++; return; }
     rows.push([t.no, t.tag, t.chk, t.func, t.svc].concat(DATA.headers.map(function(h){
       var v=r[h]; return /금액|가액|상각|개수|건수/.test(h)? num(v) : v;
     })));
-    total++;
   });
-  if(dropped>0) rows.push(["※","RAW "+fmt(MAX)+"행 초과 — "+fmt(dropped)+"행 생략 (원장에서 조서No 조합으로 필터 요망)","","",""]);
   return rows;
 }
 
@@ -1795,10 +1792,17 @@ AI_XLSX = (
     '      var wsJ = XLSX.utils.aoa_to_sheet(joseo);\n'
     '      wsJ["!cols"] = [{wch:5},{wch:45},{wch:55},{wch:55},{wch:60},{wch:18}];\n'
     '      XLSX.utils.book_append_sheet(wb, wsJ, "조서초안_검토필요");\n'
-    '      /* 검토대상 RAW — 조서 No로 연결된 원장 행 전체 */\n'
+    '      /* 검토대상 RAW — 조서 No로 연결된 원장 행 전체 (생략 없음).\n'
+    '         엑셀 시트 한도(1,048,576행) 초과 시 검토대상_RAW_2, _3 …으로 분할.\n'
+    '         dense 모드로 대용량 메모리 절감. */\n'
     '      var rawRows = buildNeedRawRows();\n'
     '      if(rawRows.length>1){\n'
-    '        XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(rawRows), "검토대상_RAW");\n'
+    '        var RMAX=1000000, rHead=rawRows[0], rBody=rawRows.slice(1);\n'
+    '        for(var rci=0; rci*RMAX<rBody.length; rci++){\n'
+    '          var rChunk=[rHead].concat(rBody.slice(rci*RMAX,(rci+1)*RMAX));\n'
+    '          var rNm= rci===0? "검토대상_RAW" : ("검토대상_RAW_"+(rci+1));\n'
+    '          XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(rChunk,{dense:true}), rNm);\n'
+    '        }\n'
     '      }\n'
     '    }\n'
     '  }\n'
